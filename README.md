@@ -1,6 +1,6 @@
 
 
-![Logo](/Images/Logo.png)
+![Logo](/Images/WhiteLogo.png)
 
 
 
