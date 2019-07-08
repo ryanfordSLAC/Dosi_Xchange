@@ -4,7 +4,7 @@
 //
 //  Created by Ford, Ryan M. on 1/26/19.
 //  Copyright © 2019 Ford, Ryan M. All rights reserved.
-//
+//  
 
 import Foundation
 import CloudKit
@@ -32,7 +32,6 @@ func createArrayFromCSV() -> Array<Any> {  //probably doesn't need to return any
         let path = Bundle.main.path(forResource: fileName, ofType: nil)  //blank file no extension
         let data = try String(contentsOfFile: path!, encoding: String.Encoding.utf8)
         let rows = data.components(separatedBy: "\n")
-
         for row in rows {
             
             let values = row.components(separatedBy: ",")

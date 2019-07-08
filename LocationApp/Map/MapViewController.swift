@@ -63,11 +63,12 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         }
         
     }  //end view did load
-	
+
     //tells delegate that new location data is available
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
     }
+    
     //implement failure methods as part of the delegate
     func mapViewDidFailLoadingMap(_ mapView: MKMapView, withError error: Error) {
         print(Error.self)
@@ -80,7 +81,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(Error.self)
     }
-    
+
     func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
         print(Error.self)
     }
@@ -88,6 +89,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     func locationManager(_ manager: CLLocationManager, rangingBeaconsDidFailFor region: CLBeaconRegion, withError error: Error) {
         print(Error.self)
     }
+    
     
     //runs when "i" key is pressed to the right of the pin info bubble
     //delegate method
