@@ -55,10 +55,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         self.MapView.setRegion(region, animated: true)
         self.MapView.mapType = MKMapType.standard
         self.MapView.showsUserLocation = true
-        self.MapView.tintColor = UIColor.blue  //showing user location with green dot.
+        self.MapView.tintColor = UIColor.blue  //showing user location with blue dot.
         
         DispatchQueue.main.async {
-            
             self.locationmanager.startUpdatingLocation()
         }
         
@@ -100,6 +99,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     } //end mapView
     
     func queryCurrentCycle() {  //red pin flags
+        
         let flag = 0
         let cycleDate = self.cycleDate.generateCycleDate()
         let p1 = NSPredicate(format: "collectedFlag == %d", flag)
@@ -109,7 +109,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         let query = CKQuery(recordType: "Location", predicate: predicate)
         database.perform(query, inZoneWith: nil) { (records, _) in
             guard let records = records else { return }
-            //print(records)
             DispatchQueue.main.async { //run whole thing on main thread to prevent "let artwork" line from producing error
                 
                 for entry in records {
@@ -120,8 +119,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                     let QRCode = entry["QRCode"] as? String
                     let cycleDate = entry["cycleDate"] as? String
                     let fullTitle = "\(dosimeter ?? "Dosi Nil")\n\(QRCode ?? "QR Nil")"
-                    self.fullTitle = fullTitle
                     let createdDate = entry.creationDate
+                    self.fullTitle = fullTitle
                     self.createdDate = createdDate  //pass created date out
                     self.dosimeter = dosimeter!  //pass dosimeter number out
                     let dosiLocations = CLLocationCoordinate2D(latitude: CLLocationDegrees(latitude!)!, longitude: CLLocationDegrees(longitude!)!)
@@ -139,6 +138,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     
     func queryPriorCycle() { //green pin flags
+        
         let flag = 0
         let cycleDate = self.cycleDate.generateCycleDate()
         let priorCycleDate = self.cycleDate.generatePriorCycleDate(cycleDate: cycleDate)
@@ -148,7 +148,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         //where the cycle is the prior cycle, and hasn't been collected yet
         //in order to suppress the ones that have been collected from the map view.
         let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [p1, p2])
-        print(predicate)
+        
         //  Query fields in Location to set up the artwork on the drop pins
         let query = CKQuery(recordType: "Location", predicate: predicate)
         database.perform(query, inZoneWith: nil) { (records, _) in
@@ -164,8 +164,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                     let QRCode = entry["QRCode"] as? String
                     let cycleDate = entry["cycleDate"] as? String
                     let fullTitle = "\(dosimeter ?? "Dosi Nil")\n\(QRCode ?? "QR Nil")"
-                    self.fullTitle = fullTitle
                     let createdDate = entry.creationDate
+                    self.fullTitle = fullTitle
                     self.createdDate = createdDate  //pass created date out
                     self.dosimeter = dosimeter!  //pass dosimeter number out
                     let dosiLocations = CLLocationCoordinate2D(latitude: CLLocationDegrees(latitude!)!, longitude: CLLocationDegrees(longitude!)!)
@@ -180,8 +180,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         } //end perform query
         
     } //end func
-    
-    
     
 } //end class
 

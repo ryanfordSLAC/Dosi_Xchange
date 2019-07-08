@@ -165,8 +165,8 @@ extension LocationViewController: UITableViewDataSource {
     } //end tableView
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            //Fill the tableview with data
-
+        //Fill the tableview with data
+        
             let cell = tableView.dequeueReusableCell(withIdentifier: "RecentCell", for: indexPath) //prototype cell = RecentCell
             tableView.numberOfRows(inSection: tvLocations.count)
             tableView.rowHeight = 50
@@ -227,7 +227,7 @@ extension LocationViewController {
     @objc func queryDatabase() {
         //set first line of text file
         //should separate text file from query
-        var csvText = "Latitude, Longitude, Description, Number, QRCode, Collected Flag, Date Deployed, Date Collected, Wear Period\n"
+//        var csvText = "Latitude, Longitude, Description, Number, QRCode, Collected Flag, Date Deployed, Date Collected, Wear Period\n"
         let flag = 0
         let predicate = NSPredicate(format: "collectedFlag == %d", flag)
         let query = CKQuery(recordType: "Location", predicate: predicate)
@@ -236,29 +236,29 @@ extension LocationViewController {
             self.tvLocations = records
             let sortedRecords = records.sorted(by: { $0.modificationDate! < $1.modificationDate! })
             self.tvLocations = sortedRecords
-            //print(records)
-            for entry in records {
-                
-                //Careful use of optionals to prevent crashes.
-                if (entry["latitude"] as? String) != nil {self.latitude = entry["latitude"]!}
-                if (entry["longitude"] as? String) != nil {self.longitude = entry["longitude"]!}
-                if (entry["locdescription"] as? String) != nil {self.loc = entry["locdescription"]!}
-                if (entry["dosinumber"] as? String) != nil {self.dosimeter = entry["dosinumber"]!}
-                if (entry["collectedFlag"] as? Int64) != nil {self.collectedFlag = entry["collectedFlag"]!}
-                if (entry["cycleDate"] as? String) != nil {self.cycle = entry["cycleDate"]!}
-                if (entry["QRCode"] as? String) != nil {self.QRCode = entry["QRCode"]!}
-                
-                let dateFormatter = DateFormatter()
-                dateFormatter.timeStyle = .none
-                dateFormatter.dateFormat = "MM/dd/yyyy"
-                let date = Date(timeInterval: 0, since: entry.creationDate!)
-                let formattedDate = dateFormatter.string(from: date)
-                let dateModified = Date(timeInterval: 0, since: entry.modificationDate!)
-                let formattedDateModified = dateFormatter.string(from: dateModified)
-                let newline = "\(self.latitude),\(self.longitude),\(self.loc),\(self.dosimeter),\(self.QRCode),\(String(describing: self.collectedFlag)),\(formattedDate),\(String(describing: formattedDateModified)),\(self.cycle)\n"
-                csvText.append(contentsOf: newline)
-                
-            } //end for loop
+            
+//            for entry in records {
+//
+//                //Careful use of optionals to prevent crashes.
+//                if (entry["latitude"] as? String) != nil {self.latitude = entry["latitude"]!}
+//                if (entry["longitude"] as? String) != nil {self.longitude = entry["longitude"]!}
+//                if (entry["locdescription"] as? String) != nil {self.loc = entry["locdescription"]!}
+//                if (entry["dosinumber"] as? String) != nil {self.dosimeter = entry["dosinumber"]!}
+//                if (entry["collectedFlag"] as? Int64) != nil {self.collectedFlag = entry["collectedFlag"]!}
+//                if (entry["cycleDate"] as? String) != nil {self.cycle = entry["cycleDate"]!}
+//                if (entry["QRCode"] as? String) != nil {self.QRCode = entry["QRCode"]!}
+//
+//                let dateFormatter = DateFormatter()
+//                dateFormatter.timeStyle = .none
+//                dateFormatter.dateFormat = "MM/dd/yyyy"
+//                let date = Date(timeInterval: 0, since: entry.creationDate!)
+//                let formattedDate = dateFormatter.string(from: date)
+//                let dateModified = Date(timeInterval: 0, since: entry.modificationDate!)
+//                let formattedDateModified = dateFormatter.string(from: dateModified)
+//                let newline = "\(self.latitude),\(self.longitude),\(self.loc),\(self.dosimeter),\(self.QRCode),\(String(describing: self.collectedFlag)),\(formattedDate),\(String(describing: formattedDateModified)),\(self.cycle)\n"
+//                csvText.append(contentsOf: newline)
+//
+//            } //end for loop
             DispatchQueue.main.async {
                 //In the case where this function is called from the send e-mail without first refreshing the tableview (which contains nil).
                 if self.tableView != nil {
@@ -267,13 +267,12 @@ extension LocationViewController {
                     
                 }
                 
-            }  //end async
+            } //end async
             
-
-            readWrite.writeText(someText: "\(csvText)")
+//            readWrite.writeText(someText: "\(csvText)")
             
         } //end query
-        
+
     } //end function
 
 
@@ -284,41 +283,39 @@ extension LocationViewController {
         let predicate = NSPredicate(value: true)
         let query = CKQuery(recordType: "Location", predicate: predicate)
         
-                self.database.perform(query, inZoneWith: nil) { (records, _) in
-                guard let records = records else { return }
-                //print("1, queryDBforCSV: \(records)")
+        self.database.perform(query, inZoneWith: nil) { (records, _) in
+            guard let records = records else { return }
+            //print("1, queryDBforCSV: \(records)")
                 
-                self.tvLocations = records
-                for entry in records {
+            self.tvLocations = records
+            for entry in records {
                     
-                    //Careful use of optionals to prevent crashes.
-                    if (entry["latitude"] as? String) != nil {self.latitude = entry["latitude"]!}
-                    if (entry["longitude"] as? String) != nil {self.longitude = entry["longitude"]!}
-                    if (entry["locdescription"] as? String) != nil {self.loc = entry["locdescription"]!}
-                    if (entry["dosinumber"] as? String) != nil {self.dosimeter = entry["dosinumber"]!}
-                    if (entry["collectedFlag"] as? Int64) != nil {self.collectedFlag = entry["collectedFlag"]!}
-                    if (entry["cycleDate"] as? String) != nil {self.cycle = entry["cycleDate"]!}
-                    if (entry["QRCode"] as? String) != nil {self.QRCode = entry["QRCode"]!}
+                //Careful use of optionals to prevent crashes.
+                if (entry["latitude"] as? String) != nil {self.latitude = entry["latitude"]!}
+                if (entry["longitude"] as? String) != nil {self.longitude = entry["longitude"]!}
+                if (entry["locdescription"] as? String) != nil {self.loc = entry["locdescription"]!}
+                if (entry["dosinumber"] as? String) != nil {self.dosimeter = entry["dosinumber"]!}
+                if (entry["collectedFlag"] as? Int64) != nil {self.collectedFlag = entry["collectedFlag"]!}
+                if (entry["cycleDate"] as? String) != nil {self.cycle = entry["cycleDate"]!}
+                if (entry["QRCode"] as? String) != nil {self.QRCode = entry["QRCode"]!}
+            
+                let dateFormatter = DateFormatter()
+                dateFormatter.timeStyle = .none
+                dateFormatter.dateFormat = "MM/dd/yyyy"
+                let date = Date(timeInterval: 0, since: entry.creationDate!)
+                let formattedDate = dateFormatter.string(from: date)
+                let dateModified = Date(timeInterval: 0, since: entry.modificationDate!)
+                let formattedDateModified = dateFormatter.string(from: dateModified)
+                let newline = "\(self.latitude),\(self.longitude),\(self.loc),\(self.dosimeter),\(self.QRCode),\(String(describing: self.collectedFlag)),\(formattedDate),\(String(describing: formattedDateModified)),\(self.cycle)\n"
+                csvText.append(contentsOf: newline)
                     
-                    let dateFormatter = DateFormatter()
-                    dateFormatter.timeStyle = .none
-                    dateFormatter.dateFormat = "MM/dd/yyyy"
-                    let date = Date(timeInterval: 0, since: entry.creationDate!)
-                    let formattedDate = dateFormatter.string(from: date)
-                    let dateModified = Date(timeInterval: 0, since: entry.modificationDate!)
-                    let formattedDateModified = dateFormatter.string(from: dateModified)
-                    let newline = "\(self.latitude),\(self.longitude),\(self.loc),\(self.dosimeter),\(self.QRCode),\(String(describing: self.collectedFlag)),\(formattedDate),\(String(describing: formattedDateModified)),\(self.cycle)\n"
-                    csvText.append(contentsOf: newline)
-                    
-                } //end for loop
+            } //end for loop
                 
-                csvText.append("End of File\n")
+            csvText.append("End of File\n")
                 
-                readWrite.writeText(someText: "\(csvText)")
+            readWrite.writeText(someText: "\(csvText)")
 
-            } //end query
-
-
+        } //end query
         
     } //end function
 

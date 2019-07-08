@@ -36,7 +36,7 @@ class recordsUpdate: UIViewController {
         
     }
     
-    func saveRecord(latitude:String, longitude:String, dosiNumber:String, text:String, flag:Int64, cycle:String, QRCode:String, mismatch:Int64){
+    func saveRecord(latitude:String, longitude:String, dosiNumber:String, text:String, flag:Int64, cycle:String, QRCode:String, mismatch:Int64, moderator:Int64, active:Int64){
         //use the properties of the class and save into the database.
         //save data to database
         //need a second saveRecord method to save the QR Code.
@@ -49,6 +49,8 @@ class recordsUpdate: UIViewController {
         newRecord.setValue(cycle, forKey: "cycleDate")
         newRecord.setValue(QRCode, forKey: "QRCode")
         newRecord.setValue(mismatch, forKey: "mismatch")
+        newRecord.setValue(moderator, forKey: "moderator")
+        newRecord.setValue(active, forKey: "active")
         //print(ScannerViewController.variables.dosiNumber)
         database.save(newRecord) { (record, error) in
             guard record != nil else { return }
@@ -150,10 +152,14 @@ class recordsUpdate: UIViewController {
     } //end generateCycleDate
     
     func generatePriorCycleDate(cycleDate: String) -> String {
-        let year = Int64(cycleDate.suffix(4))
-        let lastYear:Int64 = year! - 1
-        switch cycleDate.first {
         
+        let year = Int64(cycleDate.suffix(4))!
+        //print("year: \(year)")
+        
+        let lastYear:Int64 = year - 1
+        //print("lastYear: \(lastYear)")
+        
+        switch cycleDate.first {
             
         case "1":                 //7 and subtract 1 from year
             

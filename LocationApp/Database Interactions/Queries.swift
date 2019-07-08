@@ -35,26 +35,26 @@ class Queries {
     
     func getPriorCycleCountCFNo() {
         //get current Cycle Date
-            dispatchGroup.enter()
-            let cycleDate = self.records.generateCycleDate()
-            let priorCycleDate = self.records.generatePriorCycleDate(cycleDate: cycleDate)
-            let flag = 0
-            let p1 = NSPredicate(format: "collectedFlag == %d", flag)
-            let p2 = NSPredicate(format: "cycleDate == %@", priorCycleDate)
-            let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [p1, p2])
-            //print("Predicate A: \(predicate)")
-            //  Query fields in Location to set up the artwork on the drop pins
-            let query = CKQuery(recordType: "Location", predicate: predicate)
-            database.perform(query, inZoneWith: nil) { (records, _) in
-                guard let _ = records else { return }
+        dispatchGroup.enter()
+        let cycleDate = self.records.generateCycleDate()
+        let priorCycleDate = self.records.generatePriorCycleDate(cycleDate: cycleDate)
+        let flag = 0
+        let p1 = NSPredicate(format: "collectedFlag == %d", flag)
+        let p2 = NSPredicate(format: "cycleDate == %@", priorCycleDate)
+        let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [p1, p2])
+        //print("Predicate A: \(predicate)")
+        //  Query fields in Location to set up the artwork on the drop pins
+        let query = CKQuery(recordType: "Location", predicate: predicate)
+        database.perform(query, inZoneWith: nil) { (records, _) in
+            guard let _ = records else { return }
 
-                    let count = records!.count
-                    self.countA = count
+            let count = records!.count
+            self.countA = count
+            //print("countA: \(self.countA)")
     
-            }  //end query
+        } //end query
         
         run(after: 1) {
-
             self.dispatchGroup.leave()
         }
 
@@ -62,26 +62,25 @@ class Queries {
     
     func getPriorCycleCountCFYes() {
         //get current Cycle Date
-            dispatchGroup.enter()
-            let cycleDate = self.records.generateCycleDate()
-            let priorCycleDate = self.records.generatePriorCycleDate(cycleDate: cycleDate)
-            let flag = 1
-            let p1 = NSPredicate(format: "collectedFlag == %d", flag)
-            let p2 = NSPredicate(format: "cycleDate == %@", priorCycleDate)
-            let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [p1, p2])
-            let query = CKQuery(recordType: "Location", predicate: predicate)
-            database.perform(query, inZoneWith: nil) { (records, _) in
-                guard let _ = records else { return }
-                    let count = records!.count
-                    self.countB = count
+        dispatchGroup.enter()
+        let cycleDate = self.records.generateCycleDate()
+        let priorCycleDate = self.records.generatePriorCycleDate(cycleDate: cycleDate)
+        let flag = 1
+        let p1 = NSPredicate(format: "collectedFlag == %d", flag)
+        let p2 = NSPredicate(format: "cycleDate == %@", priorCycleDate)
+        let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [p1, p2])
+        let query = CKQuery(recordType: "Location", predicate: predicate)
+        database.perform(query, inZoneWith: nil) { (records, _) in
+            guard let _ = records else { return }
+            let count = records!.count
+            self.countB = count
               
-            } //end query
+        } //end query
      
         run(after: 1) {
             //need to slow it down while it queries.
             self.dispatchGroup.leave()
-            
-        } //end run
+        }
         
     } //end func
     

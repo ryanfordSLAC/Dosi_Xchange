@@ -15,12 +15,12 @@ import CoreLocation
 class StartupViewController: UIViewController, MFMailComposeViewControllerDelegate, CLLocationManagerDelegate {
 
     
-let readwrite = readWriteText()  //make external class available locally
-let database = CKContainer.default().publicCloudDatabase //Establish database
-let data = LocationViewController()
-let reachability = Reachability()!
-let location = CLLocationManager()
-let query = Queries()
+    let readwrite = readWriteText() //make external class available locally
+    let database = CKContainer.default().publicCloudDatabase //Establish database
+    let data = LocationViewController()
+    let reachability = Reachability()!
+    let location = CLLocationManager()
+    let query = Queries()
 
     
     //add a delay function.
