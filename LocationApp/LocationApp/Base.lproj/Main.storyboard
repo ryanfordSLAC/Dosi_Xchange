@@ -230,6 +230,17 @@
                                     <action selector="emailTouchDown:" destination="M89-R5-CVf" eventType="touchDown" id="bac-y4-Bm8"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hcm-Bo-PUp">
+                                <rect key="frame" x="124" y="256" width="75" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" red="0.58072251080000004" green="0.066734083" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="testAlert2:" destination="M89-R5-CVf" eventType="touchDown" id="2Zs-k6-g08"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -245,6 +256,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="8cu-87-6eq"/>
                     </view>
+                    <connections>
+                        <outlet property="testAlert3" destination="hcm-Bo-PUp" id="IwY-J0-6BA"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UyI-x6-pjz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -532,8 +546,9 @@
         <image name="Tools" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ar4-0B-Xd6"/>
-        <segue reference="VTA-zv-EqM"/>
-        <segue reference="zta-o7-k1W"/>
+        <segue reference="cs9-V2-lMJ"/>
+        <segue reference="Szf-7B-3OI"/>
+        <segue reference="1iZ-uO-Z3p"/>
+        <segue reference="YKi-gr-Ubt"/>
     </inferredMetricsTieBreakers>
 </document>

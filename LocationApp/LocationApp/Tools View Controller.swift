@@ -19,10 +19,13 @@ class ToolsViewController: UIViewController, MFMailComposeViewControllerDelegate
 
     var alertCounter:Int = 0
     
-    @IBOutlet weak var testAlerts: UIButton!
+    //@IBOutlet weak var testAlerts: UIButton!
+    @IBOutlet weak var testAlert3: UIButton!
+    
+    @IBAction func testAlert2(_ sender: Any) {
     
     
-    @IBAction func testAlertTouchDown(_ sender: Any) {  //for testing the alerts
+    //@IBAction func testAlertTouchDown(_ sender: Any) {  //for testing the alerts
         
         switch self.alertCounter {
         
