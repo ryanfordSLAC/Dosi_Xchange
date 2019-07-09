@@ -30,9 +30,7 @@ class Save {
         
         do {
             let fileName = "DosiData" //change depending on which file
-            print(Bundle.main)
             let path = Bundle.main.path(forResource: fileName, ofType: "csv")  //blank file no extension
-            print(path!)
             let data = try String(contentsOfFile: path!, encoding: String.Encoding.utf8)
             let rows = data.components(separatedBy: "\n")
 
