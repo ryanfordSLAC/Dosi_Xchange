@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5C4B34C722D409C700134B08 /* DosiData.csv in Resources */ = {isa = PBXBuildFile; fileRef = 5C4B34C622D409C700134B08 /* DosiData.csv */; };
+		5C6D02DC22D52A7A009204C3 /* DosiData.csv in Resources */ = {isa = PBXBuildFile; fileRef = 5C6D02DB22D52A79009204C3 /* DosiData.csv */; };
 		5CFF888B22CAA5B700611F60 /* ActiveLocationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CFF888A22CAA5B700611F60 /* ActiveLocationsViewController.swift */; };
 		8409448921CC539900C4EA28 /* TODO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8409448821CC539900C4EA28 /* TODO.swift */; };
 		8409F52422022A3900B78BCC /* Queries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8409F52322022A3900B78BCC /* Queries.swift */; };
@@ -64,7 +64,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		5C4B34C622D409C700134B08 /* DosiData.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = DosiData.csv; path = "../../../hel's/DosiData.csv"; sourceTree = "<group>"; };
+		5C6D02DB22D52A79009204C3 /* DosiData.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DosiData.csv; sourceTree = "<group>"; };
 		5CFF888A22CAA5B700611F60 /* ActiveLocationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveLocationsViewController.swift; sourceTree = "<group>"; };
 		8409448821CC539900C4EA28 /* TODO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TODO.swift; sourceTree = "<group>"; };
 		8409F52322022A3900B78BCC /* Queries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queries.swift; sourceTree = "<group>"; };
@@ -277,7 +277,7 @@
 		84B58D5021FD7F580013D5F3 /* Populate Database */ = {
 			isa = PBXGroup;
 			children = (
-				5C4B34C622D409C700134B08 /* DosiData.csv */,
+				5C6D02DB22D52A79009204C3 /* DosiData.csv */,
 				84B58D4C21FD69C80013D5F3 /* UploadToCloud.swift */,
 			);
 			path = "Populate Database";
@@ -416,7 +416,7 @@
 				842F5CDD225412DE00E4D0D6 /* Scanner Logic 2019-1.png in Resources */,
 				84AA30E722356BEE00F07697 /* QRCodeImage.png in Resources */,
 				84600C4D22385F6D009140C0 /* ScannerViewController_backup in Resources */,
-				5C4B34C722D409C700134B08 /* DosiData.csv in Resources */,
+				5C6D02DC22D52A7A009204C3 /* DosiData.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

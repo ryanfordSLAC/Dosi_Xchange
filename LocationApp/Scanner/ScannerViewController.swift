@@ -220,12 +220,12 @@ extension ScannerViewController { //methods
                             
                             if self.records != [] {
                                 self.beep()
-                                self.alert3()
+                                self.alert3() //exchange collect cancel alert
                             } //end if
                                 
                             else if self.records == [] {
                                 self.beep()
-                                self.alert1()
+                                self.alert1() //Record Not Found! deploy alert
                             } //end else if
                             
                         } //end dispatch group
@@ -295,8 +295,6 @@ extension ScannerViewController { //methods
         database.perform(query, inZoneWith: nil) { (records, _) in
             guard let records = records else { return }
             
-            print("INITIAL QUERY: \(records)")
-            
             for record in records {
                 //save the new flag only
                 record.setValue(flag, forKey: "collectedFlag")
@@ -305,21 +303,12 @@ extension ScannerViewController { //methods
                 self.run(after: 1) {
                     self.database.save(record) { (record, error) in
                         guard record != nil else { return }
-                    }  //end database save
+                    } //end database save
                 }
                 
             } //end for loop
             
-            print("AFTER DATABASE SAVE: \(records)")
-
         } //end query
-        
-        run(after: 5) {
-            self.database.perform(query, inZoneWith: nil) { (records, _) in
-                guard let records = records else { return }
-                print("TEST QUERY: \(records)")
-            }
-        }
         
     } //end collect
     
@@ -350,8 +339,8 @@ extension ScannerViewController { //methods
         
         locationManager.requestAlwaysAuthorization()
         var currentLocation = CLLocation()
-        if( CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
-            CLLocationManager.authorizationStatus() ==  .authorizedAlways){
+        if (CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
+            CLLocationManager.authorizationStatus() ==  .authorizedAlways) {
             
             currentLocation = locationManager.location!
             
@@ -429,6 +418,7 @@ extension ScannerViewController {  //queries
                 variables.dosiLocation = record["locdescription"] as? String
                 variables.QRCode = record["QRCode"] as? String
                 variables.mismatch = record["mismatch"] as? Int64
+                variables.moderator = record["moderator"] as? Int64
             } //end for
             
             self.records = records
@@ -456,6 +446,7 @@ extension ScannerViewController {  //queries
                 variables.dosiLocation = record["locdescription"] as? String
                 variables.dosiNumber = record["dosinumber"] as? String
                 variables.mismatch = record["mismatch"] as? Int64
+                variables.moderator = record["moderator"] as? Int64
             } //end for
             
           self.records = records
@@ -523,6 +514,7 @@ extension ScannerViewController {  //alerts
         let ExchangeDosimeter = UIAlertAction(title: "Exchange", style: .default) { (_) in
             self.collect(flag: 1, dosiNumber: variables.dosiNumber!, mismatch: variables.mismatch!)
             self.deploy()
+            variables.mismatch = 0
             variables.dosiNumber = nil
             self.alert3a()
         }
@@ -673,7 +665,6 @@ extension ScannerViewController {  //alerts
         let alertPrompt = UIAlertController(title: "Manage Dosimeter: \(String(describing: variables.dosiNumber ?? "Nil Dosi")) at location \(String(describing: variables.QRCode ?? "Nil QR"))", message: nil, preferredStyle: .alert)
         
         let saveRecord = UIAlertAction(title: "Save", style: .default) { (_) in
-            
             self.recordsupdate.saveRecord(latitude: variables.latitude ?? "Nil Latitude", longitude: variables.longitude ?? "Nil Longitude", dosiNumber: variables.dosiNumber ?? "Nil dosinumber", text: alertPrompt.textFields?.first?.text ?? "Nil location", flag: 0, cycle: cycle, QRCode: variables.QRCode ?? "Nil QRCode", mismatch: variables.mismatch ?? 3, moderator: variables.moderator ?? 0, active: 1)
             
             variables.dosiLocation = alertPrompt.textFields?.first?.text
@@ -681,10 +672,7 @@ extension ScannerViewController {  //alerts
             self.alert10() //Success
         }  //end let
         
-        let discardAndStartOver = UIAlertAction(title: "Discard & Start Over", style: .default) { (_) in
-            self.captureSession.startRunning()
-            self.clearData()
-        }  //end let
+        let discardAndStartOver = UIAlertAction(title: "Discard & Start Over", style: .default, handler: handlerCancel)
         
         alertPrompt.addTextField { (textfield) in
             if variables.dosiLocation != nil {
@@ -694,7 +682,6 @@ extension ScannerViewController {  //alerts
                 textfield.placeholder = "Type or dictate location details" //assign self.description with the textfield information
             }
         } // end addTextField
-        
         
         alertPrompt.addAction(discardAndStartOver)
         alertPrompt.addAction(saveRecord)
@@ -712,10 +699,7 @@ extension ScannerViewController {  //alerts
         //set up alert
         let alert = UIAlertController.init(title: "Invalid Barcode Type", message: message, preferredStyle: .alert)
         
-        let OK = UIAlertAction(title: "OK", style: .default) { (_) in
-            self.clearData()
-            self.captureSession.startRunning()
-        }
+        let OK = UIAlertAction(title: "OK", style: .default, handler: handlerCancel)
 
         alert.addAction(OK)
 
@@ -727,13 +711,14 @@ extension ScannerViewController {  //alerts
     
     func alert10(){  //Success!
         
-        let message = "Data saved: \nQR Code: \(variables.QRCode ?? "Nil QRCode")\nDosimeter: \(variables.dosiNumber ?? "Nil Dosimeter")\nLocation: \(variables.dosiLocation ?? "Nil location")\nFlag (Depl'y = 0, Collected = 1): 0\nLatitude: \(variables.latitude ?? "Nil Latitude")\nLongitude: \(variables.longitude ?? "Nil Longitude")\nWear Date: \(variables.cycle ?? "Nil cycle")\nMismatch (No = 0 Yes = 1): \(variables.mismatch ?? 3)\nModerator (No = 0 Yes = 1): \(variables.moderator ?? 3)"
+        let message = "Data saved: \nQR Code: \(variables.QRCode ?? "Nil QRCode")\nDosimeter: \(variables.dosiNumber ?? "Nil Dosimeter")\nLocation: \(variables.dosiLocation ?? "Nil location")\nFlag (Depl'y = 0, Collected = 1): 0\nLatitude: \(variables.latitude ?? "Nil Latitude")\nLongitude: \(variables.longitude ?? "Nil Longitude")\nWear Date: \(variables.cycle ?? "Nil cycle")\nMismatch (No = 0 Yes = 1): \(variables.mismatch ?? 2)\nModerator (No = 0 Yes = 1): \(variables.moderator ?? 2)"
         
         //print("10-Location: \(variables.dosiLocation ?? "Nil Location")")
         
         //set up alert
         let alert = UIAlertController.init(title: "Save Successful", message: message, preferredStyle: .alert)
-        let OK = UIAlertAction(title: "OK", style: .default, handler: handlerOK)
+        //let OK = UIAlertAction(title: "OK", style: .default, handler: handlerOK)
+        let OK = UIAlertAction(title: "OK", style: .default, handler: handlerCancel)
         
         alert.addAction(OK)
         
@@ -745,13 +730,14 @@ extension ScannerViewController {  //alerts
     
     func alert11(){  //Success!
         
-        let message = "Data Saved:\nQR Code: \(variables.QRCode ?? "Nil QRCode")\nDosimeter: \(variables.dosiNumber ?? "Nil Dosimeter")\nLocation: \(variables.dosiLocation ?? "Nil location")\nFlag (Depl'y = 0, Collected = 1): 1 \nMismatch (No = 0 Yes = 1): \(variables.mismatch ?? 3)"
+        let message = "Data Saved:\nQR Code: \(variables.QRCode ?? "Nil QRCode")\nDosimeter: \(variables.dosiNumber ?? "Nil Dosimeter")\nLocation: \(variables.dosiLocation ?? "Nil location")\nFlag (Depl'y = 0, Collected = 1): 1 \nMismatch (No = 0 Yes = 1): \(variables.mismatch ?? 2)"
         
         //print("11-Location: \(variables.dosiLocation ?? "Nil Location")")
         
         //set up alert
         let alert = UIAlertController.init(title: "Collection Successful", message: message, preferredStyle: .alert)
-        let OK = UIAlertAction(title: "OK", style: .default, handler: handlerOK)
+        //let OK = UIAlertAction(title: "OK", style: .default, handler: handlerOK)
+        let OK = UIAlertAction(title: "OK", style: .default, handler: handlerCancel)
         
         alert.addAction(OK)
         

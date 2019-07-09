@@ -30,7 +30,9 @@ class Save {
         
         do {
             let fileName = "DosiData" //change depending on which file
+            print(Bundle.main)
             let path = Bundle.main.path(forResource: fileName, ofType: "csv")  //blank file no extension
+            print(path!)
             let data = try String(contentsOfFile: path!, encoding: String.Encoding.utf8)
             let rows = data.components(separatedBy: "\n")
 
@@ -44,17 +46,18 @@ class Save {
         } //end do
             
         catch {
-            
+            print("FILE NOT FOUND!!!")
             print(Error.self)
             
         } //end catch
-
+        
+        print(array)
+        
         //write to database
         
-        //print(array)
         var j = 1  //first row [0] contains ""
         
-        while j < array.count - 1 { //don't go too far or get fatal error, so subtract 1
+        while j < array.count {       //while j < array.count - 1 { //don't go too far or get fatal error, so subtract 1
             
             let newrecord = CKRecord(recordType: "Location")
             
