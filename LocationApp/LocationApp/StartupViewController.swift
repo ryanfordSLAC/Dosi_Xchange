@@ -29,8 +29,6 @@ class StartupViewController: UIViewController, MFMailComposeViewControllerDelega
         DispatchQueue.main.asyncAfter(deadline: deadline) {
             completion()
         }//end dispatch queue 123
-        
-        
     } //end run
 
     @IBOutlet weak var Tools: UIImageView!

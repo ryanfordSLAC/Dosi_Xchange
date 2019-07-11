@@ -126,7 +126,7 @@ class NearestLocations:  UIViewController, UITableViewDataSource, UITableViewDel
             let dosimeter = "\(self.sortedRecords[indexPath.row].2)"
             let location = "\(self.sortedRecords[indexPath.row].3)"
             //recombine the string
-            let row = ("\(distance) meters, \(QRCode), \(dosimeter), \(location)")
+            let row = ("\(distance) meters\n\(QRCode), \(dosimeter)\n\(location)")
             cell.textLabel!.font = UIFont(name: "Arial", size: 16)
             cell.textLabel?.numberOfLines = 0
             cell.textLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
@@ -143,10 +143,11 @@ class NearestLocations:  UIViewController, UITableViewDataSource, UITableViewDel
 extension NearestLocations {
     
     @objc func queryAscendLocations() {
+        
         //clear out buffer
-
         self.preSortedRecords = [(Int, String, String, String)]()
         self.sortedRecords = [(Int, String, String, String)]()
+        
         dispatchGroup.enter()
         let cycleDate = self.recordsupdate.generateCycleDate()
         let priorCycleDate = self.recordsupdate.generatePriorCycleDate(cycleDate: cycleDate)
@@ -156,13 +157,10 @@ extension NearestLocations {
         let p3 = NSPredicate(format: "active == %d", 1)
         let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [p1, p2, p3])
         let query = CKQuery(recordType: "Location", predicate: predicate)
-        
         let operation = CKQueryOperation(query: query)
         operation.resultsLimit = 1000
         
         operation.recordFetchedBlock = { (record: CKRecord) in
-            
-            self.records.append(record)
             
             if record["latitude"] != nil {self.latitude = record["latitude"]!}
             if record["longitude"] != nil {self.longitude = record["longitude"]!}
@@ -185,7 +183,7 @@ extension NearestLocations {
         
         operation.queryCompletionBlock = { (cursor: CKQueryOperation.Cursor?, error: Error?) in
             
-            self.count = self.records.count
+            self.count = self.preSortedRecords.count
             //sort the completed array by integer, which is first element in the tuple
             self.sortedRecords = self.preSortedRecords.sorted { $0.0 < $1.0 }
             
@@ -199,7 +197,7 @@ extension NearestLocations {
         
         database.add(operation)
         
-        self.run(after: 1) {
+        self.run(after: 2) {
             self.dispatchGroup.leave()
         }
 
