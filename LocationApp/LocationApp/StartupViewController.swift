@@ -49,15 +49,11 @@ class StartupViewController: UIViewController, MFMailComposeViewControllerDelega
         //location.startUpdatingLocation()    
         //end location manager setup
         
-        
         //progress view
-        
         progressView.setProgress(0, animated: true)
         setProgress()
 
 
-        
-        
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(StartupViewController.imageTapped))
         Tools.isUserInteractionEnabled = true
         Tools.addGestureRecognizer(singleTap)
@@ -82,24 +78,20 @@ class StartupViewController: UIViewController, MFMailComposeViewControllerDelega
                 self.present(alert, animated: true, completion: nil)
             } //async end
             
-            
-            
         }//end when unreachable
         
         do {
             try reachability.startNotifier()
-        } catch {
+        }
+        catch {
             print("Unable to start notifier")
         }  //end catch
         //end Detect Wifi...
-
-
+        
     } //end viewDidLoad
     
     @objc func imageTapped() {
         performSegue(withIdentifier: "segueToTools", sender: "")
-        
-        
     } //end imageTapped
     
     
@@ -122,26 +114,23 @@ class StartupViewController: UIViewController, MFMailComposeViewControllerDelega
 
         query.dispatchGroup.notify(queue: .main){
             let numberCompleted:Float = Float(self.query.countB)
-            let numberDeployed:Float = Float(self.query.countB) + Float(self.query.countA)
             let numberRemaining:Float = Float(self.query.countA)
+            let numberDeployed:Float = numberCompleted + numberRemaining
             let progress = (numberCompleted / numberDeployed)
             
             switch progress {
                 
             case 0:
-                
                 self.statusTextViewBox.text = "Ready to begin collection of \(Int(numberRemaining)) dosimeters!"
                 
             case 1:
-                
                 self.statusTextViewBox.text = "All dosimeters from the prior period have been collected!"
                 print("Completed: \(numberCompleted)")
                 print("Deployed: \(numberDeployed)")
                 print("Progress \(progress)")
                 
             default:
-                
-                self.statusTextViewBox.text = "Green Pins:  \(Int(numberRemaining)) remaining out of \(Int(numberDeployed)) are ready for collection"
+                self.statusTextViewBox.text = "Green Pins: \(Int(numberRemaining)) remaining out of \(Int(numberDeployed)) are ready for collection"
                 
             } //end switch
             

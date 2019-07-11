@@ -13,12 +13,11 @@ import CoreLocation
 
 class NearestLocations:  UIViewController, UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate {
 
-    let query = Queries()
     let sections = ["Sorted by Distance from Current Location"]
     let dispatchGroup = DispatchGroup()
-    let records = recordsUpdate()
+    let recordsupdate = recordsUpdate()
     var count = Int()
-    var records2 = [CKRecord]()
+    var records = [CKRecord]()
     var locationManager:CLLocationManager = CLLocationManager()
     var startLocation: CLLocation!
     var latitude:String = ""
@@ -75,8 +74,7 @@ class NearestLocations:  UIViewController, UITableViewDataSource, UITableViewDel
         
         run(after: 1) {
             self.dispatchGroup.leave()
-//***
-           // self.problemReportMessage(indexPath: indexPath)
+           //self.problemReportMessage(indexPath: indexPath)
         }
 
     } //end Table View
@@ -87,38 +85,29 @@ class NearestLocations:  UIViewController, UITableViewDataSource, UITableViewDel
         let latestLocation: CLLocation = locations[locations.count - 1]
         
         if startLocation == nil {
-            
             startLocation = latestLocation
-            //print("Start Location: \(String(describing: startLocation!.coordinate))")
         }
         
     }//end func
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(Error.self)
-        
     }//end func
     
-    
     //tableView protocol stubs
-
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         //"sorted by distance from current location"
         return sections[section]
-        
-    } //end title for section
+    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        
         return 1
-        
-    } //end sections
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //counts the number of CK records
         return self.count
-
-    } //end rows
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
@@ -130,19 +119,18 @@ class NearestLocations:  UIViewController, UITableViewDataSource, UITableViewDel
         // Depending on the section, fill the textLabel with the relevant text
         
         dispatchGroup.notify(queue: .main){ //wait for the query results
-
+            
             //unpack
-
-                let distance = "\(self.sortedRecords[indexPath.row].0)"
-                let QRCode =  "\(self.sortedRecords[indexPath.row].1)"
-                let dosimeter = "\(self.sortedRecords[indexPath.row].2)"
-                let location = "\(self.sortedRecords[indexPath.row].3)"
-                //recombine the string
-                let row = ("\(distance) meters, \(QRCode), \(dosimeter), \(location)")
-                cell.textLabel!.font = UIFont(name: "Arial", size: 16)
-                cell.textLabel?.numberOfLines = 0
-                cell.textLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
-                cell.textLabel?.text = row
+            let distance = "\(self.sortedRecords[indexPath.row].0)"
+            let QRCode =  "\(self.sortedRecords[indexPath.row].1)"
+            let dosimeter = "\(self.sortedRecords[indexPath.row].2)"
+            let location = "\(self.sortedRecords[indexPath.row].3)"
+            //recombine the string
+            let row = ("\(distance) meters, \(QRCode), \(dosimeter), \(location)")
+            cell.textLabel!.font = UIFont(name: "Arial", size: 16)
+            cell.textLabel?.numberOfLines = 0
+            cell.textLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
+            cell.textLabel?.text = row
             
         }//end dispatch group
         
@@ -160,93 +148,88 @@ extension NearestLocations {
         self.preSortedRecords = [(Int, String, String, String)]()
         self.sortedRecords = [(Int, String, String, String)]()
         dispatchGroup.enter()
-        let cycleDate = self.records.generateCycleDate()
-        let priorCycleDate = self.records.generatePriorCycleDate(cycleDate: cycleDate)
+        let cycleDate = self.recordsupdate.generateCycleDate()
+        let priorCycleDate = self.recordsupdate.generatePriorCycleDate(cycleDate: cycleDate)
         let flag = 0
         let p1 = NSPredicate(format: "collectedFlag == %d", flag)
         let p2 = NSPredicate(format: "cycleDate == %@", priorCycleDate)
         let p3 = NSPredicate(format: "active == %d", 1)
         let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [p1, p2, p3])
         let query = CKQuery(recordType: "Location", predicate: predicate)
-
-        //start query
-        database.perform(query, inZoneWith: nil) { (records, _) in
-            guard let records = records else { return }
+        
+        let operation = CKQueryOperation(query: query)
+        operation.resultsLimit = 1000
+        
+        operation.recordFetchedBlock = { (record: CKRecord) in
             
-                self.records2 = records
-                let count = records.count
-                self.count = count
-
-
-                for record in self.records2 {
-                    
-                    if record["latitude"] != nil {self.latitude = record["latitude"]!}
-                    if record["longitude"] != nil {self.longitude = record["longitude"]!}
-                    if record["QRCode"] != nil {self.QRCode = record["QRCode"]!}
-                    if record["dosinumber"] != nil {self.dosimeter = record["dosinumber"]!}
-                    if record["locdescription"] != nil {self.loc = record["locdescription"]!}
-//***
-                    //if record["problemText"] != nil {self.problemText = record["problemText"]!}
-
-                    //compute distance between start location and the point
-                    let rowCoordinates1 = CLLocation(latitude: Double(self.latitude)!, longitude: Double(self.longitude)!)
-                    let distanceBetween: CLLocationDistance = self.startLocation.distance(from: rowCoordinates1)
-                    let distanceBetweenFormatted = String(format: "%.0f", distanceBetween)
-                    self.distance = Int(distanceBetweenFormatted)!
-                    //use the getLine function below to create a tuple with multiple types
-                    //in order to be able to sort by distance as an integer (not a string).
-//***
-                    let line = self.getLine(distance: self.distance, QRCode: self.QRCode, dosimeter: self.dosimeter, detail: self.loc)//, problemText: self.problemText ?? "None")
-                    //build the array
-                    self.preSortedRecords.append(line)
-                    
-                } //end for loop
-                //print(records)
-//***
-                //print("Assigning Problem Text: \(String(describing: self.problemText))")
+            self.records.append(record)
             
-                //sort the completed array by integer, which is first element in the tuple
-                self.sortedRecords = self.preSortedRecords.sorted { $0.0 < $1.0 }
-
+            if record["latitude"] != nil {self.latitude = record["latitude"]!}
+            if record["longitude"] != nil {self.longitude = record["longitude"]!}
+            if record["QRCode"] != nil {self.QRCode = record["QRCode"]!}
+            if record["dosinumber"] != nil {self.dosimeter = record["dosinumber"]!}
+            if record["locdescription"] != nil {self.loc = record["locdescription"]!}
+            
+            //compute distance between start location and the point
+            let rowCoordinates1 = CLLocation(latitude: Double(self.latitude)!, longitude: Double(self.longitude)!)
+            let distanceBetween: CLLocationDistance = self.startLocation.distance(from: rowCoordinates1)
+            let distanceBetweenFormatted = String(format: "%.0f", distanceBetween)
+            self.distance = Int(distanceBetweenFormatted)!
+            //use the getLine function below to create a tuple with multiple types
+            //in order to be able to sort by distance as an integer (not a string).
+            let line = self.getLine(distance: self.distance, QRCode: self.QRCode, dosimeter: self.dosimeter, detail: self.loc)
+            //build the array
+            self.preSortedRecords.append(line)
+            
+        }
+        
+        operation.queryCompletionBlock = { (cursor: CKQueryOperation.Cursor?, error: Error?) in
+            
+            self.count = self.records.count
+            //sort the completed array by integer, which is first element in the tuple
+            self.sortedRecords = self.preSortedRecords.sorted { $0.0 < $1.0 }
+            
             DispatchQueue.main.async {
-
                 if self.nearestTableView != nil {  //key to fast refresh without delays.
                     self.nearestTableView.refreshControl?.endRefreshing()
                     self.nearestTableView.reloadData()
-
                 } //end if
-                
             }  //end async
-            
-        } //end query
-        
-        self.run(after: 1) {
-            
-            self.dispatchGroup.leave()
         }
         
+        database.add(operation)
+        
+        self.run(after: 1) {
+            self.dispatchGroup.leave()
+        }
 
     } //end func
 
     //supply a line with the correct data types.  Distance must be an integer for correct sorting.
-//***
     func getLine(distance: Int, QRCode: String, dosimeter: String, detail: String) -> (distance: Int, QRCode: String, dosimeter: String, detail: String) {
         
         let distance = self.distance
         let QRCode = self.QRCode
         let dosimeter = self.dosimeter
         let detail = self.loc
-//***
         //let problemText = self.problemText
         
         return (distance, QRCode, dosimeter, detail)//, problemText ?? "None")
     }
     
-} //end extension
-
-extension NearestLocations {
+    func run(after seconds: Int, completion: @escaping () -> Void) {  //delay function when we need to wait for query output
+        let deadline = DispatchTime.now() + .seconds(seconds)
+        DispatchQueue.main.asyncAfter(deadline: deadline) {
+            completion()
+            
+        }//end let
+        
+    }//end func
     
-//***
+} //end extension
+    
+//*** UNUSED CODE ***
+
 //    func saveProblemReport(dosiNumber: String){
 //        //use the properties of the class and save into the database.
 //        //save data to database
@@ -268,8 +251,7 @@ extension NearestLocations {
 //                } //end for
 //            }//end query
 //    }  //end saveProblemReport
-    
- //***
+
     
 //    func problemReportMessage(indexPath: IndexPath) {
 //        dispatchGroup.enter()
@@ -328,14 +310,5 @@ extension NearestLocations {
 //
 //
 //    }//end problemReportMessage
-    
-    func run(after seconds: Int, completion: @escaping () -> Void) {  //delay function when we need to wait for query output
-        let deadline = DispatchTime.now() + .seconds(seconds)
-        DispatchQueue.main.asyncAfter(deadline: deadline) {
-            completion()
-            
-        }//end let
-        
-    }//end func
-    
-}  //end extension
+
+//*** UNUSED CODE ***

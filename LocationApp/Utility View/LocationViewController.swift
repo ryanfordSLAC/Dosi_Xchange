@@ -21,7 +21,8 @@ let save = Save()
 
 class LocationViewController: UIViewController, CLLocationManagerDelegate {
     
-    @IBOutlet weak var tableView: UITableView!
+    //reference to table view under Location View
+    //@IBOutlet weak var tableView: UITableView!
     
     //declare variables
     var startLocation: CLLocation! //Optional handles nils; lat long course info class
@@ -34,6 +35,7 @@ class LocationViewController: UIViewController, CLLocationManagerDelegate {
     var cycle:String = ""
     var dateDeployed = Date()
     var dateCollected = Date()
+    var records = [CKRecord]()
     var tvLocations = [CKRecord]()
     var tvLocation1:String = ""
     var tvLocation2:String = ""
@@ -48,11 +50,7 @@ class LocationViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var vAccuracy: UILabel!
     @IBOutlet weak var Distance: UILabel!
     @IBOutlet weak var btnDist: UIButton!
-    @IBAction func backFromLocationPage(unwindSegue: UIStoryboardSegue){
-        
-        
-    }
-    
+
     let database = CKContainer.default().publicCloudDatabase  //establish database
 
     
@@ -66,6 +64,7 @@ class LocationViewController: UIViewController, CLLocationManagerDelegate {
         locationManager.delegate = self //establish view controller as delegate
         startLocation = nil
         
+/*** DELETED TABLE VIEW ***
         //Table View SetUp
         let refreshControl = UIRefreshControl()
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to Refresh Locations")
@@ -77,6 +76,8 @@ class LocationViewController: UIViewController, CLLocationManagerDelegate {
         //populate the table view after querying into newest to oldest data.
         queryDatabase()  //this query will populate the tableView when the view loads.
         self.tableView.reloadData()
+  *** DELETED TABLE VIEW ***/
+        
         locationManager.requestAlwaysAuthorization()
         locationManager.startUpdatingLocation()
 
@@ -108,7 +109,6 @@ class LocationViewController: UIViewController, CLLocationManagerDelegate {
         
 
         if startLocation == nil {
-            
             startLocation = latestLocation
         } //end if
     
@@ -122,7 +122,8 @@ class LocationViewController: UIViewController, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
     
     } //end didFailWithError
-    
+
+/*** UNUSED FUNCTION
     func alert() {
 
         let alert = UIAlertController(title: "Type a Description", message: nil, preferredStyle: .alert)
@@ -143,13 +144,59 @@ class LocationViewController: UIViewController, CLLocationManagerDelegate {
             self.present(alert, animated: true, completion: nil)
         }
         
-        
     } //end alert
+*** UNUSED FUNCTION ***/
     
 } //end class
-        
-//Extension #1
 
+extension LocationViewController {
+
+    @objc func queryDatabaseForCSV() {
+        //set first line of text file
+        //should separate text file from query
+        var csvText = "Latitude, Longitude, Description, Number, QRCode, Collected Flag, Date Deployed, Date Collected, Wear Period\n"
+        let predicate = NSPredicate(value: true)
+        let query = CKQuery(recordType: "Location", predicate: predicate)
+        
+        let operation = CKQueryOperation(query: query)
+        operation.resultsLimit = 1000
+        
+        operation.recordFetchedBlock = { (record: CKRecord) in
+            //Careful use of optionals to prevent crashes.
+            if (record["latitude"] as? String) != nil {self.latitude = record["latitude"]!}
+            if (record["longitude"] as? String) != nil {self.longitude = record["longitude"]!}
+            if (record["locdescription"] as? String) != nil {self.loc = record["locdescription"]!}
+            if (record["dosinumber"] as? String) != nil {self.dosimeter = record["dosinumber"]!}
+            if (record["collectedFlag"] as? Int64) != nil {self.collectedFlag = record["collectedFlag"]!}
+            if (record["cycleDate"] as? String) != nil {self.cycle = record["cycleDate"]!}
+            if (record["QRCode"] as? String) != nil {self.QRCode = record["QRCode"]!}
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.timeStyle = .none
+            dateFormatter.dateFormat = "MM/dd/yyyy"
+            let date = Date(timeInterval: 0, since: record.creationDate!)
+            let formattedDate = dateFormatter.string(from: date)
+            let dateModified = Date(timeInterval: 0, since: record.modificationDate!)
+            let formattedDateModified = dateFormatter.string(from: dateModified)
+            let newline = "\(self.latitude),\(self.longitude),\(self.loc),\(self.dosimeter),\(self.QRCode),\(String(describing: self.collectedFlag)),\(formattedDate),\(String(describing: formattedDateModified)),\(self.cycle)\n"
+            csvText.append(contentsOf: newline)
+        }
+        
+        operation.queryCompletionBlock = { (cursor: CKQueryOperation.Cursor?, error: Error?) in
+            csvText.append("End of File\n")
+            readWrite.writeText(someText: "\(csvText)")
+        }
+        
+        database.add(operation)
+        
+    } //end function
+    
+} //end extension
+
+
+//Extension #1
+/*** DELETED TABLE VIEW ***
+ 
 extension LocationViewController: UITableViewDataSource {
     //protocol stubs
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -187,15 +234,14 @@ extension LocationViewController: UITableViewDataSource {
             self.tvLocation3 = ""
             return cell
         
-    }   //End tableView
+    } //End tableView
     
-}   //End Extension
+} //End Extension
+ 
+*** DELETED TABLE VIEW ***/
 
-//Extension #2
 
-extension LocationViewController {
-    
-    //database functions
+/*** UNUSED FUNCTION ***
 
     func saveToCloud(Location: String) {
 
@@ -220,107 +266,40 @@ extension LocationViewController {
             guard record != nil else { return }
             
         } //end database Save
-        
-        
+ 
     } //end saveToCloud
-    
+ 
+*** UNUSED FUNCTION ***/
+ 
+ /*** UNUSED QUERY ***
     @objc func queryDatabase() {
-        //set first line of text file
-        //should separate text file from query
-//        var csvText = "Latitude, Longitude, Description, Number, QRCode, Collected Flag, Date Deployed, Date Collected, Wear Period\n"
+        
         let flag = 0
         let p1 = NSPredicate(format: "collectedFlag == %d", flag)
         let p2 = NSPredicate(format: "active == %d", 1)
         let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [p1, p2])
         let query = CKQuery(recordType: "Location", predicate: predicate)
-        database.perform(query, inZoneWith: nil) { (records, _) in
-            guard let records = records else { return }
-            self.tvLocations = records
-            let sortedRecords = records.sorted(by: { $0.modificationDate! < $1.modificationDate! })
+        let operation = CKQueryOperation(query: query)
+        operation.resultsLimit = 1000
+        
+        operation.recordFetchedBlock = { (record: CKRecord) in
+            self.records.append(record)
+        }
+        
+        operation.queryCompletionBlock = { (cursor: CKQueryOperation.Cursor?, error: Error?) in
+            let sortedRecords = self.records.sorted(by: { $0.modificationDate! < $1.modificationDate! })
             self.tvLocations = sortedRecords
+            self.records = [CKRecord]()
             
-//            for entry in records {
-//
-//                //Careful use of optionals to prevent crashes.
-//                if (entry["latitude"] as? String) != nil {self.latitude = entry["latitude"]!}
-//                if (entry["longitude"] as? String) != nil {self.longitude = entry["longitude"]!}
-//                if (entry["locdescription"] as? String) != nil {self.loc = entry["locdescription"]!}
-//                if (entry["dosinumber"] as? String) != nil {self.dosimeter = entry["dosinumber"]!}
-//                if (entry["collectedFlag"] as? Int64) != nil {self.collectedFlag = entry["collectedFlag"]!}
-//                if (entry["cycleDate"] as? String) != nil {self.cycle = entry["cycleDate"]!}
-//                if (entry["QRCode"] as? String) != nil {self.QRCode = entry["QRCode"]!}
-//
-//                let dateFormatter = DateFormatter()
-//                dateFormatter.timeStyle = .none
-//                dateFormatter.dateFormat = "MM/dd/yyyy"
-//                let date = Date(timeInterval: 0, since: entry.creationDate!)
-//                let formattedDate = dateFormatter.string(from: date)
-//                let dateModified = Date(timeInterval: 0, since: entry.modificationDate!)
-//                let formattedDateModified = dateFormatter.string(from: dateModified)
-//                let newline = "\(self.latitude),\(self.longitude),\(self.loc),\(self.dosimeter),\(self.QRCode),\(String(describing: self.collectedFlag)),\(formattedDate),\(String(describing: formattedDateModified)),\(self.cycle)\n"
-//                csvText.append(contentsOf: newline)
-//
-//            } //end for loop
             DispatchQueue.main.async {
-                //In the case where this function is called from the send e-mail without first refreshing the tableview (which contains nil).
                 if self.tableView != nil {
                     self.tableView.refreshControl?.endRefreshing()
                     self.tableView.reloadData()
-                    
                 }
-                
             } //end async
-            
-//            readWrite.writeText(someText: "\(csvText)")
-            
-        } //end query
+        }
+        
+        database.add(operation)
 
     } //end function
-
-
-    @objc func queryDatabaseForCSV() {
-        //set first line of text file
-        //should separate text file from query
-        var csvText = "Latitude, Longitude, Description, Number, QRCode, Collected Flag, Date Deployed, Date Collected, Wear Period\n"
-        let predicate = NSPredicate(value: true)
-        let query = CKQuery(recordType: "Location", predicate: predicate)
-        
-        self.database.perform(query, inZoneWith: nil) { (records, _) in
-            guard let records = records else { return }
-            //print("1, queryDBforCSV: \(records)")
-                
-            self.tvLocations = records
-            for entry in records {
-                    
-                //Careful use of optionals to prevent crashes.
-                if (entry["latitude"] as? String) != nil {self.latitude = entry["latitude"]!}
-                if (entry["longitude"] as? String) != nil {self.longitude = entry["longitude"]!}
-                if (entry["locdescription"] as? String) != nil {self.loc = entry["locdescription"]!}
-                if (entry["dosinumber"] as? String) != nil {self.dosimeter = entry["dosinumber"]!}
-                if (entry["collectedFlag"] as? Int64) != nil {self.collectedFlag = entry["collectedFlag"]!}
-                if (entry["cycleDate"] as? String) != nil {self.cycle = entry["cycleDate"]!}
-                if (entry["QRCode"] as? String) != nil {self.QRCode = entry["QRCode"]!}
-            
-                let dateFormatter = DateFormatter()
-                dateFormatter.timeStyle = .none
-                dateFormatter.dateFormat = "MM/dd/yyyy"
-                let date = Date(timeInterval: 0, since: entry.creationDate!)
-                let formattedDate = dateFormatter.string(from: date)
-                let dateModified = Date(timeInterval: 0, since: entry.modificationDate!)
-                let formattedDateModified = dateFormatter.string(from: dateModified)
-                let newline = "\(self.latitude),\(self.longitude),\(self.loc),\(self.dosimeter),\(self.QRCode),\(String(describing: self.collectedFlag)),\(formattedDate),\(String(describing: formattedDateModified)),\(self.cycle)\n"
-                csvText.append(contentsOf: newline)
-                    
-            } //end for loop
-                
-            csvText.append("End of File\n")
-                
-            readWrite.writeText(someText: "\(csvText)")
-
-        } //end query
-        
-    } //end function
-
-} //end extension
-
-
+*** UNUSED QUERY ***/

@@ -76,20 +76,29 @@ class ActiveLocationsViewController: UIViewController, UITableViewDataSource, UI
     
     @objc func queryDatabase() {
         
+        var records = [CKRecord]()
         let flag = 1
         let predicate = NSPredicate(format: "active = %d", flag)
         let query = CKQuery(recordType: "Location", predicate: predicate)
-        database.perform(query, inZoneWith: nil) { (records, _) in
-            guard let records = records else { return }
-            self.recents = records
+        let operation = CKQueryOperation(query: query)
+        operation.resultsLimit = 1000
         
+        operation.recordFetchedBlock = { (record: CKRecord) in
+            records.append(record)
+        }
+        
+        operation.queryCompletionBlock = { (cursor: CKQueryOperation.Cursor?, error: Error?) in
+            self.recents = records
             DispatchQueue.main.async {
                 if self.tableView != nil {
                     self.tableView.refreshControl?.endRefreshing()
                     self.tableView.reloadData()
                 }
-            }  //end async
-        } // end query
+            } //end async
+        }
+        
+        database.add(operation)
+
     }
     
     

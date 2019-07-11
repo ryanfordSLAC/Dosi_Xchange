@@ -100,6 +100,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     func queryCurrentCycle() {  //red pin flags
         
+        var records = [CKRecord]()
         let flag = 0
         let cycleDate = self.cycleDate.generateCycleDate()
         let p1 = NSPredicate(format: "collectedFlag == %d", flag)
@@ -108,10 +109,16 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [p1, p2, p3])
         //  Query fields in Location to set up the artwork on the drop pins
         let query = CKQuery(recordType: "Location", predicate: predicate)
-        database.perform(query, inZoneWith: nil) { (records, _) in
-            guard let records = records else { return }
+        let operation = CKQueryOperation(query: query)
+        operation.resultsLimit = 1000
+        
+        operation.recordFetchedBlock = { (record: CKRecord) in
+            records.append(record)
+        }
+        
+        operation.queryCompletionBlock = { (cursor: CKQueryOperation.Cursor?, error: Error?) in
+            
             DispatchQueue.main.async { //run whole thing on main thread to prevent "let artwork" line from producing error
-                
                 for entry in records {
                     let latitude = entry["latitude"] as? String
                     let longitude = entry["longitude"] as? String
@@ -126,20 +133,20 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                     self.dosimeter = dosimeter!  //pass dosimeter number out
                     let dosiLocations = CLLocationCoordinate2D(latitude: CLLocationDegrees(latitude!)!, longitude: CLLocationDegrees(longitude!)!)
                     let artwork = Artwork(title: self.fullTitle, locationName: description!, discipline: self.fullTitle, coordinate: dosiLocations, createdDate: createdDate!, cycleDate: cycleDate!) //this has a location manager and needs main thread.
-                    
                     self.MapView.addAnnotation(artwork)
-                    
                 }  //end for loop
-                
             } //end dispatch queue
             
-        } //end perform query
+        }
+        
+        database.add(operation)
     
     } //end func
     
     
     func queryPriorCycle() { //green pin flags
         
+        var records = [CKRecord]()
         let flag = 0
         let cycleDate = self.cycleDate.generateCycleDate()
         let priorCycleDate = self.cycleDate.generatePriorCycleDate(cycleDate: cycleDate)
@@ -149,14 +156,17 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         //where the cycle is the prior cycle, and hasn't been collected yet
         //in order to suppress the ones that have been collected from the map view.
         let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [p1, p2, p3])
-        
         //  Query fields in Location to set up the artwork on the drop pins
         let query = CKQuery(recordType: "Location", predicate: predicate)
-        database.perform(query, inZoneWith: nil) { (records, _) in
-            guard let records = records else { return }
-            //print(records)
+        let operation = CKQueryOperation(query: query)
+        operation.resultsLimit = 1000
+        
+        operation.recordFetchedBlock = { (record: CKRecord) in
+            records.append(record)
+        }
+        
+        operation.queryCompletionBlock = { (cursor: CKQueryOperation.Cursor?, error: Error?) in
             DispatchQueue.main.async { //run whole thing on main thread to prevent "let artwork" line from producing error
-                
                 for entry in records {
                     let latitude = entry["latitude"] as? String
                     let longitude = entry["longitude"] as? String
@@ -171,14 +181,12 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                     self.dosimeter = dosimeter!  //pass dosimeter number out
                     let dosiLocations = CLLocationCoordinate2D(latitude: CLLocationDegrees(latitude!)!, longitude: CLLocationDegrees(longitude!)!)
                     let artwork = Artwork(title: self.fullTitle, locationName: description!, discipline: dosimeter!, coordinate: dosiLocations, createdDate: createdDate!, cycleDate: cycleDate!) //this has a location manager and needs main thread.
-                    
                     self.MapView.addAnnotation(artwork)
-                    
                 }  //end for loop
-                
             } //end dispatch queue
-            
-        } //end perform query
+        }
+        
+        database.add(operation)
         
     } //end func
     

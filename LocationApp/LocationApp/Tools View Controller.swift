@@ -30,7 +30,9 @@ class ToolsViewController: UIViewController, MFMailComposeViewControllerDelegate
         _ = Save().uploadToCloud()
     }
     
-    
+/*** TOGGLE ALERTS ***
+    //connect to "Toggle Alerts" button on tools view controller (main.storyboard)
+    //button currently disabled (deleted)
     @IBOutlet weak var toggleAlerts: UIButton!
     @IBAction func toggleAlertsGo(_ sender: Any) {
         
@@ -71,6 +73,7 @@ class ToolsViewController: UIViewController, MFMailComposeViewControllerDelegate
         }//end switch
         
     } //end func
+*** TOGGLE ALERTS ***/
     
     @IBAction func emailTouchDown(_ sender: Any) {
         data.queryDatabaseForCSV()
@@ -97,7 +100,6 @@ class ToolsViewController: UIViewController, MFMailComposeViewControllerDelegate
             mail.setMessageBody("The dosimeter data is attached to this e-mail.", isHTML: true)
             if let fileAttachment = NSData(contentsOf: URL!) {
                 mail.addAttachmentData(fileAttachment as Data, mimeType: "text/csv", fileName: "Dosi_Data.csv")
-                //print("4, File attachment: \(fileAttachment)")
             } // end if let fileAttachment
             
             present(mail, animated: true)
@@ -105,7 +107,6 @@ class ToolsViewController: UIViewController, MFMailComposeViewControllerDelegate
         }
         else {
             // show failure alert
-            
         } //end else
         
     } //end sendEmail
@@ -118,6 +119,9 @@ class ToolsViewController: UIViewController, MFMailComposeViewControllerDelegate
     
 } //end class
 
+
+//*** TOGGLE ALERTS ***
+/*
 extension ToolsViewController {  //alerts for test screen
     
     func alert1() {
@@ -330,3 +334,4 @@ extension ToolsViewController {
     
     
 }  //end extension
+*** TOGGLE ALERTS ***/
