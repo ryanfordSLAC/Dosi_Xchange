@@ -21,6 +21,8 @@ class ToolsViewController: UIViewController, MFMailComposeViewControllerDelegate
     var alertCounter:Int = 0
     
     
+    //connect to "Upload Data" button on tools view controller (main.storyboard)
+    //button currently disabled (deleted)
     @IBOutlet weak var uploadDataButton: UIButton!
     @IBAction func uploadData(_ sender: Any) {
         

@@ -41,8 +41,9 @@ class Queries {
         let flag = 0
         let p1 = NSPredicate(format: "collectedFlag == %d", flag)
         let p2 = NSPredicate(format: "cycleDate == %@", priorCycleDate)
-        let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [p1, p2])
-        //print("Predicate A: \(predicate)")
+        let p3 = NSPredicate(format: "active == %d", 1)
+        let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [p1, p2, p3])
+
         //  Query fields in Location to set up the artwork on the drop pins
         let query = CKQuery(recordType: "Location", predicate: predicate)
         database.perform(query, inZoneWith: nil) { (records, _) in
@@ -68,7 +69,8 @@ class Queries {
         let flag = 1
         let p1 = NSPredicate(format: "collectedFlag == %d", flag)
         let p2 = NSPredicate(format: "cycleDate == %@", priorCycleDate)
-        let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [p1, p2])
+        let p3 = NSPredicate(format: "active == %d", 1)
+        let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [p1, p2, p3])
         let query = CKQuery(recordType: "Location", predicate: predicate)
         database.perform(query, inZoneWith: nil) { (records, _) in
             guard let _ = records else { return }

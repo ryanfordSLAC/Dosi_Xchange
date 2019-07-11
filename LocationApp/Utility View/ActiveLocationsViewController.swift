@@ -76,7 +76,8 @@ class ActiveLocationsViewController: UIViewController, UITableViewDataSource, UI
     
     @objc func queryDatabase() {
         
-        let predicate = NSPredicate(value: true)
+        let flag = 1
+        let predicate = NSPredicate(format: "active = %d", flag)
         let query = CKQuery(recordType: "Location", predicate: predicate)
         database.perform(query, inZoneWith: nil) { (records, _) in
             guard let records = records else { return }

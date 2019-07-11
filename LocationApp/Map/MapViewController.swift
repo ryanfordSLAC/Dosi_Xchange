@@ -104,7 +104,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         let cycleDate = self.cycleDate.generateCycleDate()
         let p1 = NSPredicate(format: "collectedFlag == %d", flag)
         let p2 = NSPredicate(format: "cycleDate == %@", cycleDate)
-        let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [p1, p2])
+        let p3 = NSPredicate(format: "active == %d", 1)
+        let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [p1, p2, p3])
         //  Query fields in Location to set up the artwork on the drop pins
         let query = CKQuery(recordType: "Location", predicate: predicate)
         database.perform(query, inZoneWith: nil) { (records, _) in
@@ -144,10 +145,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         let priorCycleDate = self.cycleDate.generatePriorCycleDate(cycleDate: cycleDate)
         let p1 = NSPredicate(format: "cycleDate == %@", priorCycleDate)
         let p2 = NSPredicate(format: "collectedFlag == %d", flag)
-
+        let p3 = NSPredicate(format: "active == %d", 1)
         //where the cycle is the prior cycle, and hasn't been collected yet
         //in order to suppress the ones that have been collected from the map view.
-        let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [p1, p2])
+        let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [p1, p2, p3])
         
         //  Query fields in Location to set up the artwork on the drop pins
         let query = CKQuery(recordType: "Location", predicate: predicate)

@@ -23,56 +23,52 @@ class Save {
 */
     
     
-    
     func uploadToCloud() -> Array<Any> {  //probably doesn't need to return anything.
         
         var array:[[String]] = [[""]] //initialize the array
         
         do {
-            let fileName = "DosiData" //change depending on which file
-            let path = Bundle.main.path(forResource: fileName, ofType: "csv")  //blank file no extension
+            
+            let fileName = "DosiData3" //change depending on which file
+            let path = Bundle.main.path(forResource: fileName, ofType: "csv")
             let data = try String(contentsOfFile: path!, encoding: String.Encoding.utf8)
-            let rows = data.components(separatedBy: "\n")
+            let rows = data.components(separatedBy: "\r\n")
 
             for row in rows {
-                
                 let values = row.components(separatedBy: ",")
                 array.append(values)
-                
             } //end for
             
         } //end do
             
         catch {
-            print("FILE NOT FOUND!!!")
-            print(Error.self)
+            print("\(Error.self): Unable to read file")
             
         } //end catch
-        
-        print(array)
         
         //write to database
         
         var j = 1  //first row [0] contains ""
+        let end = array.count //don't go too far or get fatal error
         
-        while j < array.count {       //while j < array.count - 1 { //don't go too far or get fatal error, so subtract 1
+        while j < end {
             
             let newrecord = CKRecord(recordType: "Location")
             
             //csv data populated fields
             newrecord.setValue(String(array[j][0]), forKey: "QRCode") //first column, index 0
-            newrecord.setValue(String(array[j][1]), forKey: "dosinumber")
-            newrecord.setValue(String(array[j][2]), forKey: "latitude")
-            newrecord.setValue(String(array[j][3]), forKey: "longitude")
-            newrecord.setValue(String(array[j][4]), forKey: "locdescription")
+            newrecord.setValue(String(array[j][1]), forKey: "locdescription")
+            newrecord.setValue(Int64(array[j][2]), forKey: "moderator")
+            newrecord.setValue(String(array[j][3]), forKey: "latitude")
+            newrecord.setValue(String(array[j][4]), forKey: "longitude")
             newrecord.setValue(Int64(array[j][5]), forKey: "active")
-            newrecord.setValue(Int64(array[j][6]), forKey: "moderator") // seventh column, index 6
+            newrecord.setValue(String(array[j][6]), forKey: "dosinumber") // seventh column, index 6
             
             //manually populated fields
-            newrecord.setValue(String("1-1-2019"), forKey: "cycleDate")
-            newrecord.setValue(String(""), forKey: "problemText")
-            newrecord.setValue(Int64(0), forKey: "collectedFlag")
-            newrecord.setValue(Int64(0), forKey: "mismatch")
+            if Int64(array[j][5]) == 1 {
+                newrecord.setValue(String("1-1-2019"), forKey: "cycleDate")
+                newrecord.setValue(Int64(0), forKey: "collectedFlag")
+            }
             
             database.save(newrecord) { (record, error) in guard record != nil else { return }
      

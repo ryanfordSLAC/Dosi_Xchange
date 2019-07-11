@@ -1,0 +1,718 @@
+﻿ACC TNL-001,Door of Old Vault access tunnel west of bone yard,1,37.418779,-122.204947,0,
+ALPINE-001,Background dosimeter (Outside guard shack),0,37.415393,-122.195074,1,BA00030600N
+ALPINE-002,Background dosimeter (Outside guard shack),0,37.41535162,-122.1950029,1,BA001307860
+ALPINE-003,Background dosimeter (Outside guard shack),0,37.415448,-122.1950609,0,
+ALPINE-004,Background dosimeter (Outside guard shack),0,37.41536188,-122.1950807,0,
+ALPINE-005,Background dosimeter (Outside guard shack),0,37.4153166,-122.1950749,0,
+AMRF Of-001,Sec 10 North Wall on top of panel adj pent 10-14,1,37.415883,-122.206927,0,
+BDE-001,BDE outside RAM storage area: at entrance fence,0,37.418037,-122.200288,0,
+BLG 003-001,Building 03: Room 100A,0,37.416495,-122.208514,0,
+BLG 003-002,Conference room: SE corner,0,37.416463,-122.208730,0,
+BLG 003-003,+,0,37.416389,-122.208528,0,
+BLG 005-001,MCC control room; Bldg 005; Outside by S entrance,1,37.416342,-122.202737,0,
+BLG 006-001,Inside Room 101A RGD,0,37.417414,-122.202439,1,BA00121452J
+BLG 006-002,Inside Room 107 RGD,0,37.41744007,-122.2024382,1,BA001717316
+BLG 006-003,Inside Room 111 RGD,0,37.41742699,-122.2024179,1,BA001979900
+BLG 006-004,GTF on South wall under PPS warning light,0,37.41739823,-122.2024072,0,
+BLG 006-005,On North Wall: by power box,0,37.41740968,-122.2023939,0,
+BLG 006-006,Roof above Photocathode,0,37.41739121,-122.2024642,0,
+BLG 006-007,inside GTF on ceiling,0,37.41739041,-122.2024114,1,BA002188698
+BLG 006-008,RGD#56: Titan Krios #1: Room 110,0,37.41740417,-122.2024197,0,
+BLG 006-009,RGD#58: Talos Arctica: Room 105A,0,37.41738796,-122.2023987,0,
+BLG 006-010,RGD#62: Titan G3: Room 107,0,37.41741496,-122.2024038,0,
+BLG 006-011,RGD#63: Titan G2: Room 101A,0,37.41740105,-122.2024418,0,
+BLG 008-001,On backside near fence,0,37.417596,-122.202041,1,BA001238608
+BLG 015-001,Lower level: fire ext bracket in lunchroom,0,37.415618,-122.207001,1,BA001006579
+BLG 015-002,Upper level: next to doorway,0,37.415418,-122.206777,1,BA00138105E
+BLG 015-003,Lower level: I Beam behind office divider NE corner,0,37.415465,-122.207058,1,BA000729190
+BLG 015-004,South west corner of building on unistrut 8',0,37.415785,-122.207230,1,BA00118680A
+BLG 024-001,RCF Area: Outside wall: hallway across from J. Yu,1,37.416931,-122.207918,1,BA001721383
+BLG 024-002,OHP Operations offices,0,37.41710692,-122.2079572,1,BA001495706
+BLG 024-003,Room 185 NE Corner,0,37.41701459,-122.2078427,0,
+BLG 024-004,Room 161: Rad Lab on water line,0,37.41702609,-122.2079317,1,BA00032365B
+BLG 024-005,Room 164: Instrument shop,0,37.41704399,-122.2080687,0,
+BLG 024-005A,RAM Storage (Room 143: North Wall),0,37.41690194,-122.2077502,1,BA00100482K
+BLG 024-006,Eddie Office North Wall Rm 178,0,37.41694615,-122.2077861,1,BA00119263D
+BLG 024-007,Room 145: BSOIC and RAM storage room: adj to RCA phone jack,0,37.416640,-122.208062,1,BA0011639130
+BLG 025-001,Outside machine Shop Supervisor's Office,0,37.417075,-122.207205,1,BA000780752
+BLG 025-002,Outside Ali's Office (Plating Shop),0,37.41716144,-122.2072229,1,BA00151413E
+BLG 025-003,Upstairs offices across from room #208,0,37.41711317,-122.207319,1,BA000233884
+BLG 025-004,Upstairs offices  room #209 on light switch,0,37.4169298,-122.2072844,0,
+BLG 025-005,Upstairs Admin Office: on fire ext hallway,0,37.41699215,-122.2072247,0,
+BLG 025-006,Matt Office Room South wall plug,0,37.41707753,-122.2074083,1,BA001463828
+BLG 025-007,Main Shop Area Hydrogen Alarm panel,0,37.41712252,-122.20725,1,BA000165377
+BLG 025-008,RGD #20: Metals Analyzer Gun: Room 112C,0,37.41714449,-122.2070874,0,
+BLG 026-001,Weld shop on south wall (hydrojet room),0,37.417168,-122.205899,0,
+BLG 026-002,Outside door to 2nd Floor Offices,0,37.41720253,-122.2058561,1,BA001952160
+BLG 026-003,Weld Shop  breaker panel near Column 4C: above sink,0,37.41720784,-122.2056902,1,BA00121326F
+BLG 026-004, Magnet shop unistrut strap storage,0,37.4173103,-122.205914,1,BA001648670
+BLG 026-005,West Office Rm 100 south wall: Right of door,0,37.41730466,-122.2060294,1,BA00074699K
+BLG 027-001,Near outlet on East Wall: by window overlooking outdoor seating.,0,37.417240,-122.207634,1,BA00198770
+BLG 028-002,middle of building room huddle room 93,0,37.417141,-122.205281,1,BA001375156
+BLG 028-003,Southeast corner: RP instrument lab,0,37.417078,-122.205089,1,BA00164311F
+BLG 028-004,Southwest corner,0,37.417108,-122.205381,1,BA00085040G
+BLG 030-001,MFD RAM storage area: NE Door 240V breaker,0,37.416714,-122.206763,0,
+BLG 030-002,MFD RAM storage area: S Wall over breaker,0,37.416689,-122.206846,0,
+BLG 031-001,North Wall: outside clean room: next to clock,0,37.416998,-122.204107,1,BA001074225
+BLG 031-002,Supv Office,0,37.4169116,-122.2040696,1,BA001583064
+BLG 031-003,General office area at 480V breaker panel O/S ROOM 105 (TX400 RGD#27),0,37.41688926,-122.2039269,1,BA00088962P
+BLG 031-004,General office area 480V breaker panel O/S Rm 102,0,37.41713881,-122.2040883,1,BA00109751A
+BLG 031-005,General office on Table leg of material to survey,0,37.4169709,-122.2041472,1,BA00025143K
+BLG 033-001, Plug conduit next to the operator console front entry door,0,37.416944,-122.208471,0,
+BLG 033-002,Ouside exterior wall near machine beam location East,0,37.41680793,-122.208497,0,
+BLG 033-003,General warehouse area fence E side,0,37.41680583,-122.2086142,1,BA00074679M
+BLG 033-004,office space Rm 100 side of room divider by light switch N wall,0,37.41686397,-122.2083657,1,BA00162251E
+BLG 033-005,On wall in clean room #104,0,37.41699912,-122.208578,0,
+BLG 034-001,Room 101B: S wall,0,37.416477,-122.207854,0,
+BLG 034-002,Room 205: next to window,0,37.41643477,-122.2077732,0,
+BLG 034-003,Room  271  Office,0,37.41642551,-122.2076576,1,BA0000165N
+BLG 034-004,upstairs office middle: Rm 215 window,0,37.41644526,-122.2077556,1,BA00186990B
+BLG 034-005,upstairs office middle: Rm 269 window,0,37.41647404,-122.2080356,1,BA000646128
+BLG 034-006,downstairs office middle: copy Rm Rm 107,0,37.41651702,-122.2077268,1,BA00184040G
+BLG 034-007,downstairs office middle: Rm 119 near window,0,37.41654599,-122.2079289,1,BA0064099Y
+BLG 038-001,Trailer 216: N Bldg 26: inside next to door,0,37.417339,-122.206407,1,BA002009647
+BLG 040-001,First floor common area: on display next to room R132,0,37.418779,-122.204689,0,
+BLG 040-002,Rm 236A: SEM RGD#44,0,37.418841,-122.204458,0,
+BLG 040-003,Rm 237 RHEED#1 RGD#42,0,37.418808,-122.204886,0,
+BLG 040-004,Rm 237 RHEED#2 and UHVMV RGD#48:49,0,37.418829,-122.204676,0,
+BLG 040A-001,Laser Lab: room 102: by control panel/work station,0,37.418394,-122.204810,0,
+BLG 040A-002,Rm 120: RGD Room: inside at gas bottles (PVD System RGD#35),0,37.418390,-122.204444,0,
+BLG 041-001,Room 238 C (Teresa Juarez) inner office,0,37.419275,-122.206100,0,
+BLG 041-002,First floor: south wall. Room 1250: copy area: on partition,0,37.41934014,-122.2060954,0,
+BLG 041-003,First floor: in break room: on top of fridge,1,37.41916281,-122.2062353,0,
+BLG 041-004,Second floor South Wall Inside Room 2200 on partition next to cable guard,0,37.41935396,-122.2061487,0,
+BLG 041-005,Second floor ouside East steps on fire pipes,0,37.41910533,-122.2060718,0,
+BLG 042-001,Cafeteria: east corner: inside,0,37.419249,-122.204971,0,
+BLG 044-001,KLY Test Lab: station 1,0,37.41883115,-122.2056547,1,BA00210050W
+BLG 044-002,KLY Test Lab: station 2,0,37.4187177,-122.2055103,1,BA000292377
+BLG 044-003,KLY Test Lab: station 3,0,37.41839224,-122.2056571,0,
+BLG 044-004,KLY Test Lab: station 4,0,37.41861591,-122.2055962,1,BA00200552K
+BLG 044-005,KLY Test Lab: station 5 operators station,0,37.4185957,-122.2060855,1,BA00042364B
+BLG 044-006,KLY Test Lab: station 6,0,37.41874979,-122.2058675,1,BA00040415E
+BLG 044-007,KLY Test Lab: station 7,0,37.41843663,-122.206002,1,BA00189289L
+BLG 044-008,KLY Test Lab: station 8,0,37.41855123,-122.2060211,1,BA00157658Q
+BLG 044-009,KLY Test Lab: station 9,0,37.41837631,-122.2057443,1,BA00118722A
+BLG 044-010,KLY Test Lab: station 11,0,37.41844731,-122.2057841,0,
+BLG 044-011,KLY Test Lab: station 13,0,37.41840784,-122.2056551,0,
+BLG 044-012,KLY Test Lab: RF bunker BSOIC,0,37.41866098,-122.2059439,1,BA00116011T
+BLG 044-013,KLY Test Lab: SW corner on electronics rack Test Stand 17 Control Panel,0,37.41859913,-122.2059131,0,
+BLG 044-014,KLY Test Lab: PEP II test area Test Stand 18 control panel,0,37.41853869,-122.2056521,1,BA00128816Z
+BLG 044-015,KLY Test Lab: room center: outside room 162,0,37.41852801,-122.2054664,1,BA00087684Q
+BLG 044-016,KLY Test Lab: room center: inside room 156B,0,37.41878631,-122.2058351,1,BA000276280
+BLG 044-017,KLY Test Lab: room center: inside room 158,0,37.41876138,-122.2057384,1,BA00016732C
+BLG 044-018,ASTA Roof: on top rail overlooking Klystron test stand,0,37.41837194,-122.2058158,1,BA00075665U
+BLG 044-019,ASTA Roof: on exhaust stack,0,37.41869719,-122.2056483,1,BA00064451A
+BLG 044-020,KLY Test Lab: station 2a boundary: SW corner unistrut,0,37.41839463,-122.2056727,1,BA000364093
+BLG 044-021,KLY Test Lab: station 2b: boundry: SE corner unistrut,0,37.41871673,-122.2058229,0,
+BLG 044-022,KLY Test Lab: station 2c: boundry: NE corner: pipe,0,37.41847362,-122.2055364,0,
+BLG 044-023,KLY Test Lab: station 5 boundary a,0,37.41868712,-122.2059844,0,
+BLG 044-024,KLY Test Lab: station 5 boundary b,0,37.41877099,-122.2055509,0,
+BLG 044-025,KLY Test Lab: station 5 boundary c,0,37.4187587,-122.2059821,1,BA00196259P
+BLG 044-027,KLY Test Lab: station 6: North next to Klystron  b,0,37.41867287,-122.2056514,1,BA000752173
+BLG 044-028,KLY Test Lab: station 6: South next to klystron a,0,37.41862999,-122.205485,0,
+BLG 044-029,KLY Test Lab: station 7 boundary a,0,37.41837727,-122.2059024,1,BA000961229
+BLG 044-030,KLY Test Lab: station 7 boundary b,0,37.41849105,-122.205945,0,
+BLG 044-031,KLY Test Lab: station 7 boundary c,0,37.41874841,-122.2057153,1,BA000347627
+BLG 044-032,KLY Test Lab: station 8: North next to Klystron b,0,37.41880177,-122.2058645,1,BA00118531F
+BLG 044-033,KLY Test Lab: station 8: South next to klystron a,0,37.41868157,-122.2060996,0,
+BLG 044-034,KLY Test Lab: station 9 boundary a,0,37.41854341,-122.2057838,0,
+BLG 044-035,KLY Test Lab: station 9 boundary b,0,37.41856315,-122.2056109,0,
+BLG 044-036,KLY Test Lab: station 9 boundary c,0,37.41876293,-122.2055386,1,BA00084818O
+BLG 044-037,KLY Test Lab: station 11 boundary a,0,37.41833019,-122.2058731,0,
+BLG 044-038,KLY Test Lab: station 11 boundary b,0,37.41848691,-122.2056349,1,BA00007532H
+BLG 044-039,KLY Test Lab: station 11 boundary c,0,37.41853631,-122.2060493,0,
+BLG 044-040,ASTA Southside near PPS panel,1,37.4186312,-122.2058392,1,BA000608623
+BLG 044-041,ASTA Eastside  inside Room 153,1,37.41849263,-122.2057045,1,BA000378250
+BLG 044-042,ASTA Nothside  Inside Room 152 lazer room,1,37.41867389,-122.2054924,1,BA002113977
+BLG 044-043,ASTA Westside,1,37.41876079,-122.2055872,1,BA001047656
+BLG 044-044,ASTA roof,1,37.41849855,-122.2058252,1,BA00018243H
+BLG 044-045,KLY Test Lab: station 18 boundary NW a,0,37.41847418,-122.2057133,0,
+BLG 044-046,KLY Test Lab: station 18 boundary NE b,0,37.41869244,-122.205539,1,BA001482381
+BLG 044-047,KLY Test Lab: station 18 boundary W c,0,37.41844535,-122.2058782,1,BA00168719N
+BLG 044-048,KLY Test Lab: station 18 boundary SE,0,37.41837494,-122.2056277,1,BA001244187
+BLG 044-049,KLY Test Lab: station 18 body gun,0,37.4185034,-122.2060327,0,
+BLG 044-050,  Inside Room 151 NW corner on floor,1,37.41874199,-122.206007,1,BA00211574B
+BLG 044-051,KLY Test Lab: Station 17 a,0,37.41857002,-122.2056217,0,
+BLG 044-052,KLY Test Lab: Station 17 b,0,37.41867318,-122.2056882,0,
+BLG 044-053,KLY Test Lab: station 3 a,0,37.41875224,-122.2060256,0,
+BLG 044-054,KLY Test Lab: station 3 b,0,37.41878454,-122.2059628,0,
+BLG 044-055,KLY Test Lab: station 3 c,0,37.41880816,-122.2057431,0,
+BLG 044-056,KLY Test Lab: station 4 boundary a,0,37.41875637,-122.2058389,1,BA001663543
+BLG 044-057,KLY Test Lab: station 4 boundary b,0,37.41866805,-122.2056796,1,BA00167678M
+BLG 044-058,KLY Test Lab: station 4 boundary c,0,37.4184409,-122.2056516,1,BA00073161E
+BLG 044-059,KLY Test Lab: station 6: South next to klystron c,0,37.4184259,-122.2056396,0,
+BLG 044-060,KLY Test Lab: station 8: c,0,37.41852843,-122.2056118,0,
+BLG 044-061,Test Stand 1 a,0,37.41848933,-122.2055553,0,
+BLG 044-062,Test Stand 1 b,0,37.4184116,-122.205708,1,BA00212995Y
+BLG 044-063,Test Stand 1 c,0,37.4183745,-122.2059423,0,
+BLG 044-064,KLY Test Lab Station Mod A NW a,0,37.41847198,-122.2056582,0,
+BLG 044-065,KLY Test Lab Station Mod A NE b,0,37.41867402,-122.2058765,0,
+BLG 044-066,KLY Test Lab Station Mod A SW c,0,37.41872827,-122.2058063,0,
+BLG 044-067,KLY Test Lab Station Mod A Operators station,0,37.41853019,-122.205549,1,BA00082025B
+BLG 044-068,KLY Test Lab: station 9 win test structure,0,37.41870404,-122.2056919,1,BA001205197
+BLG 044-069,KTL TS11 Op station,0,37.41862833,-122.2059244,1,BA00028360H
+BLG 044-070,KLY Test Lab Station 12 N c,0,37.41873531,-122.205541,1,BA00096754Q
+BLG 044-071,KTL TS 10,0,37.4185865,-122.2058516,1,BA00027501I
+BLG 044-072,Room 203A on conduit,0,37.41864473,-122.206046,1,BA00131062N
+BLG 044-073,Room154E/F ASTA Operator Room,0,37.41869737,-122.205952,1,BA00090259W
+BLG 048-001,between Room 128: 129  mail boxes next to pen  holder,0,37.419797,122.206203,0,
+BLG 050-001,1st floor:on wall next to vending machines Rm 114,1,37.417690,122.203723,1,BA000194454X
+BLG 050-002,Second floor NE elevator: on wall near stairwell. Across from rm 202,0,37.417582,122.20351,1,BA00129015G
+BLG 050-003,Third floor: wall: near panel L3B: across from rm 321,0,37.417543,122.203854,1,BA00039164A
+BLG 051-001,Kavali Bldg 3rd floor room 320 in top cabneit near window,0,37.419871,122.205443,1,BA001639475
+BLG 052-001,Stairwell E: first floor,0,37.417559,122.204611,1,BA000844730
+BLG 052-002,Stairwell W: first floor,0,37.41757448,122.2046681,1,BA001147943
+BLG 052-003,Stairwell E: third floor,0,37.41741347,122.2047217,1,BA000019656
+BLG 052-004,Stairwell W: third floor,0,37.41757632,122.204708,1,BA00153531C
+BLG 055-001,Rec center: under front desk,0,37.418738,122.197628,1,BA00032581D
+BLG 084-001,Outside RGD room. At door. RGD#15: Assay X-Beam: B292A,0,37.418495,122.204018,0,
+BLG 084-002,B010: RGD#43: on device: clipped on cable next to sample door.  Scanning Electron Microscope,0,37.418442,122.203852,0,
+BLG 104B-001,Bldg 104B,0,37.416737,122.199448,0,
+BLG 104B-002,Bldg 104B outside RAM storage area: at entrance door at electrical panel.,0,37.416716,122.199403,0,
+BLG 112-A-001,Master substation work area. Next to NW door,0,37.415830,-122.205021,1,BA002028647
+BLG 136-001,ON-HOLD West Wall,1,37.416445,-122.204715,0,
+BLG 136-002,ON-HOLD Next to penetration: N (On steel I-beam: middle room),1,37.416427,-122.204660,0,
+BLG 222-001,Bldg 222 outside RAM storage area: at entrance door on Controlled Area sign: BLDG 222,0,37.416344,122.199524,0,
+BLG 235-001,Room 101: S Wall between window and filing cabinet,0,37.419152,122.205189,0,
+BLG 235-002,West wall: by second computer station: next to window,0,37.419255,122.204923,0,
+BLG 240-001,next to Bldg 30: conference room ,0,37.416739,-122.206531,1,BA000858460
+BLG 261-001,Trailer at Sector 20 N: on back door,0,37.419347,-122.204817,0,
+BLG 280-001,Outside Bldg 280C South wall on electrical unistrut ,1,37.418760,-122.206958,1,BA00103238E
+BLG 280-002,Outside Bldg 280B east wall on electrical unistrut ,1,37.418612,-122.206940,0,
+BLG 280-003,Outside: on steps facing KTL between 280A and 280B,1,37.418367,-122.206929,1,BA001922361
+BLG 299-001,Room 3: next to window,0,37.419079,-122.205197,0,
+BLG 299-002,Builing 299: Room 4,0,37.419516,-122.205290,0,
+BLG 299-003,Building 299: Copy Machine,0,37.419552,-122.204730,0,
+BLG 409-001,Bldg 409 RAM storage: on fence,0,37.417353,-122.200391,0,
+BLG 426-001, Dual Phase Extraction Project office next to inner door,0,37.415313,-122.206209,0,
+BLG 478-001,RAM Storage Area: inside,0,37.415577,-122.208114,0,
+BLG 620-001,Top of electronic house: North blue stairs top,1,37.419186,-122.196444,0,
+BLG 620-002,Inside electronic house on I-beam,1,37.419120,-122.196598,0,
+BLG 620-003,Top of electronic house on inner railing (near IR2 wall) floor level,1,37.419015,-122.196496,0,
+BLG 620-004,Near wall opposite IR2 wall; on I-beam near entrance,1,37.419090,-122.196335,0,
+BLG 621-001,Middle of control room on I-beam,1,37.419264,-122.196604,0,
+BLG 621-002,In control room on first floor I-beam facing door to IR2,1,37.419234,-122.196661,0,
+BLG 621-003,Room 201: on wall facing IR2,1,37.419258,-122.196505,0,
+BLG 625-001,I-beam ,1,37.419097,-122.196962,0,
+BLG 640-001,On I-beam away from IR wall,1,37.415906,122.195956,0,
+BLG 640-002,On I-beam near IR wall,1,37.415866,122.195904,0,
+BLG 641-001,Outside corner of inner office,1,37.415813,122.196024,0,
+BLG 645-001,On cabinet 4LR3,1,37.415799,122.196271,0,
+BLG 645-002,On cabinet 4LR41,1,37.415589,122.196389,0,
+BLG 650-001,On hutch wall near BSOICS,1,37.414220,122.197744,0,
+BLG 660-001,On cabinet B660-22,1,37.414133,122.199131,0,
+BLG 660-002,On cabinet B660-01,1,37.414079,122.199015,0,
+BLG 660-003,Phone booth: North entrance,1,37.413902,122.199028,0,
+BLG 660-004,Wall near roll up door: power panel Unistrut,0,37.413826,122.19915,0,
+BLG 675-001,On unistrut above penetration,1,37.414106,122.201151,0,
+BLG 680-001,On wall: South end near entrance,1,37.415146,122.202752,0,
+BLG 680-002,On EASTwall next to roll up door,1,37.415163,122.202582,0,
+BLG 680-003,On cabinet B680-33 near IR wall,1,37.415090,122.202861,0,
+BLG 680-004,On fence next to RAM storage,0,37.414988,122.202869,0,
+BLG 685-001,Upper level: shop area,1,37.415083,122.202398,0,
+BLG 685-002,On cabinet 8HR5,1,37.415007,122.20246,0,
+BLG 685-003,Attached to cabinet in control room,1,37.414966,122.202293,0,
+BLG 685-004,On cabinet 8HR31,1,37.414821,122.202246,0,
+BLG 688-001,new salvage Office,1,37.414690,122.202789,0,
+BLG 705-001,On top of penetration,1,37.418079,122.203206,0,
+BLG 720-001,I-beam next to roll up door,1,37.420279,-122.200203,0,
+BLG 720-002,On cabinet B720-04,1,37.420210,-122.200330,0,
+BLG 720-003,On cabinet B720-22,1,37.420082,-122.200163,0,
+BLG 721-001,On I-beam: 1st floor,1,37.420274,-122.200458,0,
+BLG 725-001,On Cabinet 12HR1,1,37.420167,-122.200527,0,
+BLG 725-002,On Cabinet 12HR31,1,37.420065,-122.200542,0,
+BLG 725-003,Cabinet 12-5,1,37.420150,-122.200723,0,
+BLG 725-004,Janitors trailer next to Bldg 725 Bldg 217: outside on steps,1,37.420150,-122.200723,0,
+BLG 730-001,On hutch wall near BSOICS,1,37.419865,-122.197548,0,
+BLG 750-001,1st floor: conduit in machine shop office,0,37.418253,-122.195415,1,BA00185369P
+BLG 750-002,2nd floor: mail drop near 206F,0,37.418176,-122.195245,1,BA00025432H
+BLG 750-003,3rd floor on 480V conduit: room 304,0,37.418464,-122.194463,1,BA001485260
+BSY-001,ON-HOLD On the big door,1,37.416338,-122.203482,0,
+BSY-002,ON-HOLD On PS-2,1,37.41634689,-122.2035353,0,
+BSY-003,ON-HOLD On vent btwn PS-2 and PS-3,1,37.41634762,-122.2035099,0,
+BSY-004,ON-HOLD PS-9: Outside of pumphouse,1,37.41631007,-122.2035188,0,
+BSY-005,ON-HOLD Before Bldg 105  under A2 vent housing,1,37.41631958,-122.2035057,0,
+CID-001,On Bldg 285 deck,1,37.412147,-122.239927,0,
+CID-002,Central area between CID and PPS Door on Floor,1,37.412208,-122.239752,0,
+CID-003,Near PPS Door Floor,1,37.412284,-122.239698,0,
+E+ Vault-001,ON-HOLD Outside RCA,1,37.415050,-122.216910,0,
+ESA-001,ON-HOLD Wall: N side ESA: next to BSOIC,1,37.417492,-122.201219,0,
+ESA-002,ON-HOLD Wall across from SSRL ,1,37.41758981,-122.2011033,0,
+ESA-003,ON-HOLD Counting House: West wall,1,37.41746903,-122.2013102,0,
+ESA-004,Bldg 404: On backside outside,1,37.41755492,-122.2013725,0,
+ESA-005,ON-HOLD Inside pumping station 11on wall,1,37.41758144,-122.2011781,0,
+ESA-006,ON-HOLD Bldg 108: On I-beam on wall nearest ESA,1,37.41757796,-122.2010275,0,
+ESA-007,ON-HOLD Bldg 222: backside of building outside,1,37.41748376,-122.2013202,0,
+ESA-008,ON-HOLD Bldg 102C: inside mens room,1,37.41741103,-122.2013737,0,
+ESA-011,Bldg 125: Inside on I-beam,1,37.41745806,-122.2010293,0,
+ESA-012,ON-HOLD Bldg 107: Inside next to fire extinquisher,1,37.41753182,-122.2014079,0,
+ESA-013,Bldg 215: Ouside on wall next to N2 cylinders,1,37.41763542,-122.2013239,0,
+ESA-014,ON-HOLD Bldg 113: Outside: middle of west wall,1,37.41742003,-122.2010282,0,
+ESA-015,ON-HOLD Inside Bldg 406 on wall,1,37.41735844,-122.2011181,0,
+ESA-016,ON-HOLD Inside Bldg 407 on Wall ,1,37.41748356,-122.2010632,0,
+ESA-017,ON-HOLD RAM Storage Area Bldg 113: inside by window,0,37.41749635,-122.2011492,0,
+ESB-001,RAM storage area: old FFTB shielding on South fence,0,37.416488,-122.201429,0,
+FIRE STA-001,Former fire station: contractor building (XOOK). Corner: toward KTL,0,37.417861,-122.206286,0,
+GALRY-001,ON-HOLD Sec 10 Contractor Trailer in center,1,37.412427,-122.238712,0,
+GALRY-002,ON-HOLD Visitor's alcove: On pipe of wall I/s gallery By east door,1,37.41231364,-122.2386436,0,
+GALRY-003,ON-HOLD Area 1,0,37.4126427,-122.2387975,0,
+GALRY-003A,ON-HOLD Sector 28 Visitor's alcove: under window by west door,0,37.41252278,-122.2390214,0,
+GALRY-004,ON-HOLD Sector 4 P Hill Trailer under shelves,1,37.41252708,-122.2384266,0,
+GALRY-004A,ON-HOLD Sec 28 Vistor's Alcove on Pipe between Klystrons pen 28-4,0,37.41257942,-122.2389571,1,BA00110008M
+GALRY-005,Area 2,0,37.41225754,-122.2384561,0,
+GALRY-005A,ON-HOLD Sec 28 Visitor's alcove On wall behind mirror,1,37.41243839,-122.23858,0,
+GALRY-006,ON-HOLD N Side Sec 24 Alcove Wall inside Head High,0,37.41236213,-122.2385616,0,
+GALRY-007,ON-HOLD N Side Between Sec 22-23 on wall inside gallery,0,37.4123805,-122.2389967,0,
+GALRY-008,ON-HOLD N Side Sec 21 Alcove Wall inside Head High,0,37.41233029,-122.2387133,0,
+GALRY-009,ON-HOLD N Side Sec 18 Alcove Wall inside Head High,0,37.4125411,-122.2389923,0,
+GALRY-010,ON-HOLD N Side Between Sec 16-17 on wall inside gallery: I beam 29,0,37.41261584,-122.2387879,0,
+GALRY-011,ON-HOLD N Side Between Sec 13-14 on wall inside gallery: I beam 31,0,37.41247279,-122.2384031,0,
+GALRY-012,ON-HOLD N Side Sec 11 Alcove Wall inside Head High,0,37.41234434,-122.2385653,0,
+GALRY-013,N Side Sec 9 Alcove Wall inside Head High,0,37.41251859,-122.238643,0,
+GALRY-014,N Side Between Sec 7-8 on wall inside gallery,0,37.413478,-122.229682,0,
+GALRY-015,N Side Sec 5 Alcove Wall inside Head High,0,37.41336978,-122.2296205,0,
+GALRY-016,N Side Sec 3 Alcove Wall inside Head High,0,37.41349181,-122.2297002,0,
+GALRY-017,N Side Sec 1 Alcove Wall inside Head High,0,37.41364952,-122.229648,0,
+GALRY-018,West Wall Sec 0,0,37.41372805,-122.2298036,0,
+GALRY-020,ON-HOLD Klystron Gallery: Sec 24 Inside penetration 24-15,1,37.41371325,-122.229602,0,
+GALRY-021,Middle of Klystron Gallery i/s North Side Sec 01,0,37.41342687,-122.2299385,0,
+GALRY-022,Middle of Klystron Gallery i/s North Side Sec 02,0,37.41324539,-122.2295315,0,
+GALRY-023,Middle of Klystron Gallery i/s North Side Sec 03,0,37.413543,-122.2294621,0,
+GALRY-024,Middle of Klystron Gallery i/s North Side Sec 04,0,37.41345451,-122.2294243,0,
+GALRY-025,Middle of Klystron Gallery i/s North Side Sec 05,0,37.4134244,-122.2295759,0,
+GALRY-026,Middle of Klystron Gallery i/s North Side Sec 06,0,37.41348445,-122.229926,0,
+GALRY-027,Middle of Klystron Gallery i/s North Side Sec 07,0,37.41338793,-122.2295902,0,
+GALRY-028,Middle of Klystron Gallery i/s North Side Sec 08,0,37.41340406,-122.2297181,0,
+GALRY-029,Middle of Klystron Gallery i/s North Side Sec 09,0,37.41351645,-122.2299854,0,
+GALRY-030,Middle of Klystron Gallery i/s North Side Sec 10,0,37.41340564,-122.2298783,0,
+GALRY-031,ON-HOLD Middle of Klystron Gallery i/s North Side Sec 11,0,37.414463,-122.221612,0,
+GALRY-032,ON-HOLD Middle of Klystron Gallery i/s North Side Sec 12,0,37.41471016,-122.2215907,0,
+GALRY-033,ON-HOLD Middle of Klystron Gallery i/s North Side Sec 13,0,37.41461096,-122.221469,0,
+GALRY-034,ON-HOLD Middle of Klystron Gallery i/s North Side Sec 14,0,37.41438263,-122.2215033,0,
+GALRY-035,ON-HOLD Middle of Klystron Gallery i/s North Side Sec 15,0,37.41444585,-122.2214378,0,
+GALRY-036,ON-HOLD Middle of Klystron Gallery i/s North Side Sec 16,0,37.41428007,-122.2217501,0,
+GALRY-037,ON-HOLD Middle of Klystron Gallery i/s North Side Sec 17,0,37.41468105,-122.2216795,0,
+GALRY-038,ON-HOLD Middle of Klystron Gallery i/s North Side Sec 18,0,37.41443044,-122.2218641,0,
+GALRY-039,ON-HOLD Middle of Klystron Gallery i/s North Side Sec 19,0,37.41452893,-122.2216317,0,
+GALRY-040,ON-HOLD Middle of Klystron Gallery i/s North Side Sec 20,0,37.41457312,-122.2218696,0,
+GALRY-041,ON-HOLD Middle of Klystron Gallery i/s North Side Sec 21,0,37.41461345,-122.2215159,0,
+GALRY-042,ON-HOLD Middle of Klystron Gallery i/s North Side Sec 22,0,37.41433473,-122.2216233,0,
+GALRY-043,ON-HOLD Middle of Klystron Gallery i/s North Side Sec 23,0,37.41447019,-122.2218983,0,
+GALRY-044,ON-HOLD Middle of Klystron Gallery i/s North Side Sec 24,0,37.41446665,-122.2215153,0,
+GALRY-045,ON-HOLD Middle of Klystron Gallery i/s North Side Sec 25,0,37.41448513,-122.2216704,0,
+GALRY-046,ON-HOLD Middle of Klystron Gallery i/s North Side Sec 26,0,37.41463394,-122.2216005,0,
+GALRY-047,ON-HOLD Middle of Klystron Gallery i/s North Side Sec 27,0,37.415234,-122.215068,1,BA000851751
+GALRY-048,ON-HOLD Middle of Klystron Gallery i/s North Side Sec 28,0,37.41518471,-122.2147531,0,
+GALRY-049,ON-HOLD Middle of Klystron Gallery i/s North Side Sec 29,0,37.41508669,-122.2149672,0,
+GALRY-050,ON-HOLD Middle of Klystron Gallery i/s North Side Sec 30,0,37.4150376,-122.2151722,0,
+GALRY-051,Middle of Klystron Gallery i/s South Side Sec 01,0,37.41518386,-122.2152608,0,
+GALRY-052,Middle of Klystron Gallery i/s South Side Sec 02,0,37.41510354,-122.2151866,0,
+GALRY-053,Middle of Klystron Gallery i/s South Side Sec 03,0,37.41505525,-122.2150896,0,
+GALRY-054,Middle of Klystron Gallery i/s South Side Sec 04,0,37.41498059,-122.2151485,0,
+GALRY-055,Middle of Klystron Gallery i/s South Side Sec 05,0,37.41525531,-122.215323,0,
+GALRY-056,Middle of Klystron Gallery i/s South Side Sec 06,0,37.41512064,-122.2149853,0,
+GALRY-057,Middle of Klystron Gallery i/s South Side Sec 07,0,37.41520772,-122.2148245,0,
+GALRY-058,Middle of Klystron Gallery i/s South Side Sec 08,0,37.4152016,-122.2153609,0,
+GALRY-059,Middle of Klystron Gallery i/s South Side Sec 09,0,37.41517887,-122.2152695,0,
+GALRY-060,Middle of Klystron Gallery i/s South Side Sec 10,0,37.41519148,-122.2147863,0,
+GALRY-061,ON-HOLD Middle of Klystron Gallery i/s South Side Sec 11,0,37.41519734,-122.2150307,0,
+GALRY-062,ON-HOLD Middle of Klystron Gallery i/s South Side Sec 12,0,37.41534575,-122.2152273,0,
+GALRY-063,ON-HOLD Middle of Klystron Gallery i/s South Side Sec 13,0,37.415789,-122.210703,0,
+GALRY-064,ON-HOLD Middle of Klystron Gallery i/s South Side Sec 14,0,37.41590118,-122.2107677,0,
+GALRY-065,ON-HOLD Middle of Klystron Gallery i/s South Side Sec 15,0,37.41567337,-122.2109718,0,
+GALRY-066,ON-HOLD Middle of Klystron Gallery i/s South Side Sec 16,0,37.41580731,-122.2108327,0,
+GALRY-067,ON-HOLD Middle of Klystron Gallery i/s South Side Sec 17,0,37.41556925,-122.2107489,0,
+GALRY-068,ON-HOLD Middle of Klystron Gallery i/s South Side Sec 18,0,37.41567098,-122.2104232,1,BA00067781Y
+GALRY-069,ON-HOLD Middle of Klystron Gallery i/s South Side Sec 19,0,37.41577242,-122.2106653,0,
+GALRY-070,ON-HOLD Middle of Klystron Gallery i/s South Side Sec 20,0,37.41571568,-122.2106731,0,
+GALRY-071,ON-HOLD Middle of Klystron Gallery i/s South Side Sec 21,0,37.41558232,-122.2106732,0,
+GALRY-072,ON-HOLD Middle of Klystron Gallery i/s South Side Sec 22,0,37.41593731,-122.2105614,0,
+GALRY-073,ON-HOLD Middle of Klystron Gallery i/s South Side Sec 23,0,37.41587094,-122.2105913,0,
+GALRY-074,ON-HOLD Middle of Klystron Gallery i/s South Side Sec 24,0,37.41596865,-122.210493,0,
+GALRY-075,ON-HOLD Middle of Klystron Gallery i/s South Side Sec 25,0,37.41576245,-122.2109622,0,
+GALRY-076,ON-HOLD Middle of Klystron Gallery i/s South Side Sec 26,0,37.41597319,-122.2106407,0,
+GALRY-077,ON-HOLD Middle of Klystron Gallery i/s South Side Sec 27,0,37.41569238,-122.2105984,0,
+GALRY-078,ON-HOLD Middle of Klystron Gallery i/s South Side Sec 28,0,37.4157302,-122.2104557,1,BA00016074I
+GALRY-079,ON-HOLD Middle of Klystron Gallery i/s South Side Sec 29,0,37.41602365,-122.2106522,1,BA00011057J
+GALRY-080,ON-HOLD Middle of Klystron Gallery i/s South Side Sec 30,0,37.41579192,-122.210385,1,BA00191956M
+GALRY-081,ON-HOLD Next to penetration 30-10,1,37.4155291,-122.2107158,1,BA001357815
+GALRY-082,ON-HOLD Sec 10 RF Hut: inside door on North wall,0,37.41583545,-122.2106854,0,
+GALRY-083,Sec 10 Vault: On Soup Cup 4/1: RGD#50: B02: 002B,0,37.41596098,-122.2106349,1,BA00026530I
+GALRY-084,ON-HOLD Sec 10 Vault: on Soup Cup 3/3,0,37.416368,-122.205817,1,BA00056205B
+GALRY-085,ON-HOLD Sec 20 FACET User trailer 244: behind mod panel on floor,1,37.41657086,-122.2056124,0,
+GALRY-086,ON-HOLD Sec 20 FACET User trailer:  under table East end,1,37.41641699,-122.2056386,0,
+GALRY-087,Sec 10 Gilbane Trailer in center,0,37.41610581,-122.2058712,0,
+GALRY-088,MSY Gilbane Trailer: T-23: under desk,0,37.41651912,-122.2059376,0,
+GALRY-089,Area 1,0,37.41648647,-122.20605,0,
+GALRY-090,Sec 4 P Hill Trailer: under shelves,0,37.41631539,-122.2056318,0,
+GALRY-091,Area 2,0,37.41629405,-122.2056693,0,
+GALRY-092,Sector 10: North side: Trailer T-30,1,37.41645847,-122.2059655,0,
+GALRY-093,Sector 12: North side: Trailer T-32,1,37.41623949,-122.2059601,1,BA00087749I
+GALRY-094,Sec 0: outside of door,1,37.41622569,-122.2057405,1,BA00087749I
+GUEST HO-001,Users Lodge: front desk cabinet,1,37.420119,-122.202316,1,BA00197894I
+HWY TRLR-001,ON-HOLD Inside Bldg 481 on wall near Kly Gallery (Waste Manage),0,37.419251,-122.205084,0,
+IR2 620-001,Inside  BLDG behind LSST head high center line. ,0,37.419139,-122.196506,0,
+IR2 620-002,East side of hall by phone near the base of stairs,0,37.419078,-122.196304,0,
+IR2 620-003,South of LSST 10 ft from back wall head high,0,37.419130,-122.196637,0,
+IR2 620-004,Counting Room,0,37.419007,-122.196496,0,
+LCLS Inj-001,downstairs near shield wall next to BSOIC,1,37.417693,-122.194990,0,
+LCLS Inj-002,LCLS Injector vault downstairs on floor: Sec 20,1,37.41716103,-122.1958227,0,
+LCLS Inj-003,ON-HOLD Sector 20 Rm 101 laser operator room north wall,0,37.4175069,-122.194017,0,
+LCLS-001,ON-HOLD RF Hut: Kly Gallery sec 20: wall: by door north,0,37.41697434,-122.1953896,0,
+LCLS-002,ON-HOLD Upstairs above railing of vault steps: Laser Alcove @ BSOIC,0,37.41714629,-122.1955463,0,
+LCLS-003,ON-HOLD K. Gallery above Penetration 20-14,0,37.41823436,-122.1942443,0,
+LCLS-004,ON-HOLD Bldg 35 Back wall right side of door on I-beam,0,37.41796593,-122.1944559,0,
+LCLS-004A,ON-HOLD LCLS Laser Alcove Load Lock Room: under electrical panel,0,37.41726194,-122.1942747,0,
+LCLS-005,ON-HOLD Bldg 81 back wall right side LCLS roll up door,0,37.41793913,-122.1960235,0,
+LCLS-005A,Sec 20 Upstairs LASER operator room north wall  ,0,37.41704667,-122.1957045,0,
+LCLS-006,ON-HOLD Sec 20 Laser Room N wall,1,37.41721013,-122.1947098,0,
+LCLS-007,ON-HOLD Sec 20 LASER Room N Wall,0,37.41770494,-122.195135,0,
+LCLS-008,ON-HOLD Blgd 911: under stairs North side ,1,37.41836487,-122.1944492,0,
+LCLS-009,ON-HOLD Bldg 911: top of penetration: west side of bldg,1,37.4172096,-122.1957657,0,
+LCLS-010,ON-HOLD Bldg 911: top of penetration: east side of bldg,1,37.41761464,-122.1961025,0,
+LCLS-011,ON-HOLD Bldh 911 outside under steps to B 911: S Side,1,37.4175403,-122.1959462,0,
+LCLS-012,ON-HOLD Bldg 912: top of penetration: west side,1,37.41747553,-122.1952209,0,
+LCLS-013,ON-HOLD Bldg 912: top of penetration: east side of bldg,1,37.41799062,-122.1946874,0,
+LCLS-014,ON-HOLD Bldg 913: top of penetration: west side ,1,37.41816546,-122.1958118,0,
+LCLS-015,ON-HOLD Bldg 913: top of penetration: middle of bldg.,1,37.41711061,-122.1957938,0,
+LCLS-016,ON-HOLD Bldg 913: under elec panel: east side of bldg,1,37.4185201,-122.1947012,0,
+LCLS-017,ON-HOLD Bldg 921: top of penetration west side,1,37.41725445,-122.19472,0,
+LCLS-018,ON-HOLD Bldg 921: top of penetration east side of bldg.,1,37.41736044,-122.1953914,0,
+LCLS-019,ON-HOLD Bldg 211: Inside on window sill,1,37.41757709,-122.1945455,0,
+LCLS-020,ON-HOLD Bldg 121: Inside building on wall/clean room ,1,37.41796515,-122.1940895,0,
+LCLS-021,ON-HOLD Bldg 224: Outside: next to door,1,37.41808563,-122.1941886,0,
+LCLS-022,ON-HOLD Bldg 225 SE Corner of bldg (South of BTH),1,37.41771543,-122.194656,0,
+LCLS-023,ON-HOLD Bldg 225 NE corner,1,37.41741392,-122.1960248,0,
+LCLS-024,ON-HOLD Bldg 209: Outside near electrical panel,1,37.41773562,-122.1954077,0,
+LCLS-025,ON-HOLD BTH West Maze: Outside by door,0,37.41817707,-122.1955549,0,
+LCLS-026,Bldg 406: close to BTH Head house,0,37.4174793,-122.1955487,0,
+LCLS-027,Bldg 407: close to BTH Head house,0,37.41780648,-122.195459,0,
+LCLS-028,ON-HOLD Bldg 108: outside corner by compressed gas cylinders,0,37.4173325,-122.1952953,0,
+LCLS-029,ON-HOLD Bldg 113: Outside South west corner,0,37.41703146,-122.1952021,0,
+LCLS-030,ON-HOLD Bldg 107: Inside next to fire extinquisher,0,37.41834282,-122.1953247,0,
+LCLS-031,Bldg 102C: inside Mens room,0,37.41696153,-122.1951053,0,
+LCLS-032,ON-HOLD East Maze Entrance by PPS Panel,1,37.41838042,-122.1947147,0,
+LCLS-033,ON-HOLD outside main dump pps door,0,37.41807561,-122.195031,0,
+LCLS-034,FEE wall 1,0,37.41751862,-122.1959722,0,
+LCLS-035,ON-HOLD Hutch 1 in NEH close to hard X-ray Beam line (moderated),1,37.41802389,-122.1946547,0,
+LCLS-036,NEH Mechanical Room : Bldg 950: 2ND FLOOR,1,37.4171622,-122.1955372,0,
+LCLS-037,NEH: Bldg 950: Sub-basement on source locker,0,37.41830203,-122.1948012,1,BA00187283Z
+LCLS-038,ON-HOLD Outside Bldg 921 ventilation fenced area SW corner,1,37.4176349,-122.1953561,0,
+LCLS-039,ON-HOLD Outside Bldg 921 ventilation fenced area SE corner,1,37.41769386,-122.1954627,0,
+LCLS-040,ON-HOLD Bldg 901 Rm 222 top of bookcase,1,37.41691551,-122.1951686,0,
+LCLS-041,ON-HOLD Bldg 901 1 st floor top of mail boxes,1,37.41753597,-122.1960981,0,
+LCLS-042,ON-HOLD NEH Inside office (Rm 220) across from Mechanical Room 2 (Rm 220): on wall facing Mechanical Room 2.,0,37.41780727,-122.1955492,0,
+LCLS-043,ON-HOLD NEH Inside office (Rm 219) across from Laser Hall: on wall facing Laser Hall.,0,37.41751606,-122.1948383,0,
+LCLS-044,ON-HOLD NEH Inside office (Rm 218) across from Laser Hall: on wall facing Laser Hall.,0,37.41729476,-122.1951595,0,
+LCLS-045,ON-HOLD NEH Inside office (Rm 217) across from Laser Hall: on wall facing Laser Hall.,0,37.41836977,-122.1948035,0,
+LCLS-046,ON-HOLD NEH Inside NEH Conference Room (Rm 216): on wall facing Laser Hall.,0,37.41713152,-122.1952515,0,
+LCLS-047,NEH In common area of Mechanical Room 3 (on vertical post: near floor).,0,37.41745959,-122.1953473,0,
+LCLS-048,NEH Inside Server Room (the door is just east of the east stairwell): on south wall: near west end of room.,0,37.41702999,-122.1952289,0,
+LCLS-049,ON-HOLD NEH Inside Server Room: middle of south wall,0,37.41759197,-122.1946605,0,
+LCLS-050,ON-HOLD NEH Inside Server Room: near east end of room: on east end of black rack: below electrical box.,0,37.41747159,-122.1948614,0,
+LCLS-051,ON-HOLD NEH On bottom of Hutch 1 roll-up door.,0,37.41834949,-122.1951883,0,
+LCLS-052,ON-HOLD NEH On Hutch 1 lateral (north) wall: downstream part: just downstream of sliding (blue-framed) door.,0,37.41686166,-122.1953674,0,
+LCLS-053,NEH Inside Hutch 1: on first black stand for hard x-ray beamline (stand nearest upstream wall): on side facing upstream wall.,0,37.41855545,-122.1946978,0,
+LCLS-054,NEH Inside Hutch 1: on SXR Pulse Picker,0,37.41757122,-122.1951804,0,
+LCLS-055,ON-HOLD NEH Inside Hutch 1: on Hard X-ray Line Pop-In Monitor #4 (just downstream of Collimator C4H),0,37.418021,-122.1943376,0,
+LCLS-056,ON-HOLD NEH Inside Hutch 1: on SXR Transmission Sample Chamber,0,37.41760715,-122.1948219,0,
+LCLS-057,ON-HOLD NEH Inside Hutch 1: midway down Hard X-Ray Beam Line,0,37.41713604,-122.1950382,0,
+LCLS-058,ON-HOLD NEH Inside Hutch 1: on SXR Mono Optics Tank,0,37.41685522,-122.1952677,0,
+LCLS-059,NEH Inside Hutch 1: on SXR BCS Collimator #4,0,37.4172559,-122.1950972,0,
+LCLS-060,ON-HOLD NEH Inside Hutch 1: on Hard X-ray Line bellows just downstream of Collimator C5,0,37.41760992,-122.1959227,0,
+LCLS-061,ON-HOLD NEH Inside Hutch 1: on yellow metal enclosure for beam-containment air gap (near downstream wall): on plate facing vacuum chamber.,0,37.41703492,-122.1949167,0,
+LCLS-062,NEH Inside Hutch 1: on black electronics rack next to beam containment air gap: on side facing vacuum chamber.,0,37.41725889,-122.1951627,0,
+LCLS-063,ON-HOLD NEH Inside Hutch 1: in common area  (on side of laser table enclosure facing AMO beamline),0,37.41754902,-122.1948999,0,
+LCLS-064,NEH On Hutch 2 lateral (north) wall: upstream part.,0,37.41765452,-122.1938734,0,
+LCLS-065,ON-HOLD NEH On bottom of Hutch 2 roll-up door.,0,37.4173963,-122.195463,0,
+LCLS-066,ON-HOLD NEH On Hutch 2 lateral (north) wall: downstream part.,0,37.41782162,-122.1944207,0,
+LCLS-067,ON-HOLD NEH Inside Hutch 2: on Hard X-ray Line bellows near upstream wall,0,37.41785149,-122.1960761,0,
+LCLS-068,NEH Inside Hutch 2: on first black stand for hard x-ray beamline (stand nearest upstream wall): on side facing upstream wall.,0,37.417747,-122.1958943,0,
+LCLS-069,ON-HOLD NEH Inside Hutch 2: on SXR Exit Slit,0,37.4177555,-122.1954066,0,
+LCLS-070,ON-HOLD NEH Inside Hutch 2: on SXR Stopper S2B,0,37.4181419,-122.1952659,0,
+LCLS-071,ON-HOLD NEH  Inside Hutch 2: on XPP Diagnostics Shielding Box,0,37.4173519,-122.1956064,0,
+LCLS-072,ON-HOLD NEH Inside Hutch 2: on Hard X-ray Line bellows near downstream wall,0,37.41704735,-122.1953535,0,
+LCLS-073,ON-HOLD NEH Inside Hutch 2: in common area  (on side of laser table enclosure facing SXR beamline),0,37.41727097,-122.194795,0,
+LCLS-074,ON-HOLD NEH On Hutch 3 lateral (north) wall: upstream part.,0,37.41743365,-122.193926,0,
+LCLS-075,ON-HOLD NEH On bottom of Hutch 3 roll-up door.,0,37.41798373,-122.1958005,0,
+LCLS-076,ON-HOLD NEH On Hutch 3 lateral (north) wall: downstream part.,0,37.41731215,-122.1949978,0,
+LCLS-077,NEH Inside Hutch 3: on upstream wall: in line with SXR beam dump.  (This location may receive radiation from XPP operation.),0,37.41823116,-122.1956813,0,
+LCLS-078,NEH Inside control room (Rm 103) for Hutch 1: in middle of wall facing Hutch 1.,0,37.41774301,-122.1946595,1,BA00165796O
+LCLS-079,ON-HOLD NEH Inside control room (Rm 104) for Hutch 2: on wall facing Hutch 2: just upstream of wide concrete support post.,0,37.41791239,-122.1955299,0,
+LCLS-080,ON-HOLD NEH Inside control room (Rm 105) for Hutch 3: on wall facing Hutch 3: just upstream of wide concrete support post.,0,37.41830391,-122.1942476,0,
+LCLS-081,NEH Inside shop (Rm 106) opposite Hutch 3.,0,37.41763782,-122.1950985,1,BA00149858M
+LCLS-082,NEH Inside Freight Elevator: in southwest corner.,0,37.41814599,-122.1949455,1,BA00194533Z
+LCLS-083,ON-HOLD NEH In east stairwell: on south wall just above landing floor.,0,37.41724049,-122.195224,0,
+LCLS-084,ON-HOLD XRT On SH2 Stoppers at west end of XRT: directly under stopper tank.,0,37.41799289,-122.1951308,0,
+LCLS-085,XRT On SH2 Stoppers at west end of XRT: two feet downstream of stopper tank.,0,37.41818796,-122.1943364,0,
+LCLS-086,FEH XRT vestibule east door,0,37.41730912,-122.1943942,1,BA00163927R
+LCLS-087,ON-HOLD FEH PPS work station next to XRT vestibule east door,0,37.41817669,-122.1949234,0,
+LCLS-088,ON-HOLD FEH East roll-up door of XCS,0,37.41745423,-122.1955715,0,
+LCLS-089,ON-HOLD FEH Middle of XCS north wall,0,37.41758901,-122.1958529,0,
+LCLS-090,ON-HOLD FEH In XCS control room: south west corner near PPS panel,0,37.41683796,-122.1948432,0,
+LCLS-091,ON-HOLD FEH On the south wall of preparation room,0,37.41794668,-122.1942981,0,
+LCLS-092,FEH CXI north wall under stairs near BSOIC,0,37.41838809,-122.1949656,1,BA00164765U
+LCLS-093,ON-HOLD FEH CXI control room south wall near PPS panel,0,37.41732224,-122.1957646,0,
+LCLS-094,ON-HOLD FEH CXI roll-up door,0,37.41780011,-122.1956728,0,
+LCLS-095,FEH Hutch 6 east wall near outlet,0,37.41794087,-122.1942443,0,
+LCLS-096,FEH MEC roll-up door,0,37.41814189,-122.1957169,1,BA00107423H
+LCLS-097,FEH Hutch 6 PPS door alcove,0,37.41730724,-122.195931,1,BA00164754X
+LCLS-098,FEH Under steps at east end of mezz on support,0,37.4172798,-122.1958622,1,BA00039977N
+LCLS-099,FEH Mezzanine level: west handrail near BSOIC,0,37.41732139,-122.1949608,1,BA001586406
+LCLS-100,ON-HOLD FEH Mezzanine level: top of shielding above cable penetration for Hutch 4,0,37.41815672,-122.1949735,1,BA00214095E
+LCLS-101,ON-HOLD FEH Mezzanine level: next to square ventilation duct above Hutch 4,0,37.4174614,-122.1942087,0,
+LCLS-102,ON-HOLD FEH Mezzanine level: on the cylindrical ventilation duct above Hutch 5,0,37.4183727,-122.1952036,0,
+LCLS-103,ON-HOLD FEH Mezzanine level: top of shielding above cable penetration for Hutch 5,0,37.41797201,-122.1951887,0,
+LCLS-104,FEH Mezzanine level: east end Mezz. On middle rail,0,37.41735638,-122.1941614,1,BA001931750
+LCLS-105,FEH Mezzanine level: next to square ventilation duct above Hutch 6,0,37.4178228,-122.1954917,1,BA00192429S
+LCLS-106,FEH Mezzanine level: top of shielding above cable penetration for Hutch 6,0,37.41740365,-122.1941894,1,BA000786205
+LCLS-107,ON-HOLD NEH Inside Mechanical Room 2 (Rm 200): on upstream wall.,0,37.4178416,-122.1940023,0,
+LCLS-108,ON-HOLD NEH Inside Mechanical Room 2 (Rm 200): on vertical chilled water pipe next to ventilation blower.,0,37.41829834,-122.1942501,0,
+LCLS-109,NEH Inside Laser Hall (Rm 201/215): on electronics rack near upstream wall (on side facing upstream wall).,0,37.41709386,-122.1954355,0,
+LCLS-110,NEH Middle of Laser Hall,0,37.41781531,-122.1956596,0,
+LCLS-111,ON-HOLD NEH In kitchenette: on outer wall of Mechanical Room 2 (Rm 200).,0,37.41752541,-122.1949737,0,
+LCLS-112,FEH Mezzanine level: above Hutch 6: by control rack,0,37.41798529,-122.194029,0,
+LCLS-113,ON-HOLD FEH Room 101 (XCS Laser Room) Behind south I-beam*,0,37.41715871,-122.195095,0,
+LCLS-114,ON-HOLD FEH Mezzanine Hutch 4.5 supply air penetration,0,37.41803196,-122.1952128,0,
+LCLS-115,ON-HOLD FEH Mezzanine Hutch 4 Laser room return air penetration,0,37.41819693,-122.1942834,0,
+LCLS-116,NEH Inside Hutch 1: on vertical cable tray at back wall,0,37.4184419,-122.195077,1,BA001186454
+LCLS-117,RGD#67 Mini-X Gun in Cabinet: Room 205AB B950,0,37.41813531,-122.1948722,0,
+LCLS-118,NEH West entrance close to top of stairs  -- see drawing,0,37.41815238,-122.1954579,0,
+LCLS-119,NEH Hallway close to loading dock -- see drawing,0,37.413670,-122.228211,0,
+LCLS-120,NEH Room 107,0,37.413657,-122.228152,0,
+LCLS-121,FEH Hutch 5 east wall close to MEC beam pipe,0,37.413670,-122.228301,0,
+MainGate-001,Background dosimeter: outside on unistrut S side,0,37.420465,-122.204592,1,BA001720484
+MainGate-002,Background dosimeter: outside on unistrut S side,0,37.42044088,-122.2045871,1,BA00017699T
+MainGate-003,Background dosimeter: outside on unistrut S side,0,37.4204957,-122.2046273,0,
+MainGate-004,Background dosimeter: outside on unistrut S side,0,37.42046002,-122.2045453,0,
+MainGate-005,Background dosimeter: outside on unistrut S side,0,37.42048102,-122.2045394,0,
+N ADIT-001,outside adit door,0,37.421018,-122.199956,0,
+N ADIT-002,On Fence,0,37.420993,-122.199968,0,
+NDR Kck-001,Bldg 020: inside on fence,0,37.412771,-122.238158,0,
+NDR Trl-001,ON-HOLD In Office trailer next to NDR entrance: Bldg 284: Room 5,1,37.412699,-122.238400,0,
+NLCTA-001,S side: outside wall by Faraday cup,1,37.416531,-122.200933,1,BA00105165H
+NLCTA-002,NLCTA Operator's Office ,1,37.41653395,-122.2009126,1,BA00076689J
+NLCTA-003,BLDG 237: on deck,1,37.41656918,-122.2010276,1,BA00099994F
+NLCTA-004,Roof overlooking 8 pack,0,37.41656938,-122.2009756,1,BA00022168B
+NLCTA-005,Roof: above beam dump,1,37.41645975,-122.2009874,0,
+NLCTA-006,Roof: above Farady cup: next to BSOIC,1,37.41655562,-122.2009688,1,BA00088765N
+NLCTA-007,Maze entrance: beam dump end,1,37.41659403,-122.2008938,1,BA001536724
+NLCTA-008,Inside ESB: east of klystrons: on S wall of NLCTA,1,37.41649979,-122.2010113,1,BA001194944
+NLCTA-009,West End PPS,1,37.41652502,-122.2008225,1,BA0015289P
+NLCTA-010,Outside wall: S of beam dump,1,37.41657899,-122.2009537,1,BA000352874
+NLCTA-011,N side: outside wall by Faraday cup,1,37.41653064,-122.2008895,1,BA001227662
+NLCTA-012,On top of Cabinet # B062-115 (8 PACK),0,37.41654338,-122.2009959,1,BA001245391
+NLCTA-013,On top of Cabinet # B062-122 (8 PACK),0,37.41655172,-122.2008625,1,BA00092757O
+NLCTA-014,Roof: on the pole of cable hand-rail: 20'east of gate on roof,0,37.41658183,-122.2009411,1,BA00020941A
+NLCTA-015,Bldg 225: Inside on wall,1,37.41651997,-122.200956,0,
+NLCTA-016, BLDG 104C in window,1,37.41653648,-122.2009472,1,BA000614951
+NLCTA-017,Next to e163 Klystron on wall attached to electrical conduit,0,37.41660133,-122.2009615,1,BA00150768U
+NLCTA-018,e163 at Klystron electrical panel,0,37.41646339,-122.2009378,1,BA00105600N
+NLCTA-019,L Band Klystron O/S back shielding,0,37.41650033,-122.2008413,0,
+NLCTA-021,L Band Klystron Waveguide on Plexiglass,0,37.41654512,-122.2010184,1,BA00071609W
+NLCTA-022,On shield block under blue stairs inside Radiation  Area,1,37.416605,-122.200976,1,BA00078220D
+NLCTA-023,Radiation Area fence East side,1,37.41647551,-122.2009277,1,BA000098163
+NLCTA-024,Radiation Area fence North side,1,37.41660999,-122.2009611,1,BA00156775T
+NLCTA-025,RAM storage container 4104: outside on CA sign,0,37.41657563,-122.2009786,1,BA00109084F
+NLCTA-026,RAM storage container PC22048: outside on CA sign,0,37.41652642,-122.2010333,1,BA00125133K
+NLCTA-027,NLCTA RGD Inside,0,37.41650474,-122.2009174,1,BA001330879
+RAMSY-001,Inside Trailer,1,37.416031,-122.204098,0,
+RAMSY-002,Office trailer,1,37.415927,-122.204066,0,
+RV LOT-001,RV parking:  at lot 018: across from sec 9-1,0,37.413877,-122.228823,0,
+RV LOT-002,ON-HOLD RV parking: attached to water spigot at eadt end lot access from sec 12 NOTE: ,0,37.413698,-122.230308,0,
+S Arc-001,Near SLD: Bldg 750 at tunnel exit,0,37.415545,-122.195005,0,
+S Arc-002,S Arc Tunnel on Em Off button 83A,0,37.41555726,37.41556611,0,
+S Arc-003,S Arc Tunnel alcove area elec panel,0,37.41554444,37.41554104,0,
+S Arc-004,S Arc Tunnel across from dump room: emerg off,0,37.41552832,37.41558091,0,
+S Arc-005,S Arc Tunnel Em Off Box 71 by Y of tunnel,0,37.4155767,37.41558365,0,
+S Arc-006,S Arc Tunnel at entrance just inside door Rask Box,0,37.4155267,37.4155001,0,
+SDR Kck-001,Bldg 021: RGD: inside on fence,0,37.412228,-122.238114,0,
+SECT 30-001,Sector 30 guard gate: OS on air conditioner bracket,0,37.416972,-122.204902,0,
+SECT 30-002,Sector 30 guard gate: OS on air conditioner bracket,0,37.416953,-122.204820,0,
+SECTOR 10-001,RF Gun at PPS Panel to Gun Vault,0,37.413796,-122.227890,0,
+Sford DC-001,Fence on S West Side at fence gate,0,37.415413,-122.201141,0,
+SSRL-001,BLDG 140 - floor: LINAC vault shield wall to right of access door,1,37.418352,-122.201003,1,BA00159387T
+SSRL-001A,BLDG 140 - floor: Bldg 140 LNAC vault shield floor adj near klystron #1,1,37.41870839,-122.200862,1,BA00107122P
+SSRL-002,BLDG 140 - floor: LINAC vault shield wall adj near klystron #2 ,1,37.41815862,-122.2005114,1,BA00067625Y
+SSRL-003,BLDG 140 - floor: LINAC shield wall adj to Faraday cup vault,1,37.41840525,-122.2006654,1,BA000714719
+SSRL-004,BLDG 140 - roof: LINAC shielded roof above Faraday cup - near BSOIC,1,37.41863222,-122.2011298,0,
+SSRL-005,BLDG 140 - roof: LINAC shielded roof above BT1 screen,1,37.4183635,-122.201277,0,
+SSRL-006,BLDG 140 - 5': South wall adj to area work station,1,37.41808212,-122.2014287,1,BA002015694
+SSRL-007,BLDG 140 - 7': Booster Ops area above terminal work stations on unistrut,1,37.41833565,-122.2010877,1,BA000223992
+SSRL-008,BLDG 140 - beam: Booster ring inner-west shielding wall by pep klystron,1,37.41854151,-122.2010974,1,BA000634264
+SSRL-009,BLDG 140 - beam: Booster ring inner-east shielding wall by PPS access cage,1,37.41812278,-122.2013538,1,BA001652562
+SSRL-010,BLDG Booster - floor: Booster ring outer-north shielding wall adj to pump shack by stairs adj BSOIC S1,1,37.41823064,-122.2008491,1,BA00120170R
+SSRL-011,BLDG Booster - beam: Booster ring outer-north shielding wall by outside crane,1,37.41850114,-122.2007196,1,BA000377905
+SSRL-012,BLDG Booster - beam: Booster ring outer - south shielding wall adj to roof pump station,1,37.41834231,-122.2007259,1,BA001315748
+SSRL-013,BLDG 130 - beam: Northwest corner near entry door at BL13,1,37.41842643,-122.2007366,1,BA00118029A
+SSRL-014,BLDG 130 - beam: West wall adj to electrical panels,1,37.41864621,-122.2011872,1,BA00078879E
+SSRL-015,BLDG 130 - beam: West wall adj to transformers under stairway area,1,37.41845064,-122.2004581,1,BA00014114O
+SSRL-016,BLDG 130 - beam: South corner adj to both entry and roll-up doors,1,37.41839086,-122.2012111,1,BA00062775W
+SSRL-017,BLDG 130 - 2nd floor: Room 200 (janitor’s closet),1,37.41838515,-122.201481,1,BA00095731Z
+SSRL-018,BLDG 130 - 2nd  floor: Room 201,1,37.4183316,-122.2009056,0,
+SSRL-019,BLDG 130 - 2nd floor: Room 210,1,37.41849596,-122.2014093,1,BA00154540C
+SSRL-020,BLDG BTS - beam: BTS line on east side. Mounted on shield block #23 adjacent to BSOIC S23,1,37.41803688,-122.2013651,1,BA00164559R
+SSRL-021,BLDG 140 - beam: East wall in 'alley' next to Bldg 130 and adjacent to BSOIC S4,1,37.41847774,-122.2012212,1,BA00087195X
+SSRL-022,Bldg 120 rm 115 (Biotech Crystallography storage room) on shield wall near forward left corner of the room,1,37.41829575,-122.2013785,0,
+SSRL-023,SPEAR3 ring outter side wall beside beam pipe to SLM room.,1,37.41838569,-122.200467,1,BA000452583
+SSRL-024,BLDG 120 - 2nd floor: Duty Ops work station in back area: adj to BSOIC and kitchen area,1,37.41878511,-122.2010251,1,BA00154541A
+SSRL-030,Beside BL8-2 IV1,1,37.41828262,-122.2007913,0,
+SSRL-031,BLDG 120 - 2nd floor: staff kitchen area (2nd floor) adjacent to main office areas  ,1,37.41867091,-122.2011328,1,BA002034488
+SSRL-032,BLDG 120 - 2nd floor: on outside wall at top of the main floor stairs leading into staff kitchen area,1,37.41814201,-122.2008922,1,BA000661449
+SSRL-033,Bldg 120 BL-1 work station area on the temporary  wall adjacent to future hutch,1,37.41819997,-122.2011787,1,BA00188445U
+SSRL-034,BLDG 120 - Wall: BL-2 lateral shield wall by electrical panel,1,37.41831683,-122.2005414,1,BA001635451
+SSRL-035,BLDG 120 - Wall: BL-7 lateral shield wall (appx 10' feet upstream of BL7 ratchet wall),1,37.41814785,-122.2008589,1,BA00044948R
+SSRL-036,BLDG 131 - beam: BL-12 lateral shield wall in storage area under trestle: under yellow PPS box ,1,37.41864437,-122.2012537,1,BA001341397
+SSRL-037,BLDG 120 - 2nd floor: appx. 15 feet above BL8 ratchet wall. Located on unistrut bracket by transformer across R253: left of Rack 801,1,37.41869855,-122.2011079,1,BA00071537Z
+SSRL-038,BLDG 120 - wall: BL-8 at ratchet wall,1,37.41842303,-122.2005565,1,BA000182578
+SSRL-039,BLDG 120 - beam: East Pit shield wall behind large blue monitoring panels in BL9-1 multi-station work area ,1,37.41822286,-122.2010777,1,BA00066221F
+SSRL-040,BLDG 120 - beam: BL-9 kitchen and break area on shield wall behind sofa,1,37.41807524,-122.2007647,1,BA00021391J
+SSRL-041,Bldg 120 Room # 101 on cable racks 1' out from shield wall downstream from East Pit adj hutch 12-0,1,37.41844542,-122.2005636,0,
+SSRL-042,SPEAR wall adjacent to BL12-0 hutch,1,37.41851064,-122.2007266,1,BA00060876U
+SSRL-043,BL16 lateral shield wall,1,37.41861179,-122.2009134,1,BA000909120
+SSRL-044,BL16 ratchet shield wall,1,37.41827705,-122.2012511,1,BA00151066B
+SSRL-045,BLDG 131 - beam: About 10 feet upstream of BL6 ratchet wall,1,37.41863055,-122.2007757,1,BA00063050L
+SSRL-046,BLDG 131 - beam: BL-5 ratchet shield wall,1,37.4182774,-122.2006662,0,
+SSRL-047,Old BL-4 lateral shield wall (next to BSOIC S25),1,37.41798302,-122.2011501,1,BA00064897M
+SSRL-048,BLDG 131 - Beam: BL-3 ratchet shield wall adj. to BSOIC,1,37.41845426,-122.2011477,0,
+SSRL-049,BLDG 131 - Beam: BL-11 lateral shield wall - near unused beam line port adjacent to BSOIC,1,37.41852567,-122.2007807,1,BA00013782A
+SSRL-050,BLDG 131 - Beam: BL-11 lateral shield wall by blue monitor panel ,1,37.41839759,-122.2013691,1,BA000184277
+SSRL-051,BLDG 131 - Beam: BL-14 lateral shield wall adjacent to rolling block door at BL11-1 door,1,37.41823537,-122.2005642,1,BA00196851T
+SSRL-052,BLDG 130 - Beam: BL13 lateral shield wall next to BL14-0,1,37.41809236,-122.2012529,1,BA001618415
+SSRL-053,BLDG 130 - beam: at lateral shield wall adj to SPEAR klystrons 6 feet downstream of BL13 ratchet wall,1,37.41811038,-122.2006093,1,BA00151065D
+SSRL-054,BLDG 130 - wall: (South) lateral shield wall at d/s end BL13,1,37.41830198,-122.2014412,1,BA00070879M
+SSRL-055,BLDG 130 - 2nd floor: Room 207,1,37.41845216,-122.2007509,1,BA00069672X
+SSRL-056,BLDG 130 - 2nd floor: Room 208,1,37.41837989,-122.2010283,1,BA000795107
+SSRL-057,BLDG SPEAR - beam: SPEAR (outside) on shielding adjacent to Bldg 130 entry door,1,37.41827033,-122.2012638,1,BA00111320T
+SSRL-058,BLDG SPEAR - 7': Outer SPEAR shielding wall just down from catwalk stairs - Beam Abort Dump (BAD) monitor Block RBI-9L,1,37.41799668,-122.2010131,1,BA002175745
+SSRL-059,BLDG SPEAR - 7': Outer SPEAR shielding wall. Monitor on uppermost portion of shielding adj to roof - Septum monitor Block RBI-7,1,37.41822363,-122.2011871,1,BA001882119
+SSRL-061,BLDG SPEAR - beam: Inner SPEAR shielding wall. At foot of catwalk steps (inner ring) area: at Block 8 - Beam Abort Dump (BAD) monitor,1,37.41840986,-122.2006416,1,BA00168715V
+SSRL-062,BLDG SPEAR - beam: Inner SPEAR shielding wall appx. 10' behind catwalk stairs: at Block 3. Adj to west pit PPS gate,1,37.41859154,-122.2012048,1,BA00218758U
+SSRL-063,BLDG 132 - 5': West Pit area inside Klystron Room 101,1,37.4186884,-122.2009467,1,BA00161647X
+SSRL-064,BLDG SPEAR - 4': West Pit PPS entry gate (on metal wall behind door: if open),1,37.41876534,-122.2009564,1,BA00085367U
+SSRL-065,BLDG 221 - 4': SPEAR electronics shop adjacent to east pit shielding wall at southeast entrance,1,37.41837757,-122.2007131,1,BA00120898V
+SSRL-066,BLDG SPEAR - 4': East Pit PPS entry gate (on metal wall behind door - if open),1,37.41869746,-122.2013025,1,BA001172578
+SSRL-067,BLDG 117 - 4': SPEAR Ops control building at southeast entry,1,37.41802256,-122.2007381,1,BA00096613Y
+SSRL-068,BLDG 117 - 6': SPEAR Ops control building in kitchen area,1,37.4186403,-122.2014332,1,BA00070015G
+SSRL-069,BLDG SPEAR - beam: Inner SPEAR shielding wall near northwest corner of SPEAR Ops building - septum monitor (beneath cable tray): at Block 10,1,37.41818139,-122.2005693,1,BA001710287
+SSRL-070,BLDG SPEAR - beam: Inner SPEAR shielding wall near north side of SPEAR Ops building - K3 kicker magnet monitor; at block 15,1,37.41851581,-122.2013211,1,BA000281974
+SSRL-071,BLDG SPEAR - roof: SPEAR roof shielding directly above PR1 profile monitor just before BTS injection point,1,37.41842081,-122.2009908,0,
+SSRL-072,BLDG SPEAR - roof: SPEAR roof shielding directly above Beam Abort Dump (BAD),1,37.41814661,-122.2009455,0,
+SSRL-073,BLDG SPEAR - roof: SPEAR roof shielding directly above septum down from BTS injection point pr2,1,37.41819533,-122.2012271,0,
+SSRL-074,On corner of B-289 trailer,1,37.41860535,-122.2008237,0,
+SSRL-075,On corner of B-288 (east) trailer,1,37.41856128,-122.201473,0,
+SSRL-076,On corner of B-288 (west) trailer,1,37.41798888,-122.201192,0,
+SSRL-077,On corner of B-294 trailer,1,37.41843544,-122.2004684,0,
+SSRL-078,BLDG 130 - 2nd floor: Room 203,1,37.41819515,-122.2014451,1,BA00195910Y
+SSRL-079,BLDG 130 - 2nd floor: Room 209,1,37.41854574,-122.2008483,1,BA00216010U
+SSRL-080,BLDG  130 - beam: Bldg 131 Bl11-2 on shelf adj to door,1,37.4185809,-122.2005753,1,BA001466525
+SSRL-081,SPEAR roof ajd BSOIC S18 above stoppers,1,37.41848052,-122.2013087,0,
+SSRL-082,SPEAR wall adj b118 on waterpipe,1,37.41859471,-122.2011186,1,BA00028879O
+SSRL-083,Beamline 4-2 work station,0,37.4183562,-122.2014289,1,BA00211986Y
+SSRL-084,4-3 work station,0,37.41811782,-122.2007979,1,BA00091520A
+SSRL-085,4-0 hutch wall,0,37.4184054,-122.2004799,1,BA00172891X
+SSRL-086,BL 5-0 HPI: wall,0,37.41848938,-122.201024,1,BA000424269
+SSRL-087,BL 5-0 HPI: roof,0,37.41828085,-122.2011001,1,BA000335549
+SSRL-088,d/s BL15 rolling block beside 5-0 hutch door,0,37.41797864,-122.2008918,1,BA00102423M
+SSRL-089,BL 5-4 Workstation,0,37.41805408,-122.2007105,1,BA00074768N
+SSRL-090,BL 5 Workstation downstream ,0,37.41822586,-122.200521,1,BA002125477
+SSRL-091,Vertical post at downstream end of BL 5-4,0,37.41795988,-122.2007481,1,BA00091015B
+SSRL-092, BL 5 @ crotch bare 3 EM 3,0,37.41842945,-122.2015373,0,
+SSRL-093, u/s of BL5 ratchet wall EM4 beside PPS box,0,37.41857673,-122.2011082,1,BA001953902
+SSRL-094,downstream of bl 5 rolling block 5EM5,0,37.41797439,-122.2012299,1,BA000859002
+SSRL-095,BL 6-0HPI adj rolling block and HPI,0,37.41856468,-122.2007086,1,BA00000941H
+SSRL-096,BL 6-0 HPI roof,0,37.41867976,-122.2011928,1,BA00158436Z
+SSRL-097,BL 6-0 Hutch Wall,0,37.41844959,-122.201247,1,BA001945305
+SSRL-098,6-0 upstream wall @ SSRL side (es3),0,37.41859738,-122.2010452,0,
+SSRL-099,BL 6-2Workstation,0,37.41817579,-122.2012778,1,BA001933714
+SSRL-100,6-2 Workstation SPEAR side Hutch wall,0,37.41856012,-122.2005367,1,BA001616708
+SSRL-101,HPI 7-0 hutch wall ,0,37.41859511,-122.2010393,1,BA00006769X
+SSRL-102,HPI 7-0 hutch roof on blue rack,0,37.41816339,-122.2012604,1,BA00085298R
+SSRL-103,7-1 workstation,0,37.41849502,-122.2004702,1,BA000648231
+SSRL-104,Upstream wall of BL 7-0 (@ 1st optic),0,37.41815667,-122.2007138,0,
+SSRL-105,7-0 workstation,0,37.41823017,-122.2014469,1,BA00199184V
+SSRL-106,BL 8-2 Work station on blue rack,0,37.41859305,-122.2010696,1,BA000672660
+SSRL-107,BL 8 SPEAR wall penet bare 6 EM6,0,37.41826266,-122.2013855,1,BA002166661
+SSRL-108,downstream on blue support bare 7 EM 7,0,37.41834551,-122.2015496,1,BA001922056
+SSRL-109,downstream on blue support  bare 8 EM 8,0,37.41849627,-122.2006425,1,BA000322588
+SSRL-110,BL 9-0 upstream wall @ SSRL side,0,37.41812323,-122.2007413,0,
+SSRL-111,BL 9 SPEAR wall adj bl 8-2 bar 9,0,37.41818196,-122.201107,1,BA00089947G
+SSRL-112,BL 8 HPI: wall on black box behind I beam,0,37.41830512,-122.201453,0,
+SSRL-113,BL 9 HPI and HPI wall ,0,37.41816136,-122.2014525,1,BA00117067B
+SSRL-114,BL 9-1 d/s hutch beside window,0,37.41830739,-122.2009265,1,BA00090387V
+SSRL-114A,BL 9-1 Workstation (second 114 location?),0,37.41817436,-122.2015114,0,
+SSRL-115,BL 9-0 Hutch wall adj entry door,0,37.41805595,-122.201278,1,BA00101123T
+SSRL-116,BL 10-0 HPI: wall,0,37.41830345,-122.2013634,1,BA001931453
+SSRL-117,BL 10-0 HPI: roof,0,37.41816348,-122.2010345,1,BA001685307
+SSRL-118,BL 10-2 Workstation,0,37.41861152,-122.2009345,1,BA000772254
+SSRL-119,BL 10-0 Hutch Wall,0,37.41808956,-122.2009177,0,
+SSRL-120,BL 11 ratchet wall close to BL11-3 workstation,0,37.41824799,-122.2007561,1,BA00014178A
+SSRL-121,BL 11-0 HPI: roof,0,37.41797677,-122.2010073,1,BA00102813F
+SSRL-122,BL 11-0 Hutch wall,0,37.41822337,-122.2013058,0,
+SSRL-123,BL 11-1 Work station (panasoinic ,0,37.41810786,-122.2010204,1,BA00168033B
+SSRL-124,BL 11-0 door,0,37.41854792,-122.2011151,1,BA000257909
+SSRL-125,BL 11-1 bare 1 EM1,0,37.41840931,-122.2013535,0,
+SSRL-126,BL 11-1 bare 2 EM2,0,37.41866488,-122.2010379,0,
+SSRL-127,BL 12 HPI: wall,0,37.41812289,-122.2014864,1,BA00152230L
+SSRL-128,BL 12 HPI: roof,0,37.41851895,-122.2008179,1,BA00151024J
+SSRL-129,BL 12-0 upstream wall @ SSRL side,0,37.41854275,-122.2009657,1,BA000276438
+SSRL-130,BL 13 Blue electronics rack,0,37.41815325,-122.2008237,1,BA000276438
+SSRL-131,bl 13 HPI: Spear Wall adj HPI,0,37.4184603,-122.2009477,0,
+SSRL-132,BL 13 rolling block door,0,37.41856011,-122.2005017,1,BA00131016K
+SSRL-133,BL 14 HPI: wall,0,37.41820927,-122.2012539,0,
+SSRL-134,BL 14 HPI: roof,0,37.41859384,-122.2014255,1,BA00132263G
+SSRL-135,BL  14-2 control station,0,37.41834507,-122.201249,1,BA002018846
+SSRL-136,BL 14-0 front of hutch door,0,37.4186248,-122.2011928,1,BA00136240K
+SSRL-137,Bldg 130 room 207 adj moderator,0,37.41826978,-122.2005886,1,BA00094287T
+SSRL-138,B130 R208 a adj  moderator,0,37.4180937,-122.2012657,1,BA00034206F
+SSRL-139,SLM Shielded Box,0,37.41846465,-122.2013758,1,BA00038478W
+SSRL-140,SLM Electronics rack near upstream wall,0,37.41817072,-122.2010418,1,BA001716037
+SSRL-141,BL 1 HPI: wall,0,37.41818553,-122.2006604,0,
+SSRL-142,BL 1HPI: roof,0,37.41817058,-122.2013489,0,
+SSRL-143,BL 1-0 Hutch Door,0,37.41839716,-122.200766,1,BA001623761
+SSRL-144,BL 1-4 Workstation,0,37.41848406,-122.2010373,1,BA00164971X
+SSRL-145,BL 1-5 Workstation near storage room,0,37.41860172,-122.2007497,1,BA001591926
+SSRL-146,BL 2 HPI: wall,0,37.41869849,-122.2007755,0,
+SSRL-147,BL 2 HPI: roof,0,37.41855483,-122.2013393,1,BA00083299R
+SSRL-148,BL 2-0 Hutch Door,0,37.41845827,-122.2011681,1,BA00027272F
+SSRL-149,BL 2-2 Electronics rack nearest hutch,0,37.41853883,-122.2007357,1,BA001278524
+SSRL-150,BL 4-0 HPI: wall,0,37.41834415,-122.2006049,0,
+SSRL-151,BL 4-0 HPI: roof,0,37.41831283,-122.2014264,1,BA00158261A
+SSRL-152,BOOSTER: BL 30: near bolt #115,1,37.41860272,-122.2013281,0,
+SSRL-153,BOOSTER: BL 46: near HV box,1,37.41850115,-122.2005759,0,
+SSRL-154,BOOSTER: BL 38: under duct: near stairs,1,37.4182842,-122.2007565,1,BA000872228
+SSRL-155,BOOSTER: Above QF 24.  RHEED SSRL BL 5-1 RGD#45,1,37.4183681,-122.2015091,0,
+SSRL-156,BL5-1: RGD: on leg opposite target,1,37.41849841,-122.2013164,0,
+SSRL-157,BL16 Ratchet Wall,1,37.41833026,-122.2007895,1,BA00023788W
+SSRL-158,Booster-Upstairs on West wall by BSOIC,1,37.4186964,-122.2010023,0,
+SSRL-159,BLDG 131 - beam: BL-5 ratchet shield wall,0,37.41860449,-122.2006616,1,BA00018162J
+SSRL-160,BL11-3 Work Station,0,37.41804375,-122.201391,1,BA000874604
+SSRL-161,Duplicate to SSRL-[145] BL-1 Wall cross from 1-0,0,37.41806151,-122.2008454,1,BA00211582E
+SSRL-162,Shield Wall BL15: across from BL-5 w/b,0,37.41824982,-122.2006373,0,
+SSRL-163,BL16-2 workstation,0,37.41833202,-122.2012596,1,BA001179532
+SSRL-164,BL5-2 workstation,0,37.41868981,-122.2008753,1,BA001834417
+SSRL-165,BL15-0 HPI,0,37.41834999,-122.2009208,1,BA00189811W
+SSRL-166,BL15-2 hutch d/s door,0,37.41797672,-122.2008626,1,BA000794315
+SSRL-167,BL15-2 workstation,0,37.4181896,-122.200623,1,BA00068747P
+SSRL-168,BL11-3 d/s workstation,0,37.41860221,-122.2011781,1,BA00155972W
+SSRL-169,BLDG 130: Lab 201,1,37.4185913,-122.2014818,1,BA00162868O
+SSRL-170,SSRL Block 7 on SPEAR inner wall,1,37.41815804,-122.2006472,1,BA00069159V
+SSRL-172,RHEED BL 5-2 RGD#51,0,37.41864801,-122.2013713,0,
+Starbuck-001,Seating area: on floor in moderator,1,37.419698,-122.202731,1,BA00190030J
+SUSB-001,First floor stairwell,0,37.419159,-122.203846,1,BA00128559V
+SUSB-002,Security Office: Rm 1080: corner window frame toward SSRL,0,37.41924523,-122.2038444,0,
+SUSB-003,Second floor stairwell: on mesh left side top of stairs,0,37.419097,-122.2038738,1,BA00038893W
+SUSB-004,Cafeteria: window frame by east exit: toward SSRL,0,37.41923068,-122.2037093,1,BA001504276
+SUSB-005,Third floor stairwell: on mesh left side at top of stairs,0,37.4192601,-122.2037619,1,BA000427916
+SUSB-006,Office: Rm 3152 : corner window frame toward SSRL,0,37.41925741,-122.2037975,0,
+SUSB-007,Fourth floor stairwell: on mesh left side at top of stairs,0,37.41917404,-122.2038283,1,BA001385345
+SUSB-008,Directors Office: Rm 4160: corner window frame toward SSRL,0,37.41910124,-122.2037211,1,BA001904913
+TLD Lab-001,Background dosimeter (B28: Rm 134 ),0,37.416879,-122.205218,1,BA000298424
+TLD Lab-002,Background dosimeter (B28: Rm 134 ),0,37.4168665,-122.2052193,1,BA001045585
+TLD Lab-003,Background dosimeter (B28: Rm 134 ),0,37.41684975,-122.205254,1,BA00188862Q
+TLD Lab-004,Background dosimeter (B28: Rm 134 ),0,37.41691811,-122.2052223,1,BA000141377
+TLD Lab-005,Background dosimeter (B28: Rm 134 ),0,37.41691023,-122.205251,1,BA000388225
+TLD Lab-006,Background dosimeter (B28: Rm 134: in poly),1,37.41688953,-122.2051767,1,BA000255816
+TLD Lab-007,Background dosimeter (B28: Rm 134: in poly),1,37.41686973,-122.2051723,1,BA001308090
+TLD Lab-008,Background dosimeter (B28: Rm 134: in poly),1,37.41690772,-122.2052465,1,BA001665333
+TLD Lab-009,Background dosimeter (B28: Rm 134: in poly),1,37.41687545,-122.2052336,1,BA00113574A

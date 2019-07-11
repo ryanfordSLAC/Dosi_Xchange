@@ -229,7 +229,9 @@ extension LocationViewController {
         //should separate text file from query
 //        var csvText = "Latitude, Longitude, Description, Number, QRCode, Collected Flag, Date Deployed, Date Collected, Wear Period\n"
         let flag = 0
-        let predicate = NSPredicate(format: "collectedFlag == %d", flag)
+        let p1 = NSPredicate(format: "collectedFlag == %d", flag)
+        let p2 = NSPredicate(format: "active == %d", 1)
+        let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [p1, p2])
         let query = CKQuery(recordType: "Location", predicate: predicate)
         database.perform(query, inZoneWith: nil) { (records, _) in
             guard let records = records else { return }

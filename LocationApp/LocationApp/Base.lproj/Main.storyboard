@@ -250,20 +250,9 @@
                                     <action selector="toggleAlertsGo:" destination="M89-R5-CVf" eventType="touchDown" id="5zR-1e-cqV"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Od-di-Fcl">
-                                <rect key="frame" x="90" y="440" width="140" height="44"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
-                                <state key="normal" title="Upload Data">
-                                    <color key="titleColor" red="0.58072251080000004" green="0.066734083" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="uploadData:" destination="M89-R5-CVf" eventType="touchDown" id="JRx-jt-ci6"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="5Od-di-Fcl" firstAttribute="centerX" secondItem="Kob-bg-1b1" secondAttribute="centerX" id="0bk-os-VCj"/>
                             <constraint firstItem="zZL-V9-XtT" firstAttribute="leading" secondItem="Kob-bg-1b1" secondAttribute="leading" id="1jI-fL-FlG"/>
                             <constraint firstItem="iL3-Xk-1J0" firstAttribute="centerX" secondItem="Kob-bg-1b1" secondAttribute="centerX" id="4hg-Og-Nd4"/>
                             <constraint firstItem="zZL-V9-XtT" firstAttribute="top" secondItem="8cu-87-6eq" secondAttribute="top" id="9D7-13-zaz"/>
@@ -274,14 +263,12 @@
                             <constraint firstItem="P1C-rk-auY" firstAttribute="top" secondItem="f4q-J5-UJn" secondAttribute="bottom" constant="45" id="YT9-Qf-RMI"/>
                             <constraint firstAttribute="trailing" secondItem="zZL-V9-XtT" secondAttribute="trailing" id="b7D-Z6-DRt"/>
                             <constraint firstItem="f4q-J5-UJn" firstAttribute="top" secondItem="zZL-V9-XtT" secondAttribute="bottom" constant="20" id="nvL-A6-4wP"/>
-                            <constraint firstItem="5Od-di-Fcl" firstAttribute="top" secondItem="66w-pX-8q6" secondAttribute="bottom" constant="45" id="oBM-vK-Cy4"/>
                             <constraint firstItem="P1C-rk-auY" firstAttribute="centerX" secondItem="Kob-bg-1b1" secondAttribute="centerX" id="qEy-TG-6tH"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="8cu-87-6eq"/>
                     </view>
                     <connections>
                         <outlet property="toggleAlerts" destination="66w-pX-8q6" id="atg-IT-FGt"/>
-                        <outlet property="uploadDataButton" destination="5Od-di-Fcl" id="Kov-Uo-zE6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UyI-x6-pjz" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -626,8 +613,9 @@
         <image name="Tools" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="K3I-ac-JBM"/>
         <segue reference="Szf-7B-3OI"/>
-        <segue reference="WDT-T2-TNV"/>
+        <segue reference="1iZ-uO-Z3p"/>
         <segue reference="1eV-Ng-UnH"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -290,7 +290,9 @@ extension ScannerViewController { //methods
     
     func collect(flag: Int64, dosiNumber: String, mismatch: Int64) {
         
-        let predicate = NSPredicate(format: "dosinumber = %@", dosiNumber)
+        let p1 = NSPredicate(format: "dosinumber = %@", dosiNumber)
+        let p2 = NSPredicate(format: "active == %d", 1)
+        let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [p1, p2])
         let query = CKQuery(recordType: "Location", predicate: predicate)
         database.perform(query, inZoneWith: nil) { (records, _) in
             guard let records = records else { return }
@@ -408,7 +410,8 @@ extension ScannerViewController {  //queries
         let flag = 0
         let p1 = NSPredicate(format: "collectedFlag == %d", flag)
         let p2 = NSPredicate(format: "dosinumber == %@", variables.dosiNumber!)
-        let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [p1, p2])
+        let p3 = NSPredicate(format: "active == %d", 1)
+        let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [p1, p2, p3])
         let query = CKQuery(recordType: "Location", predicate: predicate)
         database.perform(query, inZoneWith: nil) { (records, _) in
             guard let records = records else { return }
@@ -436,7 +439,8 @@ extension ScannerViewController {  //queries
         let flag = 0
         let p1 = NSPredicate(format: "collectedFlag == %d", flag)
         let p2 = NSPredicate(format: "QRCode == %@", variables.QRCode!)
-        let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [p1, p2])
+        let p3 = NSPredicate(format: "active == %d", 1)
+        let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [p1, p2, p3])
         let query = CKQuery(recordType: "Location", predicate: predicate)
         database.perform(query, inZoneWith: nil) { (records, _) in
             guard let records = records else { return }
