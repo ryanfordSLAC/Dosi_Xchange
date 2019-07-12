@@ -428,7 +428,7 @@ extension ScannerViewController {  //queries
             
         } //end perform query
         
-        run(after: 1) {
+        run(after: 2) {
             self.dispatchGroup.leave()
         }
         
@@ -536,7 +536,7 @@ extension ScannerViewController {  //alerts
 //        }
         
         let mismatch = UIAlertAction(title: "Mismatch", style: .default) { (_) in
-            self.alert3()
+            
         }
         
 //        let btnImage    = UIImage(named: "Unchecked.png")!

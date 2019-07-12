@@ -78,7 +78,7 @@ class ActiveLocationsViewController: UIViewController, UITableViewDataSource, UI
         
         var records = [CKRecord]()
         let flag = 1
-        let predicate = NSPredicate(format: "active = %d", flag)
+        let predicate = NSPredicate(format: "active == %d", flag)
         let query = CKQuery(recordType: "Location", predicate: predicate)
         let operation = CKQueryOperation(query: query)
         operation.resultsLimit = 1000

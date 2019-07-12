@@ -103,13 +103,10 @@ class StartupViewController: UIViewController, MFMailComposeViewControllerDelega
         self.activityIndicator.isHidden = false
         activityIndicator.startAnimating()
 
-            //let numberDeployed:Float = Float(self.query.getPriorCycleCountCFYes())
-            //let numberCompleted:Float = Float(self.query.getPriorCycleCountCFNo()) + Float(self.query.getPriorCycleCountCFYes())
-            //Start the queries
-            query.getPriorCycleCountCFYes()
-            query.getPriorCycleCountCFNo()
+        //Start the queries
+        query.getPriorCycleCountCFYes()
+        query.getPriorCycleCountCFNo()
         
-
         query.dispatchGroup.notify(queue: .main){
             let numberCompleted:Float = Float(self.query.countB)
             let numberRemaining:Float = Float(self.query.countA)
@@ -135,7 +132,7 @@ class StartupViewController: UIViewController, MFMailComposeViewControllerDelega
             self.progressView.progress = progress
             
         }//end query
-        run(after: 1) {
+        run(after: 2) {
             self.activityIndicator.stopAnimating()
             self.activityIndicator.isHidden = true
         }

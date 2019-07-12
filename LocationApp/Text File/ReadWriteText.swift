@@ -18,21 +18,24 @@ class readWriteText {
     func readText() {
         
         let file = "Dosi_Data" //this is the file. we will write to and read from it
+        
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             let fileURL = dir.appendingPathComponent(file).appendingPathExtension("csv")
-            //print(fileURL)
+            
             self.messageURL = fileURL
             do {
                 let data = try String(contentsOf: fileURL, encoding: .utf8)
                 self.data = data
-                //print("from readText \(data)")
-                //print(fileURL)
+                //print("3, readText Successful: \(self.data)")
             }
-            catch { print(error) }
+            catch {
+                print("\(error): readText()")
+            }
             
-        } //print("read data, \(self.data)")
+        } // end if let
         
-    } //end readText
+    } //end func readText
+    
     
     func writeText(someText:String) {
         
@@ -43,26 +46,29 @@ class readWriteText {
             
             let fileURL = dir.appendingPathComponent(file).appendingPathExtension("csv")
             self.messageURL = fileURL
+            
             //write
             do {
                 try text.write(to: fileURL, atomically: false, encoding: .utf8)
-                //print("2, Write Successful: \(text)")
+                //print("2, writeText-Write Successful: \(text)")
             }
-            catch { print(error) }
+            catch {
+                print("\(error): writeText-write")
+            }
             
             //read
             do {
-                //print("fileURL: \(fileURL)")
                 let data = try String(contentsOf: fileURL, encoding: .utf8)
                 self.data = data
-                //print("2.5 Read Successful: \(data)")
-
-            } //end do
-            catch { print(error) }
+                //print("2.5, writeText-Read Successful: \(data)")
+            }
+            catch {
+                print("\(error): writeText-read")
+            }
             
-        } //end if let dir
+        } //end if let
 
-    } //end writeText
+    } //end func writeText
 
 } //end class
     

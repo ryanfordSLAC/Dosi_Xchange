@@ -15,20 +15,18 @@ class ToolsViewController: UIViewController, MFMailComposeViewControllerDelegate
     let readwrite = readWriteText()  //make external class available locally
     let data = LocationViewController()
     let startup = StartupViewController()
-    let svController = ScannerViewController()
+    //let svController = ScannerViewController()
 
-
-    var alertCounter:Int = 0
-    
+    //var alertCounter:Int = 0
     
     //connect to "Upload Data" button on tools view controller (main.storyboard)
     //button currently disabled (deleted)
-    @IBOutlet weak var uploadDataButton: UIButton!
-    @IBAction func uploadData(_ sender: Any) {
-        
-        //run uploadToCloud() function in Save class (UploadToCloud.swift)
-        _ = Save().uploadToCloud()
-    }
+    //@IBOutlet weak var uploadDataButton: UIButton!
+    //@IBAction func uploadData(_ sender: Any) {
+    //
+    //    //run uploadToCloud() function in Save class (UploadToCloud.swift)
+    //    _ = Save().uploadToCloud()
+    //}
     
 /*** TOGGLE ALERTS ***
     //connect to "Toggle Alerts" button on tools view controller (main.storyboard)
@@ -76,15 +74,15 @@ class ToolsViewController: UIViewController, MFMailComposeViewControllerDelegate
 *** TOGGLE ALERTS ***/
     
     @IBAction func emailTouchDown(_ sender: Any) {
+        
         data.queryDatabaseForCSV()
         readwrite.readText()
         
         startup.run(after: 2) {  //wait for 2 seconds before sending mail, to allow prior tasks to finish.
-            
             self.sendEmail()
-            
         } //end run
-    }
+        
+    } // end func emailTouchDown
     
     func sendEmail() {
         
@@ -98,24 +96,25 @@ class ToolsViewController: UIViewController, MFMailComposeViewControllerDelegate
             mail.setToRecipients(["ryanford@slac.stanford.edu"])
             mail.setSubject("Area Dosimeter Data")
             mail.setMessageBody("The dosimeter data is attached to this e-mail.", isHTML: true)
+            
             if let fileAttachment = NSData(contentsOf: URL!) {
                 mail.addAttachmentData(fileAttachment as Data, mimeType: "text/csv", fileName: "Dosi_Data.csv")
-            } // end if let fileAttachment
+            } // end if let
             
             present(mail, animated: true)
-            
         }
+            
         else {
             // show failure alert
-        } //end else
+        }
         
-    } //end sendEmail
+    } //end func sendEmail
     
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         
         controller.dismiss(animated: true)
         
-    } //end mailComposeController
+    } //end func mailComposeController
     
 } //end class
 

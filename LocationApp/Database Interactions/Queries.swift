@@ -59,7 +59,7 @@ class Queries {
         
         database.add(operation)
         
-        run(after: 1) {
+        run(after: 2) {
             //need to slow it down while it queries.
             self.dispatchGroup.leave()
         }

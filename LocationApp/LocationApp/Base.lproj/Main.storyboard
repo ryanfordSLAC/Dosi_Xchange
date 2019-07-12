@@ -567,9 +567,8 @@
         <image name="Tools" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="cs9-V2-lMJ"/>
         <segue reference="ar4-0B-Xd6"/>
         <segue reference="1iZ-uO-Z3p"/>
-        <segue reference="YKi-gr-Ubt"/>
+        <segue reference="zta-o7-k1W"/>
     </inferredMetricsTieBreakers>
 </document>
