@@ -420,15 +420,15 @@ extension ScannerViewController {  //queries
                 variables.dosiNumber = record["dosinumber"] as? String
                 variables.dosiLocation = record["locdescription"] as? String
                 variables.QRCode = record["QRCode"] as? String
-                variables.mismatch = record["mismatch"] as? Int64
                 variables.moderator = record["moderator"] as? Int64
+                if record["mismatch"] != nil { variables.mismatch = record["mismatch"] as? Int64 }
             } //end for
             
             self.records = records
             
         } //end perform query
         
-        run(after: 2) {
+        run(after: 1) {
             self.dispatchGroup.leave()
         }
         
@@ -449,8 +449,8 @@ extension ScannerViewController {  //queries
                 variables.QRCode = record["QRCode"] as? String
                 variables.dosiLocation = record["locdescription"] as? String
                 variables.dosiNumber = record["dosinumber"] as? String
-                variables.mismatch = record["mismatch"] as? Int64
                 variables.moderator = record["moderator"] as? Int64
+                if record["mismatch"] != nil { variables.mismatch = record["mismatch"] as? Int64 }
             } //end for
             
           self.records = records
@@ -530,21 +530,8 @@ extension ScannerViewController {  //alerts
             self.alert11()
         }
         
-//        let mismatch = UIAlertAction(title: "Mismatch", style: .default) { (_) in
-//            self.alert3()                               //spaces above provide offset to prevent touching "Mismatch"
-//            //touching "Mismatch" reopens the alert.
-//        }
+        let mismatch = UIAlertAction(title: "Mismatch", style: .default) { (_) in }
         
-        let mismatch = UIAlertAction(title: "Mismatch", style: .default) { (_) in
-            
-        }
-        
-//        let btnImage    = UIImage(named: "Unchecked.png")!
-//        let imageButton : UIButton = UIButton(frame: CGRect(x: 25, y: 153, width: 35, height: 35))
-//        imageButton.setBackgroundImage(btnImage, for: UIControl.State())
-//        imageButton.addTarget(self, action: #selector(checkBoxAction(_:)), for: .touchUpInside)
-//
-//        alertPrompt.view.addSubview(imageButton)
         alertPrompt.addAction(mismatch)
         alertPrompt.view.addSubview(mismatchSwitch())
         alertPrompt.addAction(ExchangeDosimeter)
@@ -676,7 +663,7 @@ extension ScannerViewController {  //alerts
             self.alert10() //Success
         }  //end let
         
-        let discardAndStartOver = UIAlertAction(title: "Discard & Start Over", style: .default, handler: handlerCancel)
+        let discardAndStartOver = UIAlertAction(title: "Discard & Start Over", style: .default, handler: handlerOK)
         
         alertPrompt.addTextField { (textfield) in
             if variables.dosiLocation != nil {
@@ -750,25 +737,6 @@ extension ScannerViewController {  //alerts
         }
     }  //end alert10
     
-    
-//    @objc func checkBoxAction(_ sender: UIButton) {  //animates the check box on Alert #3, sets flag.
-//        if sender.isSelected {
-//            sender.isSelected = false
-//            let path = Bundle.main.path(forResource: "Checked", ofType: "png")
-//            let btnImage    = UIImage(named: path!)
-//            sender.setBackgroundImage(btnImage, for: UIControl.State())
-//            variables.mismatch = 1
-//
-//        }//end if
-//        else {
-//            sender.isSelected = true
-//            let path = Bundle.main.path(forResource: "Unchecked", ofType: "png")
-//            let btnImage    = UIImage(named: path!)
-//            sender.setBackgroundImage(btnImage, for: UIControl.State())
-//            variables.mismatch = 0
-//
-//        }//end else
-//    } //end func
     
     // mismatch switch
     func mismatchSwitch() -> UISwitch {

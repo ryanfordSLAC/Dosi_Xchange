@@ -13,23 +13,10 @@ import CloudKit
 import CoreLocation
 
 class StartupViewController: UIViewController, MFMailComposeViewControllerDelegate, CLLocationManagerDelegate {
-
     
-    let readwrite = readWriteText() //make external class available locally
-    let database = CKContainer.default().publicCloudDatabase //Establish database
-    let data = LocationViewController()
     let reachability = Reachability()!
     let location = CLLocationManager()
     let query = Queries()
-
-    
-    //add a delay function.
-    func run(after seconds: Int, completion: @escaping () -> Void) {
-        let deadline = DispatchTime.now() + .seconds(seconds)
-        DispatchQueue.main.asyncAfter(deadline: deadline) {
-            completion()
-        }//end dispatch queue 123
-    } //end run
 
     @IBOutlet weak var Tools: UIImageView!
 
@@ -37,7 +24,7 @@ class StartupViewController: UIViewController, MFMailComposeViewControllerDelega
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    @IBOutlet weak var statusTextViewBox: UITextView!
+    @IBOutlet weak var statusLabel: UILabel!
     
     override func viewDidLoad() {
         
@@ -61,21 +48,21 @@ class StartupViewController: UIViewController, MFMailComposeViewControllerDelega
         reachability.whenReachable = { reachability in
             if reachability.connection == .wifi {
                 print("Reachable via WiFi")
-            } else {
+            }
+            else {
                 print("Reachable via Cellular")
             }
-        } //whenReachable end
+        }
+        
         reachability.whenUnreachable = { _ in
             print("Not reachable")
             let alert = UIAlertController(title: "WiFi Connection Error", message: "Must be connected to WiFi to identify position and save data to cloud", preferredStyle: .alert)
-            let OK = UIAlertAction(title: "OK", style: .default){ (_) in
-                return
-            }//end OK
+            let OK = UIAlertAction(title: "OK", style: .default) { (_) in return }
             alert.addAction(OK)
             DispatchQueue.main.async {
                 self.present(alert, animated: true, completion: nil)
             } //async end
-            
+        
         }//end when unreachable
         
         do {
@@ -98,45 +85,53 @@ class StartupViewController: UIViewController, MFMailComposeViewControllerDelega
     } //end location manager fail.
     
     func setProgress() {
+        
         //start activityIndicator
-
         self.activityIndicator.isHidden = false
         activityIndicator.startAnimating()
 
-        //Start the queries
+        //start the queries
         query.getPriorCycleCountCFYes()
         query.getPriorCycleCountCFNo()
         
-        query.dispatchGroup.notify(queue: .main){
-            let numberCompleted:Float = Float(self.query.countB)
-            let numberRemaining:Float = Float(self.query.countA)
+        query.dispatchGroup.notify(queue: .main) {
+            let numberCompleted:Float = Float(self.query.countCFYes)
+            let numberRemaining:Float = Float(self.query.countCFNo)
             let numberDeployed:Float = numberCompleted + numberRemaining
             let progress = (numberCompleted / numberDeployed)
             
             switch progress {
                 
-            case 0:
-                self.statusTextViewBox.text = "Ready to begin collection of \(Int(numberRemaining)) dosimeters!"
+                case 0:
+                    self.statusLabel.text = "Ready to begin collection of \(Int(numberRemaining)) dosimeters!"
                 
-            case 1:
-                self.statusTextViewBox.text = "All dosimeters from the prior period have been collected!"
-                print("Completed: \(numberCompleted)")
-                print("Deployed: \(numberDeployed)")
-                print("Progress \(progress)")
+                case 1:
+                    self.statusLabel.text = "All dosimeters from the prior period have been collected!"
+                    print("Completed: \(numberCompleted)")
+                    print("Deployed: \(numberDeployed)")
+                    print("Progress \(progress)")
                 
-            default:
-                self.statusTextViewBox.text = "Green Pins: \(Int(numberRemaining)) remaining out of \(Int(numberDeployed)) are ready for collection"
+                default:
+                    self.statusLabel.text = "Green Pins: \(Int(numberRemaining)) remaining out of \(Int(numberDeployed)) are ready for collection"
                 
             } //end switch
             
             self.progressView.progress = progress
-            
-        }//end query
-        run(after: 2) {
+        }
+        
+        run(after: 1) {
             self.activityIndicator.stopAnimating()
             self.activityIndicator.isHidden = true
         }
-
-    }//end setProgress
-
-}  //end Class
+        
+    }// end setProgress
+    
+    //delay function.
+    func run(after seconds: Int, completion: @escaping () -> Void) {
+        let deadline = DispatchTime.now() + .seconds(seconds)
+        DispatchQueue.main.asyncAfter(deadline: deadline) {
+            completion()
+        }//end dispatch queue 123
+    } //end run
+    
+} // end class

@@ -14,8 +14,8 @@ import CloudKit
 class ToolsViewController: UIViewController, MFMailComposeViewControllerDelegate {
     
     let readwrite = readWriteText()  //make external class available locally
-    let startup = StartupViewController()
     let database = CKContainer.default().publicCloudDatabase  //establish database
+    let dispatchGroup = DispatchGroup()
     
     var QRCode:String = ""
     var latitude:String = ""
@@ -26,16 +26,19 @@ class ToolsViewController: UIViewController, MFMailComposeViewControllerDelegate
     var collectedFlag:Int64?
     var cycle:String = ""
     var mismatch:Int64?
-    
+    var collectedFlagStr:String = ""
+    var mismatchStr:String = ""
+    var csvText = ""
+    var moderator = ""
 
     @IBAction func emailTouchDown(_ sender: Any) {
         
         queryDatabaseForCSV() // takes up to 5 seconds
-        //readwrite.readText()
         
-        startup.run(after: 5) {  //wait for  seconds before sending mail, to allow prior tasks to finish.
-            self.sendEmail()
-        } //end run
+        dispatchGroup.wait() // wait for query to finish
+
+        self.readwrite.writeText(someText: "\(csvText)")
+        self.sendEmail()
         
     } // end func emailTouchDown
     
@@ -44,12 +47,10 @@ class ToolsViewController: UIViewController, MFMailComposeViewControllerDelegate
         
         let URL =  readwrite.messageURL
         
-        //print("URL from sendEmail: \(URL!)")
-        
         if MFMailComposeViewController.canSendMail() {
             let mail = MFMailComposeViewController()
             mail.mailComposeDelegate = self
-            mail.setToRecipients(["ryanford@slac.stanford.edu", "hbchoi@slac.stanford.edu"])
+            mail.setToRecipients(["ryanford@slac.stanford.edu", "brogonia@slac.stanford.edu", "hhtran@slac.stanford.edu", "dmurray@slac.stanford.edu", "hbchoi@slac.stanford.edu"])
             mail.setSubject("Area Dosimeter Data")
             mail.setMessageBody("The dosimeter data is attached to this e-mail.", isHTML: true)
             
@@ -77,45 +78,69 @@ class ToolsViewController: UIViewController, MFMailComposeViewControllerDelegate
     func queryDatabaseForCSV() {
         //set first line of text file
         //should separate text file from query
-        var csvText = "LocationID (QRCode),Latitude,Longitude,Description,Active (0/1),Dosimeter,Collected Flag (nil/0/1),Wear Period,Date Deployed,Date Collected,Mismatch (nil/0/1)\n"
+        dispatchGroup.enter()
+        self.csvText = "LocationID (QRCode),Latitude,Longitude,Description,Moderator (0/1),Active (0/1),Dosimeter,Collected Flag (0/1),Wear Period,Date Deployed,Date Collected,Mismatch (0/1)\n"
         let predicate = NSPredicate(value: true)
+        let sort = NSSortDescriptor(key: "QRCode", ascending: true)
         let query = CKQuery(recordType: "Location", predicate: predicate)
+        query.sortDescriptors = [sort]
         let operation = CKQueryOperation(query: query)
-        operation.resultsLimit = 1000 // change according to max number of records
-        
-        operation.recordFetchedBlock = { (record: CKRecord) in
-            //Careful use of optionals to prevent crashes.
-            if (record["QRCode"] as? String) != nil {self.QRCode = record["QRCode"]!}
-            if (record["latitude"] as? String) != nil {self.latitude = record["latitude"]!}
-            if (record["longitude"] as? String) != nil {self.longitude = record["longitude"]!}
-            if (record["locdescription"] as? String) != nil {self.loc = record["locdescription"]!}
-            if (record["active"] as? Int64) != nil {self.active = record["active"]!}
-            if (record["dosinumber"] as? String) != nil {self.dosimeter = record["dosinumber"]!}
-            if (record["collectedFlag"] as? Int64) != nil {self.collectedFlag = record["collectedFlag"]!}
-            if (record["cycleDate"] as? String) != nil {self.cycle = record["cycleDate"]!}
-            if (record["mismatch"] as? Int64) != nil {self.mismatch = record["mismatch"]!}
-            
-            let dateFormatter = DateFormatter()
-            dateFormatter.timeStyle = .none
-            dateFormatter.dateFormat = "MM/dd/yyyy"
-            let date = Date(timeInterval: 0, since: record.creationDate!)
-            let formattedDate = dateFormatter.string(from: date)
-            let dateModified = Date(timeInterval: 0, since: record.modificationDate!)
-            let formattedDateModified = dateFormatter.string(from: dateModified)
-            let newline = "\(self.QRCode),\(self.latitude),\(self.longitude),\(self.loc),\(self.active),\(self.dosimeter),\(String(describing: self.collectedFlag ?? nil)),\(self.cycle),\(formattedDate),\(formattedDateModified),\(String(describing: self.mismatch ?? nil))\n"
-            csvText.append(contentsOf: newline)
-            self.clear()
-        }
-        
-        operation.queryCompletionBlock = { (cursor: CKQueryOperation.Cursor?, error: Error?) in
-            csvText.append("End of File\n")
-            self.readwrite.writeText(someText: "\(csvText)")
-        }
-        
-        database.add(operation)
+        addOperation(operation: operation)
         
     } //end function
     
+    
+    // add query operation
+    func addOperation(operation: CKQueryOperation) {
+        operation.resultsLimit = 200 // max 400; 200 to be safe
+        operation.recordFetchedBlock = self.recordFetchedBlock // to be executed for each fetched record
+        operation.queryCompletionBlock = self.queryCompletionBlock // to be executed after each query (query fetches 200 records at a time)
+        
+        database.add(operation)
+    }
+    
+    // to be executed after each query (query fetches 200 records at a time)
+    func queryCompletionBlock(cursor: CKQueryOperation.Cursor?, error: Error?) {
+        if let error = error {
+            print(error)
+            return
+        }
+        if let cursor = cursor {
+            let operation = CKQueryOperation(cursor: cursor)
+            addOperation(operation: operation)
+            return
+        }
+        csvText.append("End of File\n")
+        dispatchGroup.leave()
+    }
+    
+    // to be executed for each fetched record
+    func recordFetchedBlock(record: CKRecord) {
+        //Careful use of optionals to prevent crashes.
+        QRCode = record["QRCode"]!
+        latitude = record["latitude"]!
+        longitude = record["longitude"]!
+        loc = record["locdescription"]!
+        active = record["active"]!
+        if record["dosinumber"] != nil {dosimeter = record["dosinumber"]!}
+        if record["cycleDate"] != nil {cycle = record["cycleDate"]!}
+        if record["collectedFlag"] != nil {collectedFlagStr = String(describing: record["collectedFlag"]!)}
+        if record["mismatch"] != nil {mismatchStr = String(describing: record["mismatch"]!)}
+        if record["moderator"] != nil {moderator = String(describing: record ["moderator"]!)}
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeStyle = .none
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        let date = Date(timeInterval: 0, since: record.creationDate!)
+        let formattedDate = dateFormatter.string(from: date)
+        let dateModified = Date(timeInterval: 0, since: record.modificationDate!)
+        let formattedDateModified = dateFormatter.string(from: dateModified)
+        let newline = "\(QRCode),\(latitude),\(longitude),\(loc),\(moderator),\(active),\(dosimeter),\(collectedFlagStr),\(cycle),\(formattedDate),\(formattedDateModified),\(mismatchStr)\n"
+        csvText.append(contentsOf: newline)
+        clear()
+    }
+    
+    // clear variable data
     func clear() {
         QRCode = ""
         latitude = ""
@@ -126,6 +151,8 @@ class ToolsViewController: UIViewController, MFMailComposeViewControllerDelegate
         collectedFlag = nil
         cycle = ""
         mismatch = nil
+        collectedFlagStr = ""
+        mismatchStr = ""
     }
     
 } //end class
