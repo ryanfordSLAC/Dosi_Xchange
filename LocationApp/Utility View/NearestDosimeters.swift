@@ -98,7 +98,7 @@ class NearestLocations: UIViewController, UITableViewDataSource, UITableViewDele
         let cell = tableView.dequeueReusableCell(withIdentifier: "PlainCell", for: indexPath)
 
         nearestTableView.numberOfRows(inSection: sortedRecords.count)
-        nearestTableView.rowHeight = 80  // accomodate 4 lines of data
+        nearestTableView.rowHeight = 90  // accomodate 4 lines of data
         
         // wait for query to finish
         dispatchGroup.wait()
@@ -109,13 +109,16 @@ class NearestLocations: UIViewController, UITableViewDataSource, UITableViewDele
         let dosimeter = "\(self.sortedRecords[indexPath.row].2)"
         let location = "\(self.sortedRecords[indexPath.row].3)"
         
-        // recombine the string
-        let row = ("\(distance) meters\n\(QRCode), \(dosimeter)\n\(location)")
-        cell.textLabel!.font = UIFont(name: "Arial", size: 16)
+        // configure the cell
+        //cell.textLabel?.font = UIFont(name: "Arial", size: 16)
         cell.textLabel?.numberOfLines = 0
-        cell.textLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
-        cell.textLabel?.text = row
-
+        cell.textLabel?.text = "\(QRCode) (\(distance) meters)"
+        
+        cell.detailTextLabel?.font = UIFont(name: "Arial", size: 15)
+        cell.detailTextLabel?.numberOfLines = 0
+        cell.detailTextLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
+        cell.detailTextLabel?.text = "\(dosimeter)\n\(location)"
+        
         return cell
         
     } //end function

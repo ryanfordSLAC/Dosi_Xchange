@@ -10,18 +10,19 @@ import UIKit
 import CloudKit
 
 
-class ActiveLocationsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ActiveLocations: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     
     let database = CKContainer.default().publicCloudDatabase
     let dispatchGroup = DispatchGroup()
     
     var segment:Int = 0
-    var recents = [[CKRecord]]()
-    var locdescription = ""
-    var QRCode = ""
-    var collected:Int = 0
+    var displayInfo = [[(CKRecord, String, String)]]()
+    var checkQR = ""
+    var searches = [[(CKRecord, String, String)]]()
+    var searching = false
     
     @IBOutlet weak var activesTableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +30,7 @@ class ActiveLocationsViewController: UIViewController, UITableViewDataSource, UI
         // Do any additional setup after loading the view.
         activesTableView.delegate = self
         activesTableView.dataSource = self
+        searchBar.delegate = self
         segment = 0
         
         // Table View SetUp
@@ -43,7 +45,7 @@ class ActiveLocationsViewController: UIViewController, UITableViewDataSource, UI
         
         let refreshControl = UIRefreshControl()
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to Refresh Locations")
-        // this query will populate the tablea when the table is pulled.
+        // this query will populate the table when the table is pulled.
         refreshControl.addTarget(self, action: #selector(queryDatabase), for: .valueChanged)
         self.activesTableView.refreshControl = refreshControl
         
@@ -55,7 +57,6 @@ class ActiveLocationsViewController: UIViewController, UITableViewDataSource, UI
         activesTableView.reloadData()
     }
     
-    
     // table functions
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -63,7 +64,7 @@ class ActiveLocationsViewController: UIViewController, UITableViewDataSource, UI
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return recents[segment].count
+        return searching ? searches[segment].count : displayInfo[segment].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -72,47 +73,61 @@ class ActiveLocationsViewController: UIViewController, UITableViewDataSource, UI
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "QRCell", for: indexPath)
         
-        activesTableView.numberOfRows(inSection: recents[segment].count)
+        //activesTableView.numberOfRows(inSection: recents[segment].count)
         activesTableView.rowHeight = 60
         
+        let QRCode = searching ? searches[segment][indexPath.row].1 : displayInfo[segment][indexPath.row].1
+        let locdescription = searching ? searches[segment][indexPath.row].2 : displayInfo[segment][indexPath.row].2
         
-        if recents[segment][indexPath.row].value(forKey: "QRCode") as? String != nil {
-            self.QRCode = recents[segment][indexPath.row].value(forKey: "QRCode") as! String
-        }
-        
-        if recents[segment][indexPath.row].value(forKey: "locdescription") as? String != nil {
-            self.locdescription = recents[segment][indexPath.row].value(forKey: "locdescription") as! String
-        }
-        
-        cell.textLabel!.font = UIFont(name: "Arial", size: 16)
-        cell.textLabel?.numberOfLines = 0
-        cell.textLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
-        cell.textLabel?.text = "\(self.QRCode)\n\(locdescription)"
-        
-        self.QRCode = ""
-        self.locdescription = ""
-        self.collected = 0
-        
+        // format cell title
+        cell.textLabel?.font = UIFont(name: "Arial", size: 16)
+        cell.textLabel?.text = "\(QRCode)"
+        // format cell subtitle
+        cell.detailTextLabel?.font = UIFont(name: "Arial", size: 12)
+        cell.detailTextLabel?.numberOfLines = 0
+        cell.detailTextLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
+        cell.detailTextLabel?.text = "\(locdescription)"
         return cell
     }
     
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//
-//        performSegue(withIdentifier: "manageSegue", sender: self)
-//    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let vc = mainStoryboard.instantiateViewController(withIdentifier: "LocationDetails") as! LocationDetails
+        vc.record = displayInfo[segment][indexPath.row].0
+        self.present(vc, animated: true)
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        let segment0 = displayInfo[0].filter({$0.1.lowercased().prefix(searchText.count) == searchText.lowercased()})
+        let segment1 = displayInfo[1].filter({$0.1.lowercased().prefix(searchText.count) == searchText.lowercased()})
+        searches = [segment0, segment1]
+        
+        searching = true
+        activesTableView.reloadData()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searching = false
+        searchBar.text = ""
+        searchBar.endEditing(true)
+        activesTableView.reloadData()
+    }
     
 }
 
 // query and helper functions
-extension ActiveLocationsViewController {
+extension ActiveLocations {
     
     @objc func queryDatabase() {
         
         dispatchGroup.enter()
-        recents = [[CKRecord]]()
-        recents.append([CKRecord]())
-        recents.append([CKRecord]())
-
+        // reset array
+        displayInfo = [[(CKRecord, String, String)]]()
+        displayInfo.append([(CKRecord, String, String)]())
+        displayInfo.append([(CKRecord, String, String)]())
+        
         let predicate = NSPredicate(value: true)
         let sort = NSSortDescriptor(key: "QRCode", ascending: true)
         let query = CKQuery(recordType: "Location", predicate: predicate)
@@ -158,10 +173,22 @@ extension ActiveLocationsViewController {
     // to be executed for each fetched record
     func recordFetchedBlock(record: CKRecord) {
         
-        let activeFlag:Int = record["active"]!
+        // if record is inactive ("active" = 0), record is appended to the second array (flag = 1)
         var flag = 0
-        if activeFlag == 0 { flag = 1 }
-        recents[flag].append(record)
+        if record["active"]! == 0 { flag = 1 }
+        
+        // fetch QRCode and locdescription
+        let currentQR:String = record["QRCode"]!
+        let currentLoc:String = record["locdescription"]!
+        
+        // if QRCode is not the same as previous record
+        if currentQR != self.checkQR {
+            // append (QRCode, locdescription) tuple displayInfo
+            displayInfo[flag].append((record, currentQR, currentLoc))
+        }
+        
+        self.checkQR = currentQR
+        
         
     } // end func
     

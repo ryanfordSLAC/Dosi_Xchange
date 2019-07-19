@@ -10,7 +10,7 @@
 		5C7925A122DE9B1900B981B2 /* LocationDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7925A022DE9B1900B981B2 /* LocationDetails.swift */; };
 		5C941E5522D93335008C9B3E /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C941E5422D93335008C9B3E /* LocationViewController.swift */; };
 		5CF01FDE22D92F19004604BC /* ToolsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF01FDD22D92F19004604BC /* ToolsViewController.swift */; };
-		5CFF888B22CAA5B700611F60 /* ActiveLocationsTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CFF888A22CAA5B700611F60 /* ActiveLocationsTable.swift */; };
+		5CFF888B22CAA5B700611F60 /* ActiveLocations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CFF888A22CAA5B700611F60 /* ActiveLocations.swift */; };
 		8409448921CC539900C4EA28 /* TODO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8409448821CC539900C4EA28 /* TODO.swift */; };
 		8409F52422022A3900B78BCC /* Queries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8409F52322022A3900B78BCC /* Queries.swift */; };
 		8421B0642165BBB80041A53A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8421B0632165BBB80041A53A /* AppDelegate.swift */; };
@@ -65,7 +65,7 @@
 		5C7925A022DE9B1900B981B2 /* LocationDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetails.swift; sourceTree = "<group>"; };
 		5C941E5422D93335008C9B3E /* LocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
 		5CF01FDD22D92F19004604BC /* ToolsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolsViewController.swift; sourceTree = "<group>"; };
-		5CFF888A22CAA5B700611F60 /* ActiveLocationsTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveLocationsTable.swift; sourceTree = "<group>"; };
+		5CFF888A22CAA5B700611F60 /* ActiveLocations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveLocations.swift; sourceTree = "<group>"; };
 		8409448821CC539900C4EA28 /* TODO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TODO.swift; sourceTree = "<group>"; };
 		8409F52322022A3900B78BCC /* Queries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queries.swift; sourceTree = "<group>"; };
 		8421B0602165BBB80041A53A /* LocationApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LocationApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -254,7 +254,7 @@
 			children = (
 				84F9180122211C9B00D25634 /* NearestDosimeters.swift */,
 				5C941E5422D93335008C9B3E /* LocationViewController.swift */,
-				5CFF888A22CAA5B700611F60 /* ActiveLocationsTable.swift */,
+				5CFF888A22CAA5B700611F60 /* ActiveLocations.swift */,
 				5C7925A022DE9B1900B981B2 /* LocationDetails.swift */,
 			);
 			path = "Utility View";
@@ -445,7 +445,7 @@
 				845F2E5F221C62E200A48C1A /* Reachability.swift in Sources */,
 				8421B0642165BBB80041A53A /* AppDelegate.swift in Sources */,
 				84A6671221E7064B00FC1892 /* MapViews.swift in Sources */,
-				5CFF888B22CAA5B700611F60 /* ActiveLocationsTable.swift in Sources */,
+				5CFF888B22CAA5B700611F60 /* ActiveLocations.swift in Sources */,
 				8409F52422022A3900B78BCC /* Queries.swift in Sources */,
 				5C7925A122DE9B1900B981B2 /* LocationDetails.swift in Sources */,
 				84F5ED6721B2024900381E76 /* classRecordsUpdate.swift in Sources */,

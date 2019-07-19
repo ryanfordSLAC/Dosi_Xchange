@@ -476,12 +476,15 @@ extension ScannerViewController {  //alerts
 
         
     func alert1(){
+        
         let alertPrompt = UIAlertController(title: "Record Not Found:\n\(variables.dosiNumber!)", message: nil, preferredStyle: .alert)
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: handlerCancel)
+        
         let deployDosimeter = UIAlertAction(title: "Deploy", style: .default) { (_) in
             self.deploy()
             self.alert4()
         } //end let
+        
         alertPrompt.addAction(deployDosimeter)
         alertPrompt.addAction(cancel)
         
@@ -492,27 +495,27 @@ extension ScannerViewController {  //alerts
     
     
     func alert2(){
+        
         let alertPrompt = UIAlertController(title: "Record Not Found:\n\(variables.QRCode!)", message: nil, preferredStyle: .alert)
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: handlerCancel)
+        
         let deployDosimeter = UIAlertAction(title: "Deploy", style: .default) { (_) in
             self.deploy()
             self.alert5()
         } //end let
+        
         alertPrompt.addAction(deployDosimeter)
         alertPrompt.addAction(cancel)
         
         DispatchQueue.main.async { //UIAlerts need to be shown on the main thread.
             self.present(alertPrompt, animated: true, completion: nil)
         }
-    }//end alert2
+    } //end alert2
     
     
     func alert3(){ //alert if dosi and qr are found
-        //print("3-Counter: \(counter)")
-        //print("3-Dosi Number: \(variables.dosiNumber ?? "Nil Dosi")")
-        //print("3-QR Code: \(variables.QRCode ?? "Nil QR")")
-        let alertPrompt = UIAlertController(title: "Manage Dosimeter: \(String(describing: variables.dosiNumber ?? "Next scan")) \n\n Location:\n\(String(describing: variables.QRCode ?? "Next scan"))", message: nil, preferredStyle: .alert)
         
+        let alertPrompt = UIAlertController(title: "Manage Dosimeter: \(String(describing: variables.dosiNumber ?? "Next scan")) \n\n Location:\n\(String(describing: variables.QRCode ?? "Next scan"))", message: nil, preferredStyle: .alert)
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: handlerCancel)
         
         let ExchangeDosimeter = UIAlertAction(title: "Exchange", style: .default) { (_) in
@@ -653,7 +656,8 @@ extension ScannerViewController {  //alerts
         variables.cycle = cycle
         getCoordinates()
         
-        let alertPrompt = UIAlertController(title: "Manage Dosimeter: \(String(describing: variables.dosiNumber ?? "Nil Dosi")) at location \(String(describing: variables.QRCode ?? "Nil QR"))", message: nil, preferredStyle: .alert)
+        let message = "Type or dictate location details.\nDo NOT use commas."
+        let alertPrompt = UIAlertController(title: "Manage Dosimeter: \(String(describing: variables.dosiNumber ?? "Nil Dosi")) at location \(String(describing: variables.QRCode ?? "Nil QR"))", message: message, preferredStyle: .alert)
         
         let saveRecord = UIAlertAction(title: "Save", style: .default) { (_) in
             self.recordsupdate.saveRecord(latitude: variables.latitude ?? "Nil Latitude", longitude: variables.longitude ?? "Nil Longitude", dosiNumber: variables.dosiNumber ?? "Nil dosinumber", text: alertPrompt.textFields?.first?.text ?? "Nil location", flag: 0, cycle: cycle, QRCode: variables.QRCode ?? "Nil QRCode", mismatch: variables.mismatch ?? 3, moderator: variables.moderator ?? 0, active: 1)
@@ -663,7 +667,7 @@ extension ScannerViewController {  //alerts
             self.alert10() //Success
         }  //end let
         
-        let discardAndStartOver = UIAlertAction(title: "Discard & Start Over", style: .default, handler: handlerOK)
+        let discardAndStartOver = UIAlertAction(title: "Discard & Start Over", style: .default, handler: handlerCancel)
         
         alertPrompt.addTextField { (textfield) in
             if variables.dosiLocation != nil {
