@@ -115,6 +115,10 @@ class ActiveLocations: UIViewController, UITableViewDataSource, UITableViewDeleg
         activesTableView.reloadData()
     }
     
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
+    }
+    
 }
 
 // query and helper functions

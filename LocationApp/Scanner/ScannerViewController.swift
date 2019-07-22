@@ -58,18 +58,16 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         guard let videoCaptureDevice = AVCaptureDevice.default(for: .video) else { return }
         let videoInput: AVCaptureDeviceInput
         
-            do {
-                videoInput = try AVCaptureDeviceInput(device: videoCaptureDevice)
-            }
-            
-            catch {
-                return
-            }
+        do {
+            videoInput = try AVCaptureDeviceInput(device: videoCaptureDevice)
+        }
+        catch {
+            return
+        }
         
         if (captureSession.canAddInput(videoInput)) {
             captureSession.addInput(videoInput)
         }
-        
         else {
             failed()
             return
@@ -77,7 +75,6 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         
         let metadataOutput = AVCaptureMetadataOutput()
 
-        
         if (captureSession.canAddOutput(metadataOutput)) {
             captureSession.addOutput(metadataOutput)
             
@@ -175,9 +172,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
  by Ryan M. Ford 2019
  */
 
-extension ScannerViewController { //methods
-    //add a delay function.
-    
+extension ScannerViewController {
     
     func scannerLogic(code: String) { //see Other Assets Scanner Logic diagrams
         
@@ -255,7 +250,6 @@ extension ScannerViewController { //methods
                         else if variables.QRCode != nil {
                             beepFail()
                             self.captureSession.stopRunning()
-                            self.captureSession.startRunning()
                             alert7()
                         }
                     
@@ -270,14 +264,12 @@ extension ScannerViewController { //methods
                         else if variables.dosiNumber != nil {
                             beepFail()
                             self.captureSession.stopRunning()
-                            self.captureSession.startRunning()
                             alert6()
                         }
                     
                     default:
                         print("Invalid Code")
                         alert9()
-                        self.captureSession.startRunning()
                 }
             
             default:
@@ -619,7 +611,7 @@ extension ScannerViewController {  //alerts
         
         //set up alert
         let alert = UIAlertController.init(title: "Error", message: message, preferredStyle: .alert)
-        let OK = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        let OK = UIAlertAction(title: "OK", style: .cancel, handler: handlerOK)
         
         alert.view.addSubview(imageView)
         alert.addAction(OK)
@@ -640,7 +632,7 @@ extension ScannerViewController {  //alerts
         
         //set up alert
         let alert = UIAlertController.init(title: "Error", message: message, preferredStyle: .alert)
-        let OK = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        let OK = UIAlertAction(title: "OK", style: .cancel, handler: handlerOK)
         
         alert.view.addSubview(imageView)
         alert.addAction(OK)
@@ -693,7 +685,6 @@ extension ScannerViewController {  //alerts
       
         //set up alert
         let alert = UIAlertController.init(title: "Invalid Barcode Type", message: message, preferredStyle: .alert)
-        
         let OK = UIAlertAction(title: "OK", style: .default, handler: handlerCancel)
 
         alert.addAction(OK)
@@ -708,11 +699,8 @@ extension ScannerViewController {  //alerts
         
         let message = "Data saved: \nQR Code: \(variables.QRCode ?? "Nil QRCode")\nDosimeter: \(variables.dosiNumber ?? "Nil Dosimeter")\nLocation: \(variables.dosiLocation ?? "Nil location")\nFlag (Depl'y = 0, Collected = 1): 0\nLatitude: \(variables.latitude ?? "Nil Latitude")\nLongitude: \(variables.longitude ?? "Nil Longitude")\nWear Date: \(variables.cycle ?? "Nil cycle")\nMismatch (No = 0 Yes = 1): \(variables.mismatch ?? 2)\nModerator (No = 0 Yes = 1): \(variables.moderator ?? 2)"
         
-        //print("10-Location: \(variables.dosiLocation ?? "Nil Location")")
-        
         //set up alert
         let alert = UIAlertController.init(title: "Save Successful", message: message, preferredStyle: .alert)
-        //let OK = UIAlertAction(title: "OK", style: .default, handler: handlerOK)
         let OK = UIAlertAction(title: "OK", style: .default, handler: handlerCancel)
         
         alert.addAction(OK)
@@ -727,11 +715,8 @@ extension ScannerViewController {  //alerts
         
         let message = "Data Saved:\nQR Code: \(variables.QRCode ?? "Nil QRCode")\nDosimeter: \(variables.dosiNumber ?? "Nil Dosimeter")\nLocation: \(variables.dosiLocation ?? "Nil location")\nFlag (Depl'y = 0, Collected = 1): 1 \nMismatch (No = 0 Yes = 1): \(variables.mismatch ?? 2)"
         
-        //print("11-Location: \(variables.dosiLocation ?? "Nil Location")")
-        
         //set up alert
         let alert = UIAlertController.init(title: "Collection Successful", message: message, preferredStyle: .alert)
-        //let OK = UIAlertAction(title: "OK", style: .default, handler: handlerOK)
         let OK = UIAlertAction(title: "OK", style: .default, handler: handlerCancel)
         
         alert.addAction(OK)

@@ -18,12 +18,11 @@ class LocationDetails: UIViewController {
     var lat = ""
     var long = ""
     var mod = ""
-    //var mod = 0
     var active = 0
     var trigger = 0
     
     var records = [CKRecord]()
-    var details = [(String, String, String, Int)]()
+    var details = [(String, String, String, Int, Int)]()
     
     let dispatchGroup = DispatchGroup()
     let database = CKContainer.default().publicCloudDatabase
@@ -61,7 +60,6 @@ class LocationDetails: UIViewController {
         lat = record.value(forKey: "latitude") as! String
         long = record.value(forKey: "longitude") as! String
         mod = record.value(forKey: "moderator") as! Int64 == 1 ? "Yes" : "No"
-        //mod = record.value(forKey: "moderator") as! Int
         active = record.value(forKey: "active") as! Int
         
         // set QRCode and Location Description text
@@ -77,9 +75,7 @@ class LocationDetails: UIViewController {
         attributedStr.append(NSAttributedString(string: lat, attributes: [NSAttributedString.Key.font: font]))
         attributedStr.append(NSAttributedString(string: "\nLongitude: ", attributes: [NSAttributedString.Key.font: fontBold]))
         attributedStr.append(NSAttributedString(string: long, attributes: [NSAttributedString.Key.font: font]))
-        attributedStr.append(NSAttributedString(string: "\nModerator: ", attributes: [NSAttributedString.Key.font: fontBold]))
-        attributedStr.append(NSAttributedString(string: mod, attributes: [NSAttributedString.Key.font: font]))
-        attributedStr.append(NSAttributedString(string: "\n\nActive: ", attributes: [NSAttributedString.Key.font: fontBold]))
+        attributedStr.append(NSAttributedString(string: "\n\n\nActive: ", attributes: [NSAttributedString.Key.font: fontBold]))
         
         // set details text
         fields.attributedText = attributedStr
@@ -88,13 +84,6 @@ class LocationDetails: UIViewController {
         activeSwitch.isOn = active == 1 ? true : false
         
     }
-    
-}
-
-// moderator switch controls
-extension LocationDetails {
-    
-    
     
 }
 
@@ -179,24 +168,35 @@ extension LocationDetails: UITableViewDelegate, UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath)
         
-        qrTable.rowHeight = 60
+        qrTable.rowHeight = 80
         
         // fetch record details
         let dosimeter = details[indexPath.section].1
         let cycleDate = details[indexPath.section].2
-        let flagStr:String
+        let modFlagStr:String
+        let collectedFlagStr:String
+        
         switch details[indexPath.section].3 {
         case 0:
-            flagStr = "No"
+            modFlagStr = "No"
         case 1:
-            flagStr = "Yes"
+            modFlagStr = "Yes"
         default:
-            flagStr = "n/a"
+            modFlagStr = "n/a"
+        }
+        
+        switch details[indexPath.section].4 {
+        case 0:
+            collectedFlagStr = "No"
+        case 1:
+            collectedFlagStr = "Yes"
+        default:
+            collectedFlagStr = "n/a"
         }
         
         // set cell text
-        cell.textLabel?.text = "Dosimeter:\nWear Period:\nCollected:"
-        cell.detailTextLabel?.text = "\(dosimeter)\n\(cycleDate)\n\(flagStr)"
+        cell.textLabel?.text = "Dosimeter:\nWear Period:\nModerator:\nCollected:"
+        cell.detailTextLabel?.text = "\(dosimeter)\n\(cycleDate)\n\(modFlagStr)\n\(collectedFlagStr)"
         
         return cell
         
@@ -208,7 +208,7 @@ extension LocationDetails: UITableViewDelegate, UITableViewDataSource {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/dd/yyyy, hh:mm a"
         records = [CKRecord]()
-        details = [(String, String, String, Int)]()
+        details = [(String, String, String, Int, Int)]()
         
         let predicate = NSPredicate(format: "QRCode == %@", QRCode)
         let sort = NSSortDescriptor(key: "modificationDate", ascending: false)
@@ -224,10 +224,12 @@ extension LocationDetails: UITableViewDelegate, UITableViewDataSource {
                 let dosimeter = record["dosinumber"] != "" ? String(describing: record["dosinumber"]!) : "n/a"
                 let wearperiod = record["cycleDate"] != nil ? String(describing: record["cycleDate"]!) : "n/a"
                 let collectedFlag = record["collectedFlag"] != nil ? record["collectedFlag"]! as Int : 2
+                let modFlag = record["moderator"] != nil ? record["moderator"]! as Int : 2
                 
-                self.details.append((modDate, dosimeter, wearperiod, collectedFlag))
+                self.details.append((modDate, dosimeter, wearperiod, modFlag, collectedFlag))
                 self.records.append(record)
             }
+            
         }// end perform query
         
         run(after: 1) {
