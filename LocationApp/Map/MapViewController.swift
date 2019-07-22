@@ -35,22 +35,17 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         let latitude = locationmanager.location?.coordinate.latitude
         let longitude = locationmanager.location?.coordinate.longitude
         self.MapView.delegate = self
-        //register the ArtworkMarkerView class to reusable annotation view.
         
+        //register the ArtworkMarkerView class to reusable annotation view.
         MapView.register(ArtworkMarkerView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
         
         //set initial map properties
-
-        //let initialLocation = CLLocationCoordinate2D(latitude: 37.4203033, longitude: -122.2026842) SLAC Coordinates
         let initialLocation = CLLocationCoordinate2D(latitude: latitude!, longitude: longitude!)
         let region = MKCoordinateRegion(center: initialLocation, latitudinalMeters: 150, longitudinalMeters: 150)
-        //let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
-        //let region = MKCoordinateRegion(center: initialLocation, span: span)
         
         //only query records with collectedFlag = 0 (1 = collected)
         queryCurrentCycle()
         queryPriorCycle()  //cloudkit doesn't support OR queries, so two are necessary, 1 for each cycle.
-        
         
         self.MapView.setRegion(region, animated: true)
         self.MapView.mapType = MKMapType.standard
@@ -92,9 +87,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     //delegate method
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView,
                  calloutAccessoryControlTapped control: UIControl) {
-        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let newViewController = storyBoard.instantiateViewController(withIdentifier: "Scanner") as? ScannerViewController
-        self.present(newViewController!, animated: true, completion: nil)
+        let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let newViewController = mainStoryboard.instantiateViewController(withIdentifier: "Scanner") as! ScannerViewController
+        self.show(newViewController, sender: self)
         
     } //end mapView
     

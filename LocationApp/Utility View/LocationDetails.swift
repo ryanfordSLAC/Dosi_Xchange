@@ -18,6 +18,7 @@ class LocationDetails: UIViewController {
     var lat = ""
     var long = ""
     var mod = ""
+    //var mod = 0
     var active = 0
     var trigger = 0
     
@@ -45,8 +46,6 @@ class LocationDetails: UIViewController {
         
         queryLocationTable()
         
-        qrTable.rowHeight = 60
-        
         // wait for query to finish
         dispatchGroup.notify(queue: .main) {
             self.qrTable.reloadData()
@@ -62,6 +61,7 @@ class LocationDetails: UIViewController {
         lat = record.value(forKey: "latitude") as! String
         long = record.value(forKey: "longitude") as! String
         mod = record.value(forKey: "moderator") as! Int64 == 1 ? "Yes" : "No"
+        //mod = record.value(forKey: "moderator") as! Int
         active = record.value(forKey: "active") as! Int
         
         // set QRCode and Location Description text
@@ -89,12 +89,25 @@ class LocationDetails: UIViewController {
         
     }
     
+}
+
+// moderator switch controls
+extension LocationDetails {
+    
+    
+    
+}
+
+
+// active switch controls
+extension LocationDetails {
+    
     @IBAction func activeSwitched(_ sender: Any) {
         let activeTemp = activeSwitch.isOn ? 1 : 0
-        saveAlert(activeTemp: activeTemp)
+        saveActiveAlert(activeTemp: activeTemp)
     }
     
-    func saveAlert(activeTemp: Int) {
+    func saveActiveAlert(activeTemp: Int) {
         
         let title = activeTemp == 1 ? "Set Location to Active?" : "Set Location to Inactive?"
         
@@ -102,14 +115,14 @@ class LocationDetails: UIViewController {
         
         let yes = UIAlertAction(title: "Yes", style: .default) { (_) in
             self.active = activeTemp
-            self.save()
+            self.saveActiveStatus()
             
             // wait for records to save
             self.dispatchGroup.wait()
             // refresh and show Active Locations TableView
             let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-            let vc = mainStoryboard.instantiateViewController(withIdentifier: "ActiveLocations") as! ActiveLocations
-            self.show(vc, sender: self)
+            let newViewController = mainStoryboard.instantiateViewController(withIdentifier: "ActiveLocations") as! ActiveLocations
+            self.show(newViewController, sender: self)
         }
         
         let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (_) in
@@ -124,7 +137,7 @@ class LocationDetails: UIViewController {
         }
     }
     
-    func save() {
+    func saveActiveStatus() {
         dispatchGroup.enter()
         // set active flag for all records in current location
         for record in records {
@@ -138,6 +151,8 @@ class LocationDetails: UIViewController {
     
 }
 
+
+// table view functions and helpers
 extension LocationDetails: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -163,6 +178,8 @@ extension LocationDetails: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath)
+        
+        qrTable.rowHeight = 60
         
         // fetch record details
         let dosimeter = details[indexPath.section].1

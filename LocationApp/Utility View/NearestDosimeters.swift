@@ -96,14 +96,15 @@ class NearestLocations: UIViewController, UITableViewDataSource, UITableViewDele
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "PlainCell", for: indexPath)
-
-        nearestTableView.numberOfRows(inSection: sortedRecords.count)
-        nearestTableView.rowHeight = 90  // accomodate 4 lines of data
+        
+        // dynamic cell height sizing
+        nearestTableView.estimatedRowHeight = 90
+        nearestTableView.rowHeight = UITableView.automaticDimension
         
         // wait for query to finish
         dispatchGroup.wait()
         
-        // Depending on the section, fill the textLabel with the relevant text
+        // fill the textLabel with the relevant text
         let distance = "\(self.sortedRecords[indexPath.row].0)"
         let QRCode =  "\(self.sortedRecords[indexPath.row].1)"
         let dosimeter = "\(self.sortedRecords[indexPath.row].2)"

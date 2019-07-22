@@ -73,8 +73,8 @@ class ActiveLocations: UIViewController, UITableViewDataSource, UITableViewDeleg
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "QRCell", for: indexPath)
         
-        //activesTableView.numberOfRows(inSection: recents[segment].count)
-        activesTableView.rowHeight = 60
+        activesTableView.estimatedRowHeight = 60
+        activesTableView.rowHeight = UITableView.automaticDimension
         
         let QRCode = searching ? searches[segment][indexPath.row].1 : displayInfo[segment][indexPath.row].1
         let locdescription = searching ? searches[segment][indexPath.row].2 : displayInfo[segment][indexPath.row].2
