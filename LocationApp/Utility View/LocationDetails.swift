@@ -87,13 +87,6 @@ class LocationDetails: UIViewController {
         // set active switch
         activeSwitch.isOn = active == 1 ? true : false
         
-        switch active {
-        case 1:
-            activeSwitch.isOn = true
-        default:
-            activeSwitch.isOn = false
-        
-        }
     }
     
     @IBAction func activeSwitched(_ sender: Any) {
