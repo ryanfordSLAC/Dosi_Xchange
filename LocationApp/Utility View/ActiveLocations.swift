@@ -133,9 +133,10 @@ extension ActiveLocations {
         displayInfo.append([(CKRecord, String, String)]())
         
         let predicate = NSPredicate(value: true)
-        let sort = NSSortDescriptor(key: "QRCode", ascending: true)
+        let sort1 = NSSortDescriptor(key: "QRCode", ascending: true)
+        let sort2 = NSSortDescriptor(key: "creationDate", ascending: false)
         let query = CKQuery(recordType: "Location", predicate: predicate)
-        query.sortDescriptors = [sort]
+        query.sortDescriptors = [sort1, sort2]
         let operation = CKQueryOperation(query: query)
         addOperation(operation: operation)
 
@@ -177,9 +178,9 @@ extension ActiveLocations {
     // to be executed for each fetched record
     func recordFetchedBlock(record: CKRecord) {
         
-        // if record is inactive ("active" = 0), record is appended to the second array (flag = 1)
-        var flag = 0
-        if record["active"]! == 0 { flag = 1 }
+        // if record is active ("active" = 1), record is appended to the first array (flag = 0)
+        // else record is appended to the second array (flag = 1)
+        let flag = record["active"]! == 1 ? 0 : 1
         
         // fetch QRCode and locdescription
         let currentQR:String = record["QRCode"]!

@@ -107,11 +107,12 @@ extension LocationDetails {
             self.saveActiveStatus()
             
             // wait for records to save
-            self.dispatchGroup.wait()
-            // refresh and show Active Locations TableView
-            let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-            let newViewController = mainStoryboard.instantiateViewController(withIdentifier: "ActiveLocations") as! ActiveLocations
-            self.show(newViewController, sender: self)
+            self.run(after: 1) {
+                // refresh and show Active Locations TableView
+                let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+                let newViewController = mainStoryboard.instantiateViewController(withIdentifier: "ActiveLocations") as! ActiveLocations
+                self.show(newViewController, sender: self)
+            }
         }
         
         let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (_) in
@@ -124,19 +125,19 @@ extension LocationDetails {
         DispatchQueue.main.async { //UIAlerts need to be shown on the main thread.
             self.present(alertPrompt, animated: true, completion: nil)
         }
-    }
+    } // end saveActiveAlert
     
     func saveActiveStatus() {
-        dispatchGroup.enter()
+        
         // set active flag for all records in current location
         for record in records {
             record.setValue(active, forKey: "active")
             self.database.save(record) { (record, error) in
                 guard record != nil else { return }
             }
+            //print("RECORD SAVED:\n\(record)")
         }
-        dispatchGroup.leave()
-    }
+    } // end saveActiveStatus
     
 }
 
@@ -206,12 +207,13 @@ extension LocationDetails: UITableViewDelegate, UITableViewDataSource {
         dispatchGroup.enter()
         
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM/dd/yyyy, hh:mm a"
+        //dateFormatter.dateFormat = "MM/dd/yyyy, hh:mm a"
+        dateFormatter.dateFormat = "MM/dd/yyyy"
         records = [CKRecord]()
         details = [(String, String, String, Int, Int)]()
         
         let predicate = NSPredicate(format: "QRCode == %@", QRCode)
-        let sort = NSSortDescriptor(key: "modificationDate", ascending: false)
+        let sort = NSSortDescriptor(key: "creationDate", ascending: false)
         let query = CKQuery(recordType: "Location", predicate: predicate)
         query.sortDescriptors = [sort]
         
@@ -220,7 +222,7 @@ extension LocationDetails: UITableViewDelegate, UITableViewDataSource {
             
             for record in records {
                 
-                let modDate = "Last Modified: \(dateFormatter.string(from: record.modificationDate!))"
+                let modDate = "Record Created: \(dateFormatter.string(from: record.creationDate!))"
                 let dosimeter = record["dosinumber"] != "" ? String(describing: record["dosinumber"]!) : "n/a"
                 let wearperiod = record["cycleDate"] != nil ? String(describing: record["cycleDate"]!) : "n/a"
                 let collectedFlag = record["collectedFlag"] != nil ? record["collectedFlag"]! as Int : 2
