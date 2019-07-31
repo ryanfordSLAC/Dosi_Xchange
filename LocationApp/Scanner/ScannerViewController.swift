@@ -23,6 +23,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     var beepSound: AVAudioPlayer?
     var records = [CKRecord]()
     var itemRecord:CKRecord?
+    var tempRecords = [CKRecord]()
     var locationManager = CLLocationManager()
     let database = CKContainer.default().publicCloudDatabase
 
@@ -197,15 +198,27 @@ extension ScannerViewController {
                             
                             //record found
                             if self.itemRecord != nil {
-                                self.beep()
                                 
+                                //deployed dosimeter
                                 if variables.collected == 0 {
-                                    if variables.active == 1 { self.alert3() } //Exchange Dosimeter (active location)
-                                    else { self.alert3i() } //Collect Dosimeter (inactive location)
+                                    self.beep()
+                                    if variables.active == 1 {
+                                        self.alert3a() //Exchange Dosimeter (active location)
+                                    }
+                                    else {
+                                        self.alert3i() //Collect Dosimeter (inactive location)
+                                    }
                                 }
+                                //collected or no dosimeter
                                 else {
-                                    if variables.active == 1 { self.alert2() } //Location Found [cancel/deploy]
-                                    else { self.alert2a() } //Inactive Location (activate to deploy)
+                                    if variables.active == 1 {
+                                        self.beep()
+                                        self.alert2() //Location Found [cancel/deploy]
+                                    }
+                                    else {
+                                        self.beepFail()
+                                        self.alert2a() //Inactive Location (activate to deploy)
+                                    }
                                 }
                             }
                             
@@ -227,9 +240,22 @@ extension ScannerViewController {
                             
                             //record found
                             if self.itemRecord != nil {
-                                self.beep()
-                                if variables.active == 1 { self.alert3() } //Exchange Dosimeter (active location)
-                                else { self.alert3i() } //Collect Dosimeter (inactive location)
+                                
+                                // deployed dosimeter
+                                if variables.collected == 0 {
+                                    self.beep()
+                                    if variables.active == 1 {
+                                        self.alert3a() //Exchange Dosimeter (active location)
+                                    }
+                                    else {
+                                        self.alert3i() //Collect Dosimeter (inactive location)
+                                    }
+                                }
+                                //collected dosimeter
+                                else {
+                                    self.beepFail()
+                                    self.alert9a() //Invalid Dosimeter (already collected)
+                                }
                             }
                             
                             //no record found
@@ -241,10 +267,8 @@ extension ScannerViewController {
                         } //end dispatch group
 
                     default:
-                        
                         print("Invalid Code") //exhaustive
                         alert9()
-                        self.captureSession.startRunning()
                     
                 } //end switch
             
@@ -256,35 +280,70 @@ extension ScannerViewController {
                     
                     case "QRCode":
                         
+                        //looking for QRCode
                         if variables.QRCode == nil {
-                            beep()
-                            variables.QRCode = code
-                            alert8()
+                            queryForQRUsed(tempQR: code)
+                            
+                            //existing location
+                            if records != [] {
+                                //location in use/inactive location
+                                if variables.collected == 0 || variables.active == 0 {
+                                    beepFail()
+                                    self.captureSession.stopRunning()
+                                    alert7b()
+                                }
+                                //valid location
+                                else {
+                                    beep()
+                                    variables.QRCode = code
+                                    alert8()
+                                }
+                            }
+                            //new location
+                            else {
+                                beep()
+                                variables.QRCode = code
+                                alert8()
+                            }
                         }
-                        
-                        else if variables.QRCode != nil {
+                        //not looking for QRCode
+                        else {
                             beepFail()
                             self.captureSession.stopRunning()
-                            alert7()
+                            alert6b()
                         }
                     
                     case "Code128":
                         
+                        //looking for barcode
                         if variables.dosiNumber == nil {
-                            beep()
-                            variables.dosiNumber = code
-                            alert8()
+                            queryForDosiUsed(tempDosi: code)
+                            
+                            //duplicate dosimeter
+                            if records != [] {
+                                beepFail()
+                                self.captureSession.stopRunning()
+                                alert7a()
+                            }
+                            //new dosimeter
+                            else {
+                                beep()
+                                variables.dosiNumber = code
+                                alert8()
+                            }
                         }
                         
-                        else if variables.dosiNumber != nil {
+                        //not looking for barcode
+                        else {
                             beepFail()
                             self.captureSession.stopRunning()
-                            alert6()
+                            alert6a()
                         }
                     
                     default:
                         print("Invalid Code")
-                        alert9()
+                        if variables.QRCode == nil { alert6a() }
+                        else if variables.dosiNumber == nil { alert6b() }
                 }
             
             default:
@@ -405,9 +464,7 @@ extension ScannerViewController {  //queries
     
     func queryForDosiFound() {
         dispatchGroup.enter()
-        let p1 = NSPredicate(format: "dosinumber == %@", variables.dosiNumber!)
-        let p2 = NSPredicate(format: "collectedFlag == %d", 0)
-        let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [p1, p2])
+        let predicate = NSPredicate(format: "dosinumber == %@", variables.dosiNumber!)
         let sort = NSSortDescriptor(key: "creationDate", ascending: false)
         let query = CKQuery(recordType: "Location", predicate: predicate)
         query.sortDescriptors = [sort]
@@ -434,6 +491,7 @@ extension ScannerViewController {  //queries
         }
         
     } //end queryforDosiFound
+    
     
     func queryForQRFound() {
         dispatchGroup.enter()
@@ -464,6 +522,51 @@ extension ScannerViewController {  //queries
         }
         
     } //end queryForQRFound
+    
+    
+    func queryForDosiUsed(tempDosi: String) {
+        dispatchGroup.enter()
+        let predicate = NSPredicate(format: "dosinumber == %@", tempDosi)
+        let query = CKQuery(recordType: "Location", predicate: predicate)
+        database.perform(query, inZoneWith: nil) { (records, _) in
+            guard let records = records else { return }
+            
+            self.records = records
+            
+        } //end perform query
+        
+        run(after: 1) {
+            self.dispatchGroup.leave()
+        }
+        
+    } //end queryForDosiUsed
+    
+    
+    func queryForQRUsed(tempQR: String) {
+        dispatchGroup.enter()
+        let predicate = NSPredicate(format: "QRCode == %@", tempQR)
+        let sort = NSSortDescriptor(key: "creationDate", ascending: false)
+        let query = CKQuery(recordType: "Location", predicate: predicate)
+        query.sortDescriptors = [sort]
+        database.perform(query, inZoneWith: nil) { (records, _) in
+            guard let records = records else { return }
+            
+            if records != [] {
+                variables.active = records[0]["active"] as? Int64
+                variables.dosiLocation = records[0]["locdescription"] as? String
+                if records[0]["collectedFlag"] != nil { variables.collected = records[0]["collectedFlag"] as? Int64}
+                if records[0]["moderator"] != nil { variables.moderator = records[0]["moderator"] as? Int64 }
+                if records[0]["mismatch"] != nil { variables.mismatch = records[0]["mismatch"] as? Int64 }
+            }
+            
+            self.records = records
+            
+        }  //end perform query
+        
+        run(after: 1) {
+            self.dispatchGroup.leave()
+        }
+    } //end queryForQRUsed
 
 } //end extension queries
     
@@ -534,21 +637,18 @@ extension ScannerViewController {  //alerts
         }
     }
     
-    func alert3() {
+    func alert3a() {
         
         let alertPrompt = UIAlertController(title: "Exchange Dosimeter:\n\(variables.dosiNumber ?? "Nil Dosi")\n\nLocation:\n\(variables.QRCode ?? "Nil QRCode")", message: nil, preferredStyle: .alert)
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: handlerCancel)
         
         let ExchangeDosimeter = UIAlertAction(title: "Exchange", style: .default) { (_) in
             self.collect(collected: 1, mismatch: variables.mismatch ?? 0)
-            self.deploy()
-            variables.mismatch = 0
-            variables.dosiNumber = nil
-            self.alert3a()
+            self.alert11a()
         }
 
         let mismatch = UIAlertAction(title: "Mismatch", style: .default) { (_) in
-            self.alert3()
+            self.alert3a()
         }
         
         alertPrompt.addAction(mismatch)
@@ -559,7 +659,7 @@ extension ScannerViewController {  //alerts
         DispatchQueue.main.async { //UIAlerts need to be shown on the main thread.
             self.present(alertPrompt, animated: true, completion: nil)
         }
-    } //end alert3
+    } //end alert3a
     
     
     func alert3i() {
@@ -569,7 +669,6 @@ extension ScannerViewController {  //alerts
         
         let collectDosimeter = UIAlertAction(title: "Collect", style: .default) { (_) in
             self.collect(collected: 1, mismatch: variables.mismatch ?? 0)
-            self.captureSession.startRunning()
             self.alert11()
         }
         
@@ -589,10 +688,10 @@ extension ScannerViewController {  //alerts
     } //end alert3i
     
     
-    func alert3a() {
+    func alert3() {
         
-        let picture = Bundle.main.path(forResource: "Inlight", ofType: "jpg")!
         let message = "Please scan the new dosimeter for location \(variables.QRCode ?? "Nil Dosi").\n\n\n\n\n\n\n"
+        let picture = Bundle.main.path(forResource: "Inlight", ofType: "jpg")!
         let imageView = UIImageView(frame: CGRect(x: 75, y: 90, width: 120, height: 80))
         let image = UIImage(named: picture)
         imageView.image = image
@@ -606,13 +705,13 @@ extension ScannerViewController {  //alerts
         DispatchQueue.main.async {
             self.present(alert, animated: true, completion: nil)
         }
-    } //end alert3a
+    } //end alert3
     
     
     func alert4() {
         
+        let message = "Dosimeter barcode accepted \(variables.dosiNumber ?? "Nil Dosi"). Please scan the corresponding location code.\n\n\n\n\n\n\n"
         let picture = Bundle.main.path(forResource: "QRCodeImage", ofType: "png")!
-        let message = "Dosimeter barcode accepted \(variables.dosiNumber ?? "Nil Dosi").  Please scan the corresponding location code.\n\n\n\n\n\n\n"
         let imageView = UIImageView(frame: CGRect(x: 90, y: 90, width: 100, height: 100))
         let image = UIImage(named: picture)
         imageView.image = image
@@ -632,8 +731,8 @@ extension ScannerViewController {  //alerts
     
     func alert5() {
         
+        let message = "Location code accepted \(variables.QRCode ?? "Nil QR"). Please scan the corresponding dosimeter.\n\n\n\n\n\n"
         let picture = Bundle.main.path(forResource: "Inlight", ofType: "jpg")!
-        let message = "Location barcode accepted \(variables.QRCode ?? "Nil QR").  Please scan the corresponding dosimeter.\n\n\n\n\n\n"
         let imageView = UIImageView(frame: CGRect(x: 75, y: 100, width: 120, height: 80))
         let image = UIImage(named: picture)
         imageView.image = image
@@ -651,10 +750,10 @@ extension ScannerViewController {  //alerts
     }//end alert5
     
     
-    func alert6() {
+    func alert6a() {
         
-        let picture = Bundle.main.path(forResource: "QRCodeImage", ofType: "png")!
         let message = "Try again...Please scan the corresponding location code.\n\n\n\n\n\n\n"
+        let picture = Bundle.main.path(forResource: "QRCodeImage", ofType: "png")!
         let imageView = UIImageView(frame: CGRect(x: 90, y: 90, width: 100, height: 100))
         let image = UIImage(named: picture)
         imageView.image = image
@@ -669,13 +768,13 @@ extension ScannerViewController {  //alerts
         DispatchQueue.main.async {
             self.present(alert, animated: true, completion: nil)
         }
-    } //end alert6
+    } //end alert6a
     
     
-    func alert7() {
+    func alert6b() {
         
-        let picture = Bundle.main.path(forResource: "Inlight", ofType: "jpg")!
         let message = "Try again...Please scan the corresponding dosimeter.\n\n\n\n\n\n\n"
+        let picture = Bundle.main.path(forResource: "Inlight", ofType: "jpg")!
         let imageView = UIImageView(frame: CGRect(x: 75, y: 90, width: 120, height: 80))
         let image = UIImage(named: picture)
         imageView.image = image
@@ -690,7 +789,51 @@ extension ScannerViewController {  //alerts
         DispatchQueue.main.async {
             self.present(alert, animated: true, completion: nil)
         }
-    } //end alert7
+    } //end alert6b
+    
+    
+    func alert7a() {
+        
+        let message = "Try again...Please scan a new dosimeter.\n\n\n\n\n\n\n"
+        let picture = Bundle.main.path(forResource: "Inlight", ofType: "jpg")!
+        let imageView = UIImageView(frame: CGRect(x: 75, y: 90, width: 120, height: 80))
+        let image = UIImage(named: picture)
+        imageView.image = image
+        
+        //set up alert
+        let alert = UIAlertController.init(title: "Duplicate Dosimeter:\n\(variables.dosiNumber ?? "Nil Dosi")", message: message, preferredStyle: .alert)
+        let OK = UIAlertAction(title: "OK", style: .cancel, handler: handlerOK)
+        
+        alert.view.addSubview(imageView)
+        alert.addAction(OK)
+        
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
+    } //end alert7a
+    
+    
+    func alert7b() {
+        
+        let title = variables.collected == 0 ? "Location In Use:\n\(variables.QRCode ?? "Nil QRCode")" : "Inactive Location:\n\(variables.QRCode ?? "Nil QRCode")"
+        let message = "Try again...Please scan a different location.\n\n\n\n\n\n\n"
+        let picture = Bundle.main.path(forResource: "QRCodeImage", ofType: "png")!
+        let imageView = UIImageView(frame: CGRect(x: 90, y: 90, width: 100, height: 100))
+        let image = UIImage(named: picture)
+        imageView.image = image
+        
+        //set up alert
+        let alert = UIAlertController.init(title: title, message: message, preferredStyle: .alert)
+        let OK = UIAlertAction(title: "OK", style: .cancel, handler: handlerOK)
+        
+        alert.view.addSubview(imageView)
+        alert.addAction(OK)
+        
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
+    } //end alert7b
+    
     
     func alert8() {
 
@@ -707,11 +850,10 @@ extension ScannerViewController {  //alerts
             self.recordsupdate.saveRecord(latitude: variables.latitude ?? "Nil Latitude", longitude: variables.longitude ?? "Nil Longitude", dosiNumber: variables.dosiNumber ?? "Nil Dosi", text: text ?? "Nil location", flag: 0, cycle: cycle, QRCode: variables.QRCode ?? "Nil QRCode", mismatch: variables.mismatch ?? 0, moderator: variables.moderator ?? 0, active: 1)
             
             variables.dosiLocation = text
-            self.counter = 0
             self.alert10() //Success
         }  //end let
         
-        let discardAndStartOver = UIAlertAction(title: "Discard & Start Over", style: .default, handler: handlerCancel)
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: handlerCancel)
         
         alertPrompt.addTextField { (textfield) in
             if variables.dosiLocation != nil {
@@ -722,8 +864,8 @@ extension ScannerViewController {  //alerts
             }
         } // end addTextField
         
-        alertPrompt.addAction(discardAndStartOver)
         alertPrompt.addAction(saveRecord)
+        alertPrompt.addAction(cancel)
         
         DispatchQueue.main.async {   //UIAlerts need to be shown on the main thread.
             self.present(alertPrompt, animated: true, completion: nil)
@@ -733,11 +875,11 @@ extension ScannerViewController {  //alerts
     
     func alert9() {  //invalid barcode type
 
-        let message = "Please scan either a dosimeter or a location barcode."
+        let message = "Please scan either a location barcode or a dosimeter."
       
         //set up alert
         let alert = UIAlertController.init(title: "Invalid Barcode Type", message: message, preferredStyle: .alert)
-        let OK = UIAlertAction(title: "OK", style: .default, handler: handlerCancel)
+        let OK = UIAlertAction(title: "OK", style: .cancel, handler: handlerCancel)
 
         alert.addAction(OK)
 
@@ -747,12 +889,30 @@ extension ScannerViewController {  //alerts
     }  //end alert9
     
     
-    func alert10(){  //Success!
+    func alert9a() {  //already collected dosimeter
+        
+        let message = "This dosimeter has already been collected."
+        
+        //set up alert
+        let alert = UIAlertController.init(title: "Invalid Dosimeter:\n\(variables.dosiNumber ?? "Nil Dosi")", message: message, preferredStyle: .alert)
+        let OK = UIAlertAction(title: "OK", style: .cancel, handler: handlerCancel)
+        
+        alert.addAction(OK)
+        
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
+    }  //end alert9
+    
+    
+    func alert10(){  //Success! (Deploy)
         
         //let message = "Data saved: \nQR Code: \(variables.QRCode ?? "Nil QRCode")\nDosimeter: \(variables.dosiNumber ?? "Nil Dosi")\nLocation: \(variables.dosiLocation ?? "Nil location")\nFlag (Depl'y = 0, Collected = 1): 0\nLatitude: \(variables.latitude ?? "Nil Latitude")\nLongitude: \(variables.longitude ?? "Nil Longitude")\nWear Date: \(variables.cycle ?? "Nil cycle")\nMismatch (No = 0 Yes = 1): \(variables.mismatch ?? 0)\nModerator (No = 0 Yes = 1): \(variables.moderator ?? 0)"
         
+        let message = "QR Code: \(variables.QRCode ?? "Nil QRCode")\nDosimeter: \(variables.dosiNumber ?? "Nil Dosi")"
+        
         //set up alert
-        let alert = UIAlertController.init(title: "Save Successful!", message: nil, preferredStyle: .alert)
+        let alert = UIAlertController.init(title: "Save Successful!", message: message, preferredStyle: .alert)
         let OK = UIAlertAction(title: "OK", style: .default, handler: handlerCancel)
         
         alert.addAction(OK)
@@ -763,12 +923,14 @@ extension ScannerViewController {  //alerts
     }  //end alert10
     
     
-    func alert11() {  //Success!
+    func alert11() {  //Success! (Collect)
         
         //let message = "Data Saved:\nQR Code: \(variables.QRCode ?? "Nil QRCode")\nDosimeter: \(variables.dosiNumber ?? "Nil Dosi")\nLocation: \(variables.dosiLocation ?? "Nil location")\nFlag (Depl'y = 0, Collected = 1): 1 \nMismatch (No = 0 Yes = 1): \(variables.mismatch ?? 0)"
         
+        let message = "QR Code: \(variables.QRCode ?? "Nil QRCode")\nDosimeter: \(variables.dosiNumber ?? "Nil Dosi")"
+        
         //set up alert
-        let alert = UIAlertController.init(title: "Collection Successful!", message: nil, preferredStyle: .alert)
+        let alert = UIAlertController.init(title: "Collection Successful!", message: message, preferredStyle: .alert)
         let OK = UIAlertAction(title: "OK", style: .default, handler: handlerCancel)
         
         alert.addAction(OK)
@@ -776,7 +938,30 @@ extension ScannerViewController {  //alerts
         DispatchQueue.main.async {
             self.present(alert, animated: true, completion: nil)
         }
-    }  //end alert10
+    }  //end alert11
+    
+    
+    func alert11a() {  //Success! (Exchange)
+        
+        //let message = "Data Saved:\nQR Code: \(variables.QRCode ?? "Nil QRCode")\nDosimeter: \(variables.dosiNumber ?? "Nil Dosi")\nLocation: \(variables.dosiLocation ?? "Nil location")\nFlag (Depl'y = 0, Collected = 1): 1 \nMismatch (No = 0 Yes = 1): \(variables.mismatch ?? 0)"
+        
+        let message = "QR Code: \(variables.QRCode ?? "Nil QRCode")\nDosimeter: \(variables.dosiNumber ?? "Nil Dosi")"
+        
+        //set up alert
+        let alert = UIAlertController.init(title: "Collection Successful!", message: message, preferredStyle: .alert)
+        let OK = UIAlertAction(title: "OK", style: .default) { (_) in
+            self.deploy()
+            variables.mismatch = 0
+            variables.dosiNumber = nil
+            self.alert3()
+        }
+        
+        alert.addAction(OK)
+        
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
+    }  //end alert11a
     
     
     // mismatch switch
@@ -789,9 +974,7 @@ extension ScannerViewController {  //alerts
     }
     
     @objc func switchValueDidChange(_ sender: UISwitch!) {
-        
         variables.mismatch = sender.isOn ? 1 : 0
-
     }
     
     
