@@ -561,9 +561,8 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="cQi-M6-zkx">
-                                <rect key="frame" x="284" y="32" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="cQi-M6-zkx">
+                                <rect key="frame" x="285" y="32" width="20" height="20"/>
                             </activityIndicatorView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1Rf-N1-EDl">
                                 <rect key="frame" x="0.0" y="153" width="320" height="415"/>
@@ -624,8 +623,10 @@
                             <constraint firstItem="Lcj-N0-aBJ" firstAttribute="centerX" secondItem="EKo-E9-4qz" secondAttribute="centerX" id="G0e-Cn-bBS"/>
                             <constraint firstItem="ryS-kA-Lja" firstAttribute="leading" secondItem="rGX-4s-oH0" secondAttribute="leading" constant="3" id="G4W-4U-0Yq"/>
                             <constraint firstItem="Lcj-N0-aBJ" firstAttribute="leading" secondItem="EKo-E9-4qz" secondAttribute="leading" id="Gpo-q6-vAs"/>
+                            <constraint firstItem="rGX-4s-oH0" firstAttribute="trailing" secondItem="cQi-M6-zkx" secondAttribute="trailing" constant="15" id="I1Y-73-rAB"/>
                             <constraint firstItem="1Rf-N1-EDl" firstAttribute="trailing" secondItem="Lcj-N0-aBJ" secondAttribute="trailing" id="Sf8-ia-xOu"/>
                             <constraint firstItem="ryS-kA-Lja" firstAttribute="trailing" secondItem="rGX-4s-oH0" secondAttribute="trailing" constant="-3" id="WZj-b0-ij9"/>
+                            <constraint firstItem="Lcj-N0-aBJ" firstAttribute="bottom" secondItem="cQi-M6-zkx" secondAttribute="bottom" constant="12" id="ZEE-6E-Os0"/>
                             <constraint firstItem="1Rf-N1-EDl" firstAttribute="leading" secondItem="Lcj-N0-aBJ" secondAttribute="leading" id="gW4-HI-DTr"/>
                             <constraint firstItem="NbT-RM-wwD" firstAttribute="top" secondItem="Lcj-N0-aBJ" secondAttribute="bottom" constant="10" id="gwa-cS-XQ6"/>
                             <constraint firstItem="Lcj-N0-aBJ" firstAttribute="top" secondItem="rGX-4s-oH0" secondAttribute="top" id="l3S-jk-y8B"/>
