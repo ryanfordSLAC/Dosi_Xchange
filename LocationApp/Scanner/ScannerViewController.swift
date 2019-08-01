@@ -194,7 +194,7 @@ extension ScannerViewController {
                         queryForQRFound() //use the QRCode to look up record & store values
 
                         dispatchGroup.notify(queue: .main) {
-                            print("Dispatch QR Code Notify")
+                            print("1 - Dispatch QR Code Notify")
                             
                             //record found
                             if self.itemRecord != nil {
@@ -236,12 +236,12 @@ extension ScannerViewController {
                         queryForDosiFound() //use the dosiNumber to look up record & store values
 
                         dispatchGroup.notify(queue: .main){
-                            print("Dispatch Code 128 Notify")
+                            print("1 - Dispatch Code 128 Notify")
                             
                             //record found
                             if self.itemRecord != nil {
                                 
-                                // deployed dosimeter
+                                //deployed dosimeter
                                 if variables.collected == 0 {
                                     self.beep()
                                     if variables.active == 1 {
@@ -251,6 +251,7 @@ extension ScannerViewController {
                                         self.alert3i() //Collect Dosimeter (inactive location)
                                     }
                                 }
+                                    
                                 //collected dosimeter
                                 else {
                                     self.beepFail()
@@ -273,7 +274,7 @@ extension ScannerViewController {
                 } //end switch
             
             case 1: //second scan logic
-
+                
                 self.captureSession.startRunning()
                 
                 switch variables.codeType {
@@ -284,34 +285,44 @@ extension ScannerViewController {
                         if variables.QRCode == nil {
                             queryForQRUsed(tempQR: code)
                             
-                            //existing location
-                            if records != [] {
-                                //location in use/inactive location
-                                if variables.collected == 0 || variables.active == 0 {
-                                    beepFail()
-                                    self.captureSession.stopRunning()
-                                    alert7b()
-                                }
-                                //valid location
+                            dispatchGroup.notify(queue: .main){
+                                print("2 - Dispatch QR Code Notify")
+                                
+                                //existing location
+                                if self.records != [] {
+                                    
+                                    //location in use/inactive location
+                                    if variables.collected == 0 || variables.active == 0 {
+                                        self.beepFail()
+                                        self.captureSession.stopRunning()
+                                        self.alert7b()
+                                    }
+                                    //valid location
+                                    else {
+                                        self.beep()
+                                        variables.QRCode = code
+                                        self.alert8()
+                                    }
+                                    
+                                } //existing location
+                                    
+                                //new location
                                 else {
-                                    beep()
+                                    self.beep()
                                     variables.QRCode = code
-                                    alert8()
-                                }
-                            }
-                            //new location
-                            else {
-                                beep()
-                                variables.QRCode = code
-                                alert8()
-                            }
-                        }
+                                    self.alert8()
+                                } //new location
+                                
+                            } //end dispatch group
+                            
+                        } //looking for QRCode
+                            
                         //not looking for QRCode
                         else {
                             beepFail()
                             self.captureSession.stopRunning()
                             alert6b()
-                        }
+                        } //not looking for QRCode
                     
                     case "Code128":
                         
@@ -319,26 +330,30 @@ extension ScannerViewController {
                         if variables.dosiNumber == nil {
                             queryForDosiUsed(tempDosi: code)
                             
-                            //duplicate dosimeter
-                            if records != [] {
-                                beepFail()
-                                self.captureSession.stopRunning()
-                                alert7a()
-                            }
-                            //new dosimeter
-                            else {
-                                beep()
-                                variables.dosiNumber = code
-                                alert8()
-                            }
-                        }
-                        
+                            dispatchGroup.notify(queue: .main){
+                                print("2 - Dispatch Code 128 Notify")
+                                
+                                //duplicate dosimeter
+                                if self.records != [] {
+                                    self.beepFail()
+                                    self.captureSession.stopRunning()
+                                    self.alert7a()
+                                }
+                                //new dosimeter
+                                else {
+                                    self.beep()
+                                    variables.dosiNumber = code
+                                    self.alert8()
+                                }
+                            } //end dispatch group
+                        } //looking for barcode
+                            
                         //not looking for barcode
                         else {
                             beepFail()
                             self.captureSession.stopRunning()
                             alert6a()
-                        }
+                        } //not looking for barcode
                     
                     default:
                         print("Invalid Code")
@@ -747,7 +762,7 @@ extension ScannerViewController {  //alerts
         DispatchQueue.main.async {
             self.present(alert, animated: true, completion: nil)
         }
-    }//end alert5
+    } //end alert5
     
     
     func alert6a() {
@@ -796,7 +811,7 @@ extension ScannerViewController {  //alerts
         
         let message = "Try again...Please scan a new dosimeter.\n\n\n\n\n\n\n"
         let picture = Bundle.main.path(forResource: "Inlight", ofType: "jpg")!
-        let imageView = UIImageView(frame: CGRect(x: 75, y: 90, width: 120, height: 80))
+        let imageView = UIImageView(frame: CGRect(x: 75, y: 120, width: 120, height: 80))
         let image = UIImage(named: picture)
         imageView.image = image
         
@@ -818,7 +833,7 @@ extension ScannerViewController {  //alerts
         let title = variables.collected == 0 ? "Location In Use:\n\(variables.QRCode ?? "Nil QRCode")" : "Inactive Location:\n\(variables.QRCode ?? "Nil QRCode")"
         let message = "Try again...Please scan a different location.\n\n\n\n\n\n\n"
         let picture = Bundle.main.path(forResource: "QRCodeImage", ofType: "png")!
-        let imageView = UIImageView(frame: CGRect(x: 90, y: 90, width: 100, height: 100))
+        let imageView = UIImageView(frame: CGRect(x: 90, y: 120, width: 100, height: 100))
         let image = UIImage(named: picture)
         imageView.image = image
         
@@ -976,7 +991,6 @@ extension ScannerViewController {  //alerts
     @objc func switchValueDidChange(_ sender: UISwitch!) {
         variables.mismatch = sender.isOn ? 1 : 0
     }
-    
     
 }//end extension alerts
 
