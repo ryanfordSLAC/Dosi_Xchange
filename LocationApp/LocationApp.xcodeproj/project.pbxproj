@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		5C7925A122DE9B1900B981B2 /* LocationDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7925A022DE9B1900B981B2 /* LocationDetails.swift */; };
 		5C941E5522D93335008C9B3E /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C941E5422D93335008C9B3E /* LocationViewController.swift */; };
+		5CE9506222F35912006CF3CC /* Alerts.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CE9505F22F35912006CF3CC /* Alerts.png */; };
+		5CE9506322F35912006CF3CC /* Scanner Logic 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CE9506022F35912006CF3CC /* Scanner Logic 2.png */; };
+		5CE9506622F3594E006CF3CC /* Scanner Logic 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CE9506522F3594E006CF3CC /* Scanner Logic 1.png */; };
 		5CF01FDE22D92F19004604BC /* ToolsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF01FDD22D92F19004604BC /* ToolsViewController.swift */; };
 		5CFF888B22CAA5B700611F60 /* ActiveLocations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CFF888A22CAA5B700611F60 /* ActiveLocations.swift */; };
 		8409448921CC539900C4EA28 /* TODO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8409448821CC539900C4EA28 /* TODO.swift */; };
@@ -59,6 +62,9 @@
 /* Begin PBXFileReference section */
 		5C7925A022DE9B1900B981B2 /* LocationDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetails.swift; sourceTree = "<group>"; };
 		5C941E5422D93335008C9B3E /* LocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
+		5CE9505F22F35912006CF3CC /* Alerts.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Alerts.png; sourceTree = "<group>"; };
+		5CE9506022F35912006CF3CC /* Scanner Logic 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Scanner Logic 2.png"; sourceTree = "<group>"; };
+		5CE9506522F3594E006CF3CC /* Scanner Logic 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Scanner Logic 1.png"; sourceTree = "<group>"; };
 		5CF01FDD22D92F19004604BC /* ToolsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolsViewController.swift; sourceTree = "<group>"; };
 		5CFF888A22CAA5B700611F60 /* ActiveLocations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveLocations.swift; sourceTree = "<group>"; };
 		8409448821CC539900C4EA28 /* TODO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TODO.swift; sourceTree = "<group>"; };
@@ -199,6 +205,9 @@
 		84505D1D2231DEAD009551BC /* Other Asseets */ = {
 			isa = PBXGroup;
 			children = (
+				5CE9505F22F35912006CF3CC /* Alerts.png */,
+				5CE9506522F3594E006CF3CC /* Scanner Logic 1.png */,
+				5CE9506022F35912006CF3CC /* Scanner Logic 2.png */,
 				84505D1B2231DE41009551BC /* scannerbeep.mp3 */,
 				84AA30E422356ABE00F07697 /* beep-5.wav */,
 				84AA30E622356BEE00F07697 /* QRCodeImage.png */,
@@ -386,8 +395,11 @@
 				8487FE3221A9153100CC62E8 /* DatabaseContents.rtf in Resources */,
 				84AA30E522356ABF00F07697 /* beep-5.wav in Resources */,
 				8421B06B2165BBB90041A53A /* Assets.xcassets in Resources */,
+				5CE9506322F35912006CF3CC /* Scanner Logic 2.png in Resources */,
+				5CE9506622F3594E006CF3CC /* Scanner Logic 1.png in Resources */,
 				8421B0692165BBB80041A53A /* Main.storyboard in Resources */,
 				84AA30E722356BEE00F07697 /* QRCodeImage.png in Resources */,
+				5CE9506222F35912006CF3CC /* Alerts.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

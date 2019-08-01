@@ -30,17 +30,45 @@ class ToolsViewController: UIViewController, MFMailComposeViewControllerDelegate
     var mismatchStr:String = ""
     var csvText = ""
     var moderator = ""
+    
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
+    
+    override func viewDidLoad() {
+        
+        super.viewDidLoad()
+        
+        activityIndicator.isHidden = true
+    }
+    
+    
     @IBAction func emailTouchDown(_ sender: Any) {
         
-        queryDatabaseForCSV() // takes up to 5 seconds
+        //start activityIndicator
+        activityIndicator.startAnimating()
         
-        dispatchGroup.wait() // wait for query to finish
-
+    } //end func emailTouchDown
+    
+    
+    @IBAction func emailTouchUp(_ sender: Any) {
+        
+        queryDatabaseForCSV() //takes up to 5 seconds
+        
+        dispatchGroup.wait() //wait for query to finish
+        
         self.readwrite.writeText(someText: "\(csvText)")
         self.sendEmail()
         
-    } // end func emailTouchDown
+        //stop activityIndicator
+        activityIndicator.stopAnimating()
+    }
+    
+    
+    @IBAction func emailCancel(_ sender: Any) {
+        //release Email Data button from outside
+        //stop activityIndicator
+        activityIndicator.stopAnimating()
+    }
     
     
     func sendEmail() {
@@ -56,13 +84,13 @@ class ToolsViewController: UIViewController, MFMailComposeViewControllerDelegate
             
             if let fileAttachment = NSData(contentsOf: URL!) {
                 mail.addAttachmentData(fileAttachment as Data, mimeType: "text/csv", fileName: "Dosi_Data.csv")
-            } // end if let
+            } //end if let
             
             present(mail, animated: true)
         }
             
         else {
-            // show failure alert
+            //show failure alert
         }
         
     } //end func sendEmail
@@ -76,6 +104,7 @@ class ToolsViewController: UIViewController, MFMailComposeViewControllerDelegate
     
     
     func queryDatabaseForCSV() {
+        
         //set first line of text file
         //should separate text file from query
         dispatchGroup.enter()

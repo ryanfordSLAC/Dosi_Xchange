@@ -37,11 +37,16 @@ class StartupViewController: UIViewController, MFMailComposeViewControllerDelega
         //progress view
         progressView.setProgress(0, animated: true)
         setProgress()
-
-
-        let singleTap = UITapGestureRecognizer(target: self, action: #selector(StartupViewController.imageTapped))
+        
+        //tools button
+        let toolsTap = UITapGestureRecognizer(target: self, action: #selector(StartupViewController.imageTapped))
         Tools.isUserInteractionEnabled = true
-        Tools.addGestureRecognizer(singleTap)
+        Tools.addGestureRecognizer(toolsTap)
+        
+        //tap to refresh status
+        let statusTap = UITapGestureRecognizer(target: self, action: #selector(setProgress))
+        statusLabel.isUserInteractionEnabled = true
+        statusLabel.addGestureRecognizer(statusTap)
 
         // Do any additional setup after loading the view, typically from a nib.
         // Detect Wifi:
@@ -75,6 +80,7 @@ class StartupViewController: UIViewController, MFMailComposeViewControllerDelega
         
     } //end viewDidLoad
     
+    
     @objc func imageTapped() {
         performSegue(withIdentifier: "segueToTools", sender: "")
     } //end imageTapped
@@ -84,10 +90,10 @@ class StartupViewController: UIViewController, MFMailComposeViewControllerDelega
         print("Location Manager Error")
     } //end location manager fail.
     
-    func setProgress() {
+    
+    @objc func setProgress() {
         
         //start activityIndicator
-        self.activityIndicator.isHidden = false
         activityIndicator.startAnimating()
 
         //start the queries
@@ -117,12 +123,15 @@ class StartupViewController: UIViewController, MFMailComposeViewControllerDelega
             } //end switch
             
             self.progressView.progress = progress
+            
+            //stop activityIndicator
+            self.activityIndicator.stopAnimating()
         }
         
-        run(after: 1) {
-            self.activityIndicator.stopAnimating()
-            self.activityIndicator.isHidden = true
-        }
+        //run(after: 1) {
+        //    self.activityIndicator.stopAnimating()
+        //    self.activityIndicator.isHidden = true
+        //}
         
     }// end setProgress
     

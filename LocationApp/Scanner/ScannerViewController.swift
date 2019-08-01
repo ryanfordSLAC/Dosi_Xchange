@@ -185,6 +185,7 @@ extension ScannerViewController {
             case 0: //first scan
                 variables.QRCode = nil
                 variables.dosiNumber = nil
+                clearForQR()
 
                 switch variables.codeType {
                     
@@ -275,7 +276,7 @@ extension ScannerViewController {
             
             case 1: //second scan logic
                 
-                self.captureSession.startRunning()
+                //self.captureSession.startRunning()
                 
                 switch variables.codeType {
                     
@@ -283,6 +284,7 @@ extension ScannerViewController {
                         
                         //looking for QRCode
                         if variables.QRCode == nil {
+                            clearForQR()
                             queryForQRUsed(tempQR: code)
                             
                             dispatchGroup.notify(queue: .main){
@@ -297,6 +299,7 @@ extension ScannerViewController {
                                         self.captureSession.stopRunning()
                                         self.alert7b()
                                     }
+                                        
                                     //valid location
                                     else {
                                         self.beep()
@@ -304,25 +307,25 @@ extension ScannerViewController {
                                         self.alert8()
                                     }
                                     
-                                } //existing location
+                                }
                                     
                                 //new location
                                 else {
                                     self.beep()
                                     variables.QRCode = code
                                     self.alert8()
-                                } //new location
+                                }
                                 
                             } //end dispatch group
                             
-                        } //looking for QRCode
+                        }
                             
                         //not looking for QRCode
                         else {
                             beepFail()
                             self.captureSession.stopRunning()
                             alert6b()
-                        } //not looking for QRCode
+                        }
                     
                     case "Code128":
                         
@@ -339,13 +342,16 @@ extension ScannerViewController {
                                     self.captureSession.stopRunning()
                                     self.alert7a()
                                 }
+                                    
                                 //new dosimeter
                                 else {
                                     self.beep()
                                     variables.dosiNumber = code
                                     self.alert8()
                                 }
+                                
                             } //end dispatch group
+                            
                         } //looking for barcode
                             
                         //not looking for barcode
@@ -353,7 +359,7 @@ extension ScannerViewController {
                             beepFail()
                             self.captureSession.stopRunning()
                             alert6a()
-                        } //not looking for barcode
+                        }
                     
                     default:
                         print("Invalid Code")
@@ -407,6 +413,15 @@ extension ScannerViewController {
         counter = 0
         
     }  //end clear data
+    
+    
+    func clearForQR() {
+        variables.dosiLocation = nil
+        variables.collected = nil
+        variables.mismatch = nil
+        variables.active = nil
+        variables.moderator = nil
+    }
     
     
     func getCoordinates() {
@@ -811,7 +826,7 @@ extension ScannerViewController {  //alerts
         
         let message = "Try again...Please scan a new dosimeter.\n\n\n\n\n\n\n"
         let picture = Bundle.main.path(forResource: "Inlight", ofType: "jpg")!
-        let imageView = UIImageView(frame: CGRect(x: 75, y: 120, width: 120, height: 80))
+        let imageView = UIImageView(frame: CGRect(x: 75, y: 110, width: 120, height: 80))
         let image = UIImage(named: picture)
         imageView.image = image
         
@@ -833,7 +848,7 @@ extension ScannerViewController {  //alerts
         let title = variables.collected == 0 ? "Location In Use:\n\(variables.QRCode ?? "Nil QRCode")" : "Inactive Location:\n\(variables.QRCode ?? "Nil QRCode")"
         let message = "Try again...Please scan a different location.\n\n\n\n\n\n\n"
         let picture = Bundle.main.path(forResource: "QRCodeImage", ofType: "png")!
-        let imageView = UIImageView(frame: CGRect(x: 90, y: 120, width: 100, height: 100))
+        let imageView = UIImageView(frame: CGRect(x: 90, y: 110, width: 100, height: 100))
         let image = UIImage(named: picture)
         imageView.image = image
         

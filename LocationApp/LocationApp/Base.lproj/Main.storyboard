@@ -195,7 +195,9 @@
                                     <color key="titleColor" red="0.58072251080000004" green="0.066734083" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
+                                    <action selector="emailCancel:" destination="M89-R5-CVf" eventType="touchUpOutside" id="cug-Ub-BS4"/>
                                     <action selector="emailTouchDown:" destination="M89-R5-CVf" eventType="touchDown" id="bac-y4-Bm8"/>
+                                    <action selector="emailTouchUp:" destination="M89-R5-CVf" eventType="touchUpInside" id="7jh-m2-6eS"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f4q-J5-UJn">
@@ -209,16 +211,13 @@
                                     <segue destination="BYZ-38-t0r" kind="show" id="cs9-V2-lMJ"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Please wait 5 seconds for email prompt)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HfJ-d4-NKH">
-                                <rect key="frame" x="61" y="317" width="198" height="12"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                <color key="textColor" red="0.58072251080000004" green="0.066734083" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="12k-op-bR2">
+                                <rect key="frame" x="141.5" y="317" width="37" height="37"/>
+                                <color key="color" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="HfJ-d4-NKH" firstAttribute="centerX" secondItem="Kob-bg-1b1" secondAttribute="centerX" id="17n-z2-odq"/>
                             <constraint firstItem="zZL-V9-XtT" firstAttribute="leading" secondItem="Kob-bg-1b1" secondAttribute="leading" id="1jI-fL-FlG"/>
                             <constraint firstItem="iL3-Xk-1J0" firstAttribute="centerX" secondItem="Kob-bg-1b1" secondAttribute="centerX" id="4hg-Og-Nd4"/>
                             <constraint firstItem="zZL-V9-XtT" firstAttribute="top" secondItem="8cu-87-6eq" secondAttribute="top" id="9D7-13-zaz"/>
@@ -226,12 +225,16 @@
                             <constraint firstItem="iL3-Xk-1J0" firstAttribute="top" secondItem="f4q-J5-UJn" secondAttribute="bottom" constant="50" id="U3h-PD-cLz"/>
                             <constraint firstAttribute="trailing" secondItem="zZL-V9-XtT" secondAttribute="trailing" id="b7D-Z6-DRt"/>
                             <constraint firstItem="P1C-rk-auY" firstAttribute="top" secondItem="zZL-V9-XtT" secondAttribute="bottom" constant="21" id="fxf-KM-3yN"/>
+                            <constraint firstItem="12k-op-bR2" firstAttribute="top" secondItem="iL3-Xk-1J0" secondAttribute="bottom" id="iek-kx-aas"/>
+                            <constraint firstItem="12k-op-bR2" firstAttribute="centerX" secondItem="Kob-bg-1b1" secondAttribute="centerX" id="j1A-My-Y08"/>
                             <constraint firstItem="f4q-J5-UJn" firstAttribute="top" secondItem="P1C-rk-auY" secondAttribute="bottom" constant="50" id="nvL-A6-4wP"/>
-                            <constraint firstItem="HfJ-d4-NKH" firstAttribute="top" secondItem="iL3-Xk-1J0" secondAttribute="bottom" id="pGG-x8-HH5"/>
                             <constraint firstItem="P1C-rk-auY" firstAttribute="centerX" secondItem="Kob-bg-1b1" secondAttribute="centerX" id="qEy-TG-6tH"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="8cu-87-6eq"/>
                     </view>
+                    <connections>
+                        <outlet property="activityIndicator" destination="12k-op-bR2" id="Xfh-4i-zsU"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UyI-x6-pjz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -369,7 +372,7 @@
                                     <constraint firstAttribute="height" constant="10" id="lRM-c8-7eD"/>
                                 </constraints>
                             </progressView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="HdU-d6-efg">
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="HdU-d6-efg">
                                 <rect key="frame" x="141.5" y="318" width="37" height="37"/>
                                 <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </activityIndicatorView>
@@ -558,6 +561,10 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="cQi-M6-zkx">
+                                <rect key="frame" x="284" y="32" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1Rf-N1-EDl">
                                 <rect key="frame" x="0.0" y="153" width="320" height="415"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -630,6 +637,7 @@
                     </view>
                     <connections>
                         <outlet property="activesTableView" destination="1Rf-N1-EDl" id="YEE-WK-wKu"/>
+                        <outlet property="activityIndicator" destination="cQi-M6-zkx" id="OEE-JR-En7"/>
                         <outlet property="searchBar" destination="ryS-kA-Lja" id="Wxf-kg-L9l"/>
                     </connections>
                 </viewController>
@@ -778,8 +786,8 @@
         <image name="Tools" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Szf-7B-3OI"/>
-        <segue reference="WDT-T2-TNV"/>
-        <segue reference="zta-o7-k1W"/>
+        <segue reference="ar4-0B-Xd6"/>
+        <segue reference="1iZ-uO-Z3p"/>
+        <segue reference="1eV-Ng-UnH"/>
     </inferredMetricsTieBreakers>
 </document>

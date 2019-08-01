@@ -21,6 +21,7 @@ class ActiveLocations: UIViewController, UITableViewDataSource, UITableViewDeleg
     var searches = [[(CKRecord, String, String)]]()
     var searching = false
     
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var activesTableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     
@@ -41,6 +42,8 @@ class ActiveLocations: UIViewController, UITableViewDataSource, UITableViewDeleg
         // wait for query to finish
         dispatchGroup.notify(queue: .main) {
             self.activesTableView.reloadData()
+            //stop activityIndicator
+            self.activityIndicator.stopAnimating()
         }
         
         let refreshControl = UIRefreshControl()
