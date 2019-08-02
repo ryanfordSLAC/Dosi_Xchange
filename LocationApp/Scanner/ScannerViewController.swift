@@ -296,8 +296,7 @@ extension ScannerViewController {
                                     //location in use/inactive location
                                     if variables.collected == 0 || variables.active == 0 {
                                         self.beepFail()
-                                        self.captureSession.stopRunning()
-                                        self.alert7b()
+                                        self.alert7b(code: code)
                                     }
                                         
                                     //valid location
@@ -306,7 +305,6 @@ extension ScannerViewController {
                                         variables.QRCode = code
                                         self.alert8()
                                     }
-                                    
                                 }
                                     
                                 //new location
@@ -323,7 +321,6 @@ extension ScannerViewController {
                         //not looking for QRCode
                         else {
                             beepFail()
-                            self.captureSession.stopRunning()
                             alert6b()
                         }
                     
@@ -339,8 +336,7 @@ extension ScannerViewController {
                                 //duplicate dosimeter
                                 if self.records != [] {
                                     self.beepFail()
-                                    self.captureSession.stopRunning()
-                                    self.alert7a()
+                                    self.alert7a(code: code)
                                 }
                                     
                                 //new dosimeter
@@ -357,7 +353,6 @@ extension ScannerViewController {
                         //not looking for barcode
                         else {
                             beepFail()
-                            self.captureSession.stopRunning()
                             alert6a()
                         }
                     
@@ -822,7 +817,7 @@ extension ScannerViewController {  //alerts
     } //end alert6b
     
     
-    func alert7a() {
+    func alert7a(code: String) {
         
         let message = "Try again...Please scan a new dosimeter.\n\n\n\n\n\n\n"
         let picture = Bundle.main.path(forResource: "Inlight", ofType: "jpg")!
@@ -831,7 +826,7 @@ extension ScannerViewController {  //alerts
         imageView.image = image
         
         //set up alert
-        let alert = UIAlertController.init(title: "Duplicate Dosimeter:\n\(variables.dosiNumber ?? "Nil Dosi")", message: message, preferredStyle: .alert)
+        let alert = UIAlertController.init(title: "Duplicate Dosimeter:\n\(code)", message: message, preferredStyle: .alert)
         let OK = UIAlertAction(title: "OK", style: .cancel, handler: handlerOK)
         
         alert.view.addSubview(imageView)
@@ -843,9 +838,9 @@ extension ScannerViewController {  //alerts
     } //end alert7a
     
     
-    func alert7b() {
+    func alert7b(code: String) {
         
-        let title = variables.collected == 0 ? "Location In Use:\n\(variables.QRCode ?? "Nil QRCode")" : "Inactive Location:\n\(variables.QRCode ?? "Nil QRCode")"
+        let title = variables.collected == 0 ? "Location In Use:\n\(code)" : "Inactive Location:\n\(variables.QRCode ?? "Nil QRCode")"
         let message = "Try again...Please scan a different location.\n\n\n\n\n\n\n"
         let picture = Bundle.main.path(forResource: "QRCodeImage", ofType: "png")!
         let imageView = UIImageView(frame: CGRect(x: 90, y: 110, width: 100, height: 100))

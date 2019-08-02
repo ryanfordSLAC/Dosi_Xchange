@@ -17,14 +17,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     @IBOutlet weak var MapView: MKMapView!
 
-    
     var locationmanager = CLLocationManager()
     let database = CKContainer.default().publicCloudDatabase
-    var dosimeter:String = ""
-    var createdDate:Date?
-    var fullTitle:String = ""
     var cycleDate = recordsUpdate()
-    
+    var records = [CKRecord]()
 
     
     override func viewDidLoad() {
@@ -44,8 +40,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         let region = MKCoordinateRegion(center: initialLocation, latitudinalMeters: 150, longitudinalMeters: 150)
         
         //only query records with collectedFlag = 0 (1 = collected)
-        queryCurrentCycle()
-        queryPriorCycle()  //cloudkit doesn't support OR queries, so two are necessary, 1 for each cycle.
+        queryActives()
         
         self.MapView.setRegion(region, animated: true)
         self.MapView.mapType = MKMapType.standard
@@ -83,6 +78,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         print(Error.self)
     }
     
+    
     //runs when "i" key is pressed to the right of the pin info bubble
     //delegate method
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView,
@@ -91,103 +87,75 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         let newViewController = mainStoryboard.instantiateViewController(withIdentifier: "Scanner") as! ScannerViewController
         self.show(newViewController, sender: self)
         
+        
     } //end mapView
     
-    func queryCurrentCycle() {  //red pin flags
+    
+    //query active locations
+    func queryActives() {
         
-        var records = [CKRecord]()
-        let flag = 0
-        let cycleDate = self.cycleDate.generateCycleDate()
-        let p1 = NSPredicate(format: "collectedFlag == %d", flag)
-        let p2 = NSPredicate(format: "cycleDate == %@", cycleDate)
-        let p3 = NSPredicate(format: "active == %d", 1)
-        let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [p1, p2, p3])
-        //  Query fields in Location to set up the artwork on the drop pins
+        records = [CKRecord]()
+        //let cycleDate = self.cycleDate.generateCycleDate()
+        let p1 = NSPredicate(format: "collectedFlag == %d", 0)
+        let p2 = NSPredicate(format: "active == %d", 1)
+        let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [p1, p2])
+        let sort1 = NSSortDescriptor(key: "QRCode", ascending: true)
+        let sort2 = NSSortDescriptor(key: "creationDate", ascending: false)
         let query = CKQuery(recordType: "Location", predicate: predicate)
+        query.sortDescriptors = [sort1, sort2]
         let operation = CKQueryOperation(query: query)
-        operation.resultsLimit = 1000
-        
-        operation.recordFetchedBlock = { (record: CKRecord) in
-            records.append(record)
-        }
-        
-        operation.queryCompletionBlock = { (cursor: CKQueryOperation.Cursor?, error: Error?) in
-            
-            DispatchQueue.main.async { //run whole thing on main thread to prevent "let artwork" line from producing error
-                for entry in records {
-                    let latitude = entry["latitude"] as? String
-                    let longitude = entry["longitude"] as? String
-                    let description = entry["locdescription"] as? String
-                    let dosimeter = entry["dosinumber"] as? String
-                    let QRCode = entry["QRCode"] as? String
-                    let cycleDate = entry["cycleDate"] as? String
-                    let fullTitle = "\(dosimeter ?? "Dosi Nil")\n\(QRCode ?? "QR Nil")"
-                    let createdDate = entry.creationDate
-                    self.fullTitle = fullTitle
-                    self.createdDate = createdDate  //pass created date out
-                    self.dosimeter = dosimeter!  //pass dosimeter number out
-                    let dosiLocations = CLLocationCoordinate2D(latitude: CLLocationDegrees(latitude!)!, longitude: CLLocationDegrees(longitude!)!)
-                    let artwork = Artwork(title: self.fullTitle, locationName: description!, discipline: self.fullTitle, coordinate: dosiLocations, createdDate: createdDate!, cycleDate: cycleDate!) //this has a location manager and needs main thread.
-                    self.MapView.addAnnotation(artwork)
-                }  //end for loop
-            } //end dispatch queue
-            
-        }
-        
-        database.add(operation)
+        addOperation(operation: operation)
     
     } //end func
     
     
-    func queryPriorCycle() { //green pin flags
-        
-        var records = [CKRecord]()
-        let flag = 0
-        let cycleDate = self.cycleDate.generateCycleDate()
-        let priorCycleDate = self.cycleDate.generatePriorCycleDate(cycleDate: cycleDate)
-        let p1 = NSPredicate(format: "cycleDate == %@", priorCycleDate)
-        let p2 = NSPredicate(format: "collectedFlag == %d", flag)
-        let p3 = NSPredicate(format: "active == %d", 1)
-        //where the cycle is the prior cycle, and hasn't been collected yet
-        //in order to suppress the ones that have been collected from the map view.
-        let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [p1, p2, p3])
-        //  Query fields in Location to set up the artwork on the drop pins
-        let query = CKQuery(recordType: "Location", predicate: predicate)
-        let operation = CKQueryOperation(query: query)
-        operation.resultsLimit = 1000
-        
-        operation.recordFetchedBlock = { (record: CKRecord) in
-            records.append(record)
-        }
-        
-        operation.queryCompletionBlock = { (cursor: CKQueryOperation.Cursor?, error: Error?) in
-            DispatchQueue.main.async { //run whole thing on main thread to prevent "let artwork" line from producing error
-                for entry in records {
-                    let latitude = entry["latitude"] as? String
-                    let longitude = entry["longitude"] as? String
-                    let description = entry["locdescription"] as? String
-                    let dosimeter = entry["dosinumber"] as? String
-                    let QRCode = entry["QRCode"] as? String
-                    let cycleDate = entry["cycleDate"] as? String
-                    let fullTitle = "\(dosimeter ?? "Dosi Nil")\n\(QRCode ?? "QR Nil")"
-                    let createdDate = entry.creationDate
-                    self.fullTitle = fullTitle
-                    self.createdDate = createdDate  //pass created date out
-                    self.dosimeter = dosimeter!  //pass dosimeter number out
-                    let dosiLocations = CLLocationCoordinate2D(latitude: CLLocationDegrees(latitude!)!, longitude: CLLocationDegrees(longitude!)!)
-                    let artwork = Artwork(title: self.fullTitle, locationName: description!, discipline: dosimeter!, coordinate: dosiLocations, createdDate: createdDate!, cycleDate: cycleDate!) //this has a location manager and needs main thread.
-                    self.MapView.addAnnotation(artwork)
-                }  //end for loop
-            } //end dispatch queue
-        }
+    //add query operation
+    func addOperation(operation: CKQueryOperation) {
+        operation.resultsLimit = 200 // max 400; 200 to be safe
+        operation.recordFetchedBlock = self.recordFetchedBlock // to be executed for each fetched record
+        operation.queryCompletionBlock = self.queryCompletionBlock // to be executed after each query (query fetches 200 records at a time)
         
         database.add(operation)
-        
     } //end func
     
-} //end class
+    
+    //to be executed after each query (query fetches 200 records at a time)
+    func queryCompletionBlock(cursor: CKQueryOperation.Cursor?, error: Error?) {
+        if let error = error {
+            print(error)
+            return
+        }
+        if let cursor = cursor {
+            let operation = CKQueryOperation(cursor: cursor)
+            addOperation(operation: operation)
+            return
+        }
+    } //end func
+    
+    
+    //to be executed for each fetched record
+    func recordFetchedBlock(record: CKRecord) {
+        
+        //run whole thing on main thread to prevent "let artwork" line from producing error
+        DispatchQueue.main.async {
+            
+            let QRCode = record["QRCode"] as? String
+            let active = record["active"] as? Int64
+            let latitude = record["latitude"] as? String
+            let longitude = record["longitude"] as? String
+            let description = record["locdescription"] as? String
+            
+            let dosimeter = record["dosinumber"] as? String
+            let cycleDate = record["cycleDate"] as? String
+            let collected = record["collectedFlag"] as? Int64
+            
+            let fullTitle = "\(QRCode ?? "QR Nil")\n\(dosimeter ?? "Dosi Nil")"
+            let dosiLocations = CLLocationCoordinate2D(latitude: CLLocationDegrees(latitude!)!, longitude: CLLocationDegrees(longitude!)!)
+            let artwork = Artwork(title: fullTitle, locDescription: description!, coordinate: dosiLocations, cycleDate: cycleDate!, active: active!, collected: collected!) //this has a location manager and needs main thread.
+            self.MapView.addAnnotation(artwork)
 
-
-
+        }
+    }
+}
 
 

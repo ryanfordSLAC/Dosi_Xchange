@@ -13,27 +13,26 @@ import Contacts
 //Artwork class contains properties and methods for displaying the pin color & info.
 
 class Artwork: NSObject, MKAnnotation {
+    
     let title: String?
-    let locationName: String
-    let discipline: String
+    let subtitle: String?
     let coordinate: CLLocationCoordinate2D
-    let createdDate: Date
-    let cycleDate: String
+    let cycleDate: String?
+    let active: Int64
+    let collected: Int64?
     let getcycleDate = recordsUpdate()
     
-    init(title: String, locationName: String, discipline: String, coordinate: CLLocationCoordinate2D, createdDate: Date, cycleDate: String) {
+    
+    init(title: String, locDescription: String, coordinate: CLLocationCoordinate2D, cycleDate: String, active: Int64, collected: Int64) {
         self.title = title
-        self.locationName = locationName
-        self.discipline = discipline
+        self.subtitle = locDescription
         self.coordinate = coordinate
-        self.createdDate = createdDate
         self.cycleDate = cycleDate
+        self.active = active
+        self.collected = collected
         super.init()
     }
     
-    var subtitle: String? {
-        return locationName
-    }
     
     var markerTintColor: UIColor {
         //change to cycledate
@@ -51,19 +50,19 @@ class Artwork: NSObject, MKAnnotation {
         
     } //end markerTintColor
     
-    var imageName: String? { //not needed
-        if discipline == "Sculpture" { return "Statue" }
-        return "Flag"
-    }
-    
-    // Annotation right callout accessory opens this mapItem in Maps app
-    
-    func mapItem() -> MKMapItem {
-        let addressDict = [CNPostalAddressStreetKey: subtitle!]
-        let placemark = MKPlacemark(coordinate: coordinate, addressDictionary: addressDict)
-        let mapItem = MKMapItem(placemark: placemark)
-        mapItem.name = title
-        return mapItem
-    }
+//    var imageName: String? { //not needed
+//        if discipline == "Sculpture" { return "Statue" }
+//        return "Flag"
+//    }
+//
+//    //Annotation right callout accessory opens this mapItem in Maps app
+//
+//    func mapItem() -> MKMapItem {
+//        let addressDict = [CNPostalAddressStreetKey: subtitle!]
+//        let placemark = MKPlacemark(coordinate: coordinate, addressDictionary: addressDict)
+//        let mapItem = MKMapItem(placemark: placemark)
+//        mapItem.name = title
+//        return mapItem
+//    }
     
 }

@@ -97,7 +97,9 @@ class ActiveLocations: UIViewController, UITableViewDataSource, UITableViewDeleg
 
         let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let vc = mainStoryboard.instantiateViewController(withIdentifier: "LocationDetails") as! LocationDetails
-        vc.record = displayInfo[segment][indexPath.row].0
+        
+        vc.record = searching ? searches[segment][indexPath.row].0 : displayInfo[segment][indexPath.row].0
+        
         self.present(vc, animated: true)
     }
     
