@@ -57,7 +57,7 @@ class StartupViewController: UIViewController, MFMailComposeViewControllerDelega
         setProgress()
         
         //tools button
-        let toolsTap = UITapGestureRecognizer(target: self, action: #selector(StartupViewController.imageTapped))
+        let toolsTap = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
         Tools.isUserInteractionEnabled = true
         Tools.addGestureRecognizer(toolsTap)
         

@@ -79,13 +79,15 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
             annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "AnnotationView")
         }
         
+        annotationView?.displayPriority = .required
         annotationView?.canShowCallout = true
         annotationView?.markerTintColor = annotation.markerTintColor
-        annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
         
-        //uncomment this line to see all pins
-        //comment this line to allow 
-        annotationView?.displayPriority = .required
+        //TODO:
+//        let detailButton = UIButton(type: .detailDisclosure)
+//        let detailsTap = UITapGestureRecognizer(target: self, action: #selector())
+//        detailButton.addGestureRecognizer(detailsTap)
+        annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
         
         return annotationView
     }

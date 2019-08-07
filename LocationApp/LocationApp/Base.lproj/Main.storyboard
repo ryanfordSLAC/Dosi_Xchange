@@ -95,9 +95,9 @@
                                 <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                                 <items>
                                     <navigationItem title="Location Data" id="hZB-aq-LyZ">
-                                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="sva-xf-q8r">
+                                        <barButtonItem key="leftBarButtonItem" title="Back" id="sva-xf-q8r">
                                             <connections>
-                                                <segue destination="M89-R5-CVf" kind="show" id="YKi-gr-Ubt"/>
+                                                <action selector="dismissLocation:" destination="BYZ-38-t0r" id="03k-0H-7iU"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -220,9 +220,15 @@
                                     <action selector="button2down:" destination="M89-R5-CVf" eventType="touchDragInside" id="h9T-wG-1sv"/>
                                     <action selector="button2up:" destination="M89-R5-CVf" eventType="touchDragOutside" id="VlA-oz-AUK"/>
                                     <action selector="button2up:" destination="M89-R5-CVf" eventType="touchUpInside" id="pUL-dc-bgP"/>
-                                    <segue destination="BYZ-38-t0r" kind="show" id="cs9-V2-lMJ"/>
+                                    <segue destination="BYZ-38-t0r" kind="presentation" id="cs9-V2-lMJ"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Updated: 08/07/2019 16:40" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3FX-rC-9sw">
+                                <rect key="frame" x="71" y="531" width="178.5" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -233,9 +239,11 @@
                             <constraint firstAttribute="trailing" secondItem="zZL-V9-XtT" secondAttribute="trailing" id="b7D-Z6-DRt"/>
                             <constraint firstItem="f4q-J5-UJn" firstAttribute="leading" secondItem="8cu-87-6eq" secondAttribute="centerX" constant="-100" id="bCb-qu-uTQ"/>
                             <constraint firstItem="iL3-Xk-1J0" firstAttribute="trailing" secondItem="8cu-87-6eq" secondAttribute="centerX" constant="80" id="dUa-8w-h9i"/>
+                            <constraint firstItem="8cu-87-6eq" firstAttribute="bottom" secondItem="3FX-rC-9sw" secondAttribute="bottom" constant="20" id="dVq-SL-gBz"/>
                             <constraint firstItem="12k-op-bR2" firstAttribute="top" secondItem="iL3-Xk-1J0" secondAttribute="bottom" constant="50" id="eAl-df-2zj"/>
                             <constraint firstItem="P1C-rk-auY" firstAttribute="top" secondItem="zZL-V9-XtT" secondAttribute="bottom" constant="21" id="fxf-KM-3yN"/>
                             <constraint firstItem="iL3-Xk-1J0" firstAttribute="leading" secondItem="8cu-87-6eq" secondAttribute="centerX" constant="-80" id="g45-4J-oW3"/>
+                            <constraint firstItem="3FX-rC-9sw" firstAttribute="centerX" secondItem="Kob-bg-1b1" secondAttribute="centerX" id="gf8-t8-hfs"/>
                             <constraint firstItem="12k-op-bR2" firstAttribute="centerX" secondItem="Kob-bg-1b1" secondAttribute="centerX" id="j1A-My-Y08"/>
                             <constraint firstItem="f4q-J5-UJn" firstAttribute="trailing" secondItem="8cu-87-6eq" secondAttribute="centerX" constant="100" id="lFo-1j-4Wq"/>
                             <constraint firstItem="f4q-J5-UJn" firstAttribute="top" secondItem="P1C-rk-auY" secondAttribute="bottom" constant="50" id="nvL-A6-4wP"/>
@@ -266,9 +274,9 @@
                                 <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                                 <items>
                                     <navigationItem title="Nearest Dosimeters" id="3CH-2U-uVH">
-                                        <barButtonItem key="leftBarButtonItem" title="Done" id="Owx-Ea-NGM">
+                                        <barButtonItem key="leftBarButtonItem" title="Back" id="Owx-Ea-NGM">
                                             <connections>
-                                                <segue destination="46x-xA-AQB" kind="show" id="VTA-zv-EqM"/>
+                                                <action selector="dismissNearest:" destination="6TL-yL-fXu" id="fwi-oe-Tp2"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -382,7 +390,7 @@
                                     <action selector="nearestButtonDown:" destination="46x-xA-AQB" eventType="touchDragInside" id="hnw-la-5ty"/>
                                     <action selector="nearestButtonUp:" destination="46x-xA-AQB" eventType="touchDragOutside" id="KaD-X8-oRO"/>
                                     <action selector="nearestButtonUp:" destination="46x-xA-AQB" eventType="touchUpInside" id="ZKp-2P-Ta3"/>
-                                    <segue destination="6TL-yL-fXu" kind="show" id="th1-nC-bit"/>
+                                    <segue destination="6TL-yL-fXu" kind="presentation" id="th1-nC-bit"/>
                                 </connections>
                             </button>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="C5U-sR-g2Z">
@@ -713,16 +721,16 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location Description" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N2q-Tp-62q">
-                                <rect key="frame" x="17" y="124" width="293" height="40"/>
+                                <rect key="frame" x="17" y="124" width="293" height="60"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="uCU-Up-2Lg"/>
+                                    <constraint firstAttribute="height" constant="60" id="uCU-Up-2Lg"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fields:" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="62M-V9-eI8">
-                                <rect key="frame" x="17" y="174" width="253" height="100"/>
+                                <rect key="frame" x="17" y="194" width="253" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="Bcv-OS-A0H"/>
                                 </constraints>
@@ -731,7 +739,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="30" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="BRE-vb-1za">
-                                <rect key="frame" x="0.0" y="344" width="320" height="224"/>
+                                <rect key="frame" x="0.0" y="364" width="320" height="204"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="itemCell" textLabel="jOC-5M-CC1" detailTextLabel="f2j-MS-Bjc" style="IBUITableViewCellStyleValue2" id="kJD-jU-5PM">
@@ -761,7 +769,7 @@
                                 </prototypes>
                             </tableView>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7tL-8y-rmC">
-                                <rect key="frame" x="0.0" y="300" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="320" width="320" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="xr8-DY-bcA"/>
                                 </constraints>
@@ -770,7 +778,7 @@
                                 </items>
                             </navigationBar>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gEB-YD-oqx">
-                                <rect key="frame" x="80" y="247" width="49" height="31"/>
+                                <rect key="frame" x="80" y="267" width="49" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="31" id="aog-Xx-zMH"/>
                                 </constraints>
@@ -780,7 +788,7 @@
                                 </connections>
                             </switch>
                             <activityIndicatorView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="tYh-8K-Cq7">
-                                <rect key="frame" x="285" y="312" width="20" height="20"/>
+                                <rect key="frame" x="285" y="332" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -830,8 +838,8 @@
         <image name="Tools" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Szf-7B-3OI"/>
-        <segue reference="jLQ-01-gAR"/>
-        <segue reference="1eV-Ng-UnH"/>
+        <segue reference="ar4-0B-Xd6"/>
+        <segue reference="1iZ-uO-Z3p"/>
+        <segue reference="zta-o7-k1W"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -79,6 +79,10 @@ class NearestLocations: UIViewController, UITableViewDataSource, UITableViewDele
     } //end func
     
     
+    @IBAction func dismissNearest(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     // tableView protocol stubs
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         // "sorted by distance from current location"

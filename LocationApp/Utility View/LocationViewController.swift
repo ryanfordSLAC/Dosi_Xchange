@@ -71,4 +71,9 @@ class LocationViewController: UIViewController, CLLocationManagerDelegate {
         
     } //end didFailWithError
     
+    @IBAction func dismissLocation(_ sender: Any) {
+        
+        self.dismiss(animated: true, completion: nil)
+    }
+    
 } //end class

@@ -236,7 +236,7 @@ extension ScannerViewController {
                         variables.dosiNumber = code //store the dosi number
                         queryForDosiFound() //use the dosiNumber to look up record & store values
 
-                        dispatchGroup.notify(queue: .main){
+                        dispatchGroup.notify(queue: .main) {
                             print("1 - Dispatch Code 128 Notify")
                             
                             //record found
@@ -287,7 +287,7 @@ extension ScannerViewController {
                             clearForQR()
                             queryForQRUsed(tempQR: code)
                             
-                            dispatchGroup.notify(queue: .main){
+                            dispatchGroup.notify(queue: .main) {
                                 print("2 - Dispatch QR Code Notify")
                                 
                                 //existing location
@@ -330,7 +330,7 @@ extension ScannerViewController {
                         if variables.dosiNumber == nil {
                             queryForDosiUsed(tempDosi: code)
                             
-                            dispatchGroup.notify(queue: .main){
+                            dispatchGroup.notify(queue: .main) {
                                 print("2 - Dispatch Code 128 Notify")
                                 
                                 //duplicate dosimeter
@@ -508,12 +508,9 @@ extension ScannerViewController {  //queries
             }
             
             self.records = records
+            self.dispatchGroup.leave()
             
         } //end perform query
-        
-        run(after: 1) {
-            self.dispatchGroup.leave()
-        }
         
     } //end queryforDosiFound
     
@@ -539,12 +536,9 @@ extension ScannerViewController {  //queries
             }
             
             self.records = records
+            self.dispatchGroup.leave()
             
         }  //end perform query
-        
-        run(after: 1) {
-            self.dispatchGroup.leave()
-        }
         
     } //end queryForQRFound
     
@@ -557,13 +551,10 @@ extension ScannerViewController {  //queries
             guard let records = records else { return }
             
             self.records = records
+            self.dispatchGroup.leave()
             
         } //end perform query
-        
-        run(after: 1) {
-            self.dispatchGroup.leave()
-        }
-        
+
     } //end queryForDosiUsed
     
     
@@ -585,12 +576,10 @@ extension ScannerViewController {  //queries
             }
             
             self.records = records
+            self.dispatchGroup.leave()
             
         }  //end perform query
-        
-        run(after: 1) {
-            self.dispatchGroup.leave()
-        }
+
     } //end queryForQRUsed
 
 } //end extension queries
@@ -872,7 +861,16 @@ extension ScannerViewController {  //alerts
             var text = alert.textFields?.first?.text
             text = text?.replacingOccurrences(of: ",", with: "-")
             
-            self.recordsupdate.saveRecord(latitude: variables.latitude ?? "Nil Latitude", longitude: variables.longitude ?? "Nil Longitude", dosiNumber: variables.dosiNumber ?? "Nil Dosi", text: text ?? "Nil location", flag: 0, cycle: cycle, QRCode: variables.QRCode ?? "Nil QRCode", mismatch: variables.mismatch ?? 0, moderator: variables.moderator ?? 0, active: 1)
+            self.recordsupdate.saveRecord(latitude: variables.latitude ?? "Nil Latitude",
+                                          longitude: variables.longitude ?? "Nil Longitude",
+                                          dosiNumber: variables.dosiNumber ?? "Nil Dosi",
+                                          text: text ?? "Nil location",
+                                          flag: 0,
+                                          cycle: cycle,
+                                          QRCode: variables.QRCode ?? "Nil QRCode",
+                                          mismatch: variables.mismatch ?? 0,
+                                          moderator: variables.moderator ?? 0,
+                                          active: 1)
             
             variables.dosiLocation = text
             self.alert10() //Success
