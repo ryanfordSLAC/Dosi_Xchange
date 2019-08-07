@@ -31,6 +31,7 @@ class LocationDetails: UIViewController {
     @IBOutlet weak var locDescription: UILabel!
     @IBOutlet weak var fields: UILabel!
     @IBOutlet weak var activeSwitch: UISwitch!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     @IBOutlet weak var qrTable: UITableView!
     
@@ -48,6 +49,7 @@ class LocationDetails: UIViewController {
         // wait for query to finish
         dispatchGroup.notify(queue: .main) {
             self.qrTable.reloadData()
+            self.activityIndicator.stopAnimating()
         }
 
     }

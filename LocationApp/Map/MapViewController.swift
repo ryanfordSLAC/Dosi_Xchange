@@ -145,15 +145,15 @@ extension MapViewController {
     func filtersAlert() {
         
         //configure alert message
-        let font1 = [NSAttributedString.Key.font: UIFont(name: "Arial-BoldMT", size: 20)!,
+        let font1 = [NSAttributedString.Key.font: UIFont(name: "Arial-BoldMT", size: 22)!,
                      NSAttributedString.Key.paragraphStyle: NSMutableParagraphStyle()]
-        let font2 = [NSAttributedString.Key.font: UIFont(name: "ArialMT", size: 16)!,
+        let font2 = [NSAttributedString.Key.font: UIFont(name: "ArialMT", size: 18)!,
                      NSAttributedString.Key.paragraphStyle: NSMutableParagraphStyle()]
         let message = NSMutableAttributedString(string: "", attributes: font1)
         message.append(NSAttributedString(string: "Active\n\n", attributes: font1))
-        message.append(NSAttributedString(string: "\t  Current Cycle:\n\n\t  Prior Cycle:\n\n\t  No Dosimeter:\n\n\n", attributes: font2))
+        message.append(NSAttributedString(string: "\tCurrent Cycle:\n\n\tPrior Cycle:\n\n\tNo Dosimeter:\n\n\n", attributes: font2))
         message.append(NSAttributedString(string: "Inactive\n\n", attributes: font1))
-        message.append(NSAttributedString(string: "\t  Current Cycle\n\n\t  Prior Cycle\n\n\t  No Dosimeter\n", attributes: font2))
+        message.append(NSAttributedString(string: "\tCurrent Cycle:\n\n\tPrior Cycle:\n\n\tNo Dosimeter:\n", attributes: font2))
         
         //set up alert
         let alert = UIAlertController.init(title: nil, message: nil, preferredStyle: .alert)
@@ -176,7 +176,7 @@ extension MapViewController {
     
     //RED PINS - current cycle, active (stop)
     func redSwitch() -> UISwitch {
-        let redSwitch = UISwitch(frame: CGRect(x: 170, y: 94, width: 0, height: 0))
+        let redSwitch = UISwitch(frame: CGRect(x: 170, y: 62, width: 0, height: 0))
         redSwitch.onTintColor = UIColor.red
         redSwitch.tintColor = UIColor.gray
         redSwitch.setOn(filters[.red]!, animated: false)
@@ -190,7 +190,7 @@ extension MapViewController {
     
     //GREEN PINS - prior cycle, active (exchange)
     func greenSwitch() -> UISwitch {
-        let greenSwitch = UISwitch(frame: CGRect(x: 170, y: 132, width: 0, height: 0))
+        let greenSwitch = UISwitch(frame: CGRect(x: 170, y: 102, width: 0, height: 0))
         greenSwitch.onTintColor = UIColor.green
         greenSwitch.tintColor = UIColor.gray
         greenSwitch.setOn(filters[.green]!, animated: false)
@@ -205,7 +205,7 @@ extension MapViewController {
     
     //ORANGE PINS - active, no dosimeter (deploy)
     func orangeSwitch() -> UISwitch {
-        let orangeSwitch = UISwitch(frame: CGRect(x: 170, y: 170, width: 0, height: 0))
+        let orangeSwitch = UISwitch(frame: CGRect(x: 170, y: 142, width: 0, height: 0))
         orangeSwitch.onTintColor = UIColor.orange
         orangeSwitch.tintColor = UIColor.gray
         orangeSwitch.setOn(filters[.orange]!, animated: false)
@@ -220,7 +220,7 @@ extension MapViewController {
     
     //PURPLE PINS - current cycle, inactive (stop)
     func purpleSwitch() -> UISwitch {
-        let purpleSwitch = UISwitch(frame: CGRect(x: 170, y: 265, width: 0, height: 0))
+        let purpleSwitch = UISwitch(frame: CGRect(x: 170, y: 251, width: 0, height: 0))
         purpleSwitch.onTintColor = UIColor.purple
         purpleSwitch.tintColor = UIColor.gray
         purpleSwitch.setOn(filters[.purple]!, animated: false)
@@ -235,7 +235,7 @@ extension MapViewController {
     
     //BLUE PINS - prior cycle, inactive (collect)
     func blueSwitch() -> UISwitch {
-        let blueSwitch = UISwitch(frame: CGRect(x: 170, y: 303, width: 0, height: 0))
+        let blueSwitch = UISwitch(frame: CGRect(x: 170, y: 291, width: 0, height: 0))
         blueSwitch.onTintColor = UIColor.blue
         blueSwitch.tintColor = UIColor.gray
         blueSwitch.setOn(filters[.blue]!, animated: false)
@@ -250,7 +250,7 @@ extension MapViewController {
     
     //YELLOW PINS - inactive, no dosimeter
     func yellowSwitch() -> UISwitch {
-        let yellowSwitch = UISwitch(frame: CGRect(x: 170, y: 341, width: 0, height: 0))
+        let yellowSwitch = UISwitch(frame: CGRect(x: 170, y: 331, width: 0, height: 0))
         yellowSwitch.onTintColor = UIColor.yellow
         yellowSwitch.tintColor = UIColor.gray
         yellowSwitch.setOn(filters[.yellow]!, animated: false)
@@ -339,7 +339,11 @@ extension MapViewController {
             let cycleDate = record["cycleDate"] as? String
             let collected = record["collectedFlag"] as? Int64
             
-            let fullTitle = "\(QRCode)\n\(dosimeter ?? "Dosi Nil")"
+            var fullTitle = "\(QRCode)"
+            if collected == 0 {
+                fullTitle.append(contentsOf: "\n\(dosimeter ?? "Dosi Nil")")
+            }
+            
             let dosiLocations = CLLocationCoordinate2D(latitude: CLLocationDegrees(latitude)!, longitude: CLLocationDegrees(longitude)!)
             let artwork = Artwork(title: fullTitle, locDescription: description, active: active, coordinate: dosiLocations, cycleDate: cycleDate, collected: collected) //this has a location manager and needs main thread.
             if(self.filters[artwork.markerTintColor]!) {
