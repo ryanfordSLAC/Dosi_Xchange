@@ -32,23 +32,60 @@ class ToolsViewController: UIViewController, MFMailComposeViewControllerDelegate
     var moderator = ""
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-
+    @IBOutlet weak var button1: UIButton!
+    @IBOutlet weak var button2: UIButton!
+    @IBOutlet weak var button3: UIButton!
+    
+    let borderColorUp = UIColor(red: 0.580723, green: 0.0667341, blue: 0, alpha: 1).cgColor
+    let borderColorDown = UIColor(red: 0.580723, green: 0.0667341, blue: 0, alpha: 0.25).cgColor
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
         
-        activityIndicator.isHidden = true
+        //format buttons
+        button1.layer.borderWidth = 1.5
+        button1.layer.borderColor = borderColorUp
+        button1.layer.cornerRadius = 22
+        
+        button2.layer.borderWidth = 1.5
+        button2.layer.borderColor = borderColorUp
+        button2.layer.cornerRadius = 22
+        
+        button3.layer.borderWidth = 1.5
+        button3.layer.borderColor = borderColorUp
+        button3.layer.cornerRadius = 22
+        
     }
     
+    @IBAction func button1down(_ sender: Any) {
+        button1.layer.borderColor = borderColorDown
+    }
     
-    @IBAction func emailTouchDown(_ sender: Any) {
-        
+    @IBAction func button1up(_ sender: Any) {
+        button1.layer.borderColor = borderColorUp
+    }
+    
+    @IBAction func button2down(_ sender: Any) {
+        button2.layer.borderColor = borderColorDown
+    }
+    
+    @IBAction func button2up(_ sender: Any) {
+        button2.layer.borderColor = borderColorUp
+    }
+    
+    @IBAction func button3down(_ sender: Any) {
+        button3.layer.borderColor = borderColorDown
         //start activityIndicator
         activityIndicator.startAnimating()
-        
-    } //end func emailTouchDown
+    }
     
+    @IBAction func button3up(_ sender: Any) {
+        button3.layer.borderColor = borderColorUp
+        //release Email Data button from outside
+        //stop activityIndicator
+        activityIndicator.stopAnimating()
+    }
     
     @IBAction func emailTouchUp(_ sender: Any) {
         
@@ -61,13 +98,7 @@ class ToolsViewController: UIViewController, MFMailComposeViewControllerDelegate
         
         //stop activityIndicator
         activityIndicator.stopAnimating()
-    }
-    
-    
-    @IBAction func emailCancel(_ sender: Any) {
-        //release Email Data button from outside
-        //stop activityIndicator
-        activityIndicator.stopAnimating()
+        button3.layer.borderColor = borderColorUp
     }
     
     
@@ -101,7 +132,11 @@ class ToolsViewController: UIViewController, MFMailComposeViewControllerDelegate
         controller.dismiss(animated: true)
         
     } //end func mailComposeController
-    
+}
+
+
+//query and helper functions
+extension ToolsViewController {
     
     func queryDatabaseForCSV() {
         

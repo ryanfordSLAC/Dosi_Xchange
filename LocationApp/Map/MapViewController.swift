@@ -13,15 +13,26 @@ import CloudKit
 //import Contacts
 
 
-class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate  {
+class MapViewController: UIViewController {
     
     @IBOutlet weak var MapView: MKMapView!
-
+    @IBOutlet weak var filtersButton: UIButton!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     var locationmanager = CLLocationManager()
     let database = CKContainer.default().publicCloudDatabase
     var cycleDate = recordsUpdate()
     var records = [CKRecord]()
-
+    var checkQR = ""
+    
+    var filters:[UIColor:Bool] = [
+        .red:true,
+        .green:true,
+        .orange:false,
+        .purple:true,
+        .blue:true,
+        .yellow:false
+    ]
     
     override func viewDidLoad() {
         
@@ -32,15 +43,15 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         let longitude = locationmanager.location?.coordinate.longitude
         self.MapView.delegate = self
         
-        //register the ArtworkMarkerView class to reusable annotation view.
-        MapView.register(ArtworkMarkerView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
+        //format filters button
+        filtersButton.layer.cornerRadius = 5
         
         //set initial map properties
         let initialLocation = CLLocationCoordinate2D(latitude: latitude!, longitude: longitude!)
         let region = MKCoordinateRegion(center: initialLocation, latitudinalMeters: 150, longitudinalMeters: 150)
         
-        //only query records with collectedFlag = 0 (1 = collected)
-        queryActives()
+        //query records
+        queryForMap()
         
         self.MapView.setRegion(region, animated: true)
         self.MapView.mapType = MKMapType.standard
@@ -51,12 +62,34 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             self.locationmanager.startUpdatingLocation()
         }
         
-    }  //end view did load
-	
-    //tells delegate that new location data is available
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
     }
+	
+}
+
+//MapView and locationmanager delegate methods
+extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        
+        guard let annotation = annotation as? Artwork else { return nil }
+        
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "AnnotationView") as? MKMarkerAnnotationView
+        
+        if annotationView == nil {
+            annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "AnnotationView")
+        }
+        
+        annotationView?.canShowCallout = true
+        annotationView?.markerTintColor = annotation.markerTintColor
+        annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+        
+        //uncomment this line to see all pins
+        //comment this line to allow 
+        annotationView?.displayPriority = .required
+        
+        return annotationView
+    }
+    
     //implement failure methods as part of the delegate
     func mapViewDidFailLoadingMap(_ mapView: MKMapView, withError error: Error) {
         print(Error.self)
@@ -64,6 +97,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     func mapView(_ mapView: MKMapView, didFailToLocateUserWithError error: Error) {
         print(Error.self)
+    }
+    
+    //tells delegate that new location data is available
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -78,7 +116,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         print(Error.self)
     }
     
-    
     //runs when "i" key is pressed to the right of the pin info bubble
     //delegate method
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView,
@@ -87,18 +124,160 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         let newViewController = mainStoryboard.instantiateViewController(withIdentifier: "Scanner") as! ScannerViewController
         self.show(newViewController, sender: self)
         
-        
     } //end mapView
+
+}
+
+//filters and switches
+extension MapViewController {
     
+    //runs when filters button is clicked
+    @IBAction func didClickFilters(_ sender: Any) {
+        
+        DispatchQueue.main.async {
+            self.MapView.removeAnnotations(self.MapView.annotations)
+            self.filtersButton.isHidden = true
+        }
+        filtersAlert()
+    }
+    
+    //alert to filter pins
+    func filtersAlert() {
+        
+        //configure alert message
+        let font1 = [NSAttributedString.Key.font: UIFont(name: "Arial-BoldMT", size: 20)!,
+                     NSAttributedString.Key.paragraphStyle: NSMutableParagraphStyle()]
+        let font2 = [NSAttributedString.Key.font: UIFont(name: "ArialMT", size: 16)!,
+                     NSAttributedString.Key.paragraphStyle: NSMutableParagraphStyle()]
+        let message = NSMutableAttributedString(string: "", attributes: font1)
+        message.append(NSAttributedString(string: "Active\n\n", attributes: font1))
+        message.append(NSAttributedString(string: "\t  Current Cycle:\n\n\t  Prior Cycle:\n\n\t  No Dosimeter:\n\n\n", attributes: font2))
+        message.append(NSAttributedString(string: "Inactive\n\n", attributes: font1))
+        message.append(NSAttributedString(string: "\t  Current Cycle\n\n\t  Prior Cycle\n\n\t  No Dosimeter\n", attributes: font2))
+        
+        //set up alert
+        let alert = UIAlertController.init(title: nil, message: nil, preferredStyle: .alert)
+        alert.setValue(message, forKey: "attributedMessage")
+        let OK = UIAlertAction(title: "OK", style: .default, handler: handlerOK)
+        
+        alert.view.addSubview(redSwitch())
+        alert.view.addSubview(greenSwitch())
+        alert.view.addSubview(orangeSwitch())
+        alert.view.addSubview(purpleSwitch())
+        alert.view.addSubview(blueSwitch())
+        alert.view.addSubview(yellowSwitch())
+        alert.addAction(OK)
+        
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    
+    //RED PINS - current cycle, active (stop)
+    func redSwitch() -> UISwitch {
+        let redSwitch = UISwitch(frame: CGRect(x: 170, y: 94, width: 0, height: 0))
+        redSwitch.onTintColor = UIColor.red
+        redSwitch.tintColor = UIColor.gray
+        redSwitch.setOn(filters[.red]!, animated: false)
+        redSwitch.addTarget(self, action: #selector(redSwitchDidChange(_:)), for: .valueChanged)
+        return redSwitch
+    }
+    
+    @objc func redSwitchDidChange(_ sender: UISwitch!) {
+        filters[.red] = sender.isOn
+    }
+    
+    //GREEN PINS - prior cycle, active (exchange)
+    func greenSwitch() -> UISwitch {
+        let greenSwitch = UISwitch(frame: CGRect(x: 170, y: 132, width: 0, height: 0))
+        greenSwitch.onTintColor = UIColor.green
+        greenSwitch.tintColor = UIColor.gray
+        greenSwitch.setOn(filters[.green]!, animated: false)
+        greenSwitch.addTarget(self, action: #selector(greenSwitchDidChange(_:)), for: .valueChanged)
+        return greenSwitch
+    }
+    
+    @objc func greenSwitchDidChange(_ sender: UISwitch!) {
+        filters[.green] = sender.isOn
+    }
+    
+    
+    //ORANGE PINS - active, no dosimeter (deploy)
+    func orangeSwitch() -> UISwitch {
+        let orangeSwitch = UISwitch(frame: CGRect(x: 170, y: 170, width: 0, height: 0))
+        orangeSwitch.onTintColor = UIColor.orange
+        orangeSwitch.tintColor = UIColor.gray
+        orangeSwitch.setOn(filters[.orange]!, animated: false)
+        orangeSwitch.addTarget(self, action: #selector(orangeSwitchDidChange(_:)), for: .valueChanged)
+        return orangeSwitch
+    }
+    
+    @objc func orangeSwitchDidChange(_ sender: UISwitch!) {
+        filters[.orange] = sender.isOn
+    }
+    
+    
+    //PURPLE PINS - current cycle, inactive (stop)
+    func purpleSwitch() -> UISwitch {
+        let purpleSwitch = UISwitch(frame: CGRect(x: 170, y: 265, width: 0, height: 0))
+        purpleSwitch.onTintColor = UIColor.purple
+        purpleSwitch.tintColor = UIColor.gray
+        purpleSwitch.setOn(filters[.purple]!, animated: false)
+        purpleSwitch.addTarget(self, action: #selector(purpleSwitchDidChange(_:)), for: .valueChanged)
+        return purpleSwitch
+    }
+    
+    @objc func purpleSwitchDidChange(_ sender: UISwitch!) {
+        filters[.purple] = sender.isOn
+    }
+    
+    
+    //BLUE PINS - prior cycle, inactive (collect)
+    func blueSwitch() -> UISwitch {
+        let blueSwitch = UISwitch(frame: CGRect(x: 170, y: 303, width: 0, height: 0))
+        blueSwitch.onTintColor = UIColor.blue
+        blueSwitch.tintColor = UIColor.gray
+        blueSwitch.setOn(filters[.blue]!, animated: false)
+        blueSwitch.addTarget(self, action: #selector(blueSwitchDidChange(_:)), for: .valueChanged)
+        return blueSwitch
+    }
+    
+    @objc func blueSwitchDidChange(_ sender: UISwitch!) {
+        filters[.blue] = sender.isOn
+    }
+    
+    
+    //YELLOW PINS - inactive, no dosimeter
+    func yellowSwitch() -> UISwitch {
+        let yellowSwitch = UISwitch(frame: CGRect(x: 170, y: 341, width: 0, height: 0))
+        yellowSwitch.onTintColor = UIColor.yellow
+        yellowSwitch.tintColor = UIColor.gray
+        yellowSwitch.setOn(filters[.yellow]!, animated: false)
+        yellowSwitch.addTarget(self, action: #selector(yellowSwitchDidChange(_:)), for: .valueChanged)
+        return yellowSwitch
+    }
+    
+    @objc func yellowSwitchDidChange(_ sender: UISwitch!) {
+        filters[.yellow] = sender.isOn
+    }
+    
+
+    func handlerOK(alert: UIAlertAction!) {
+        self.activityIndicator.startAnimating()
+        queryForMap()
+    }
+    
+}
+
+//query functions
+extension MapViewController {
     
     //query active locations
-    func queryActives() {
+    func queryForMap() {
         
         records = [CKRecord]()
-        //let cycleDate = self.cycleDate.generateCycleDate()
-        let p1 = NSPredicate(format: "collectedFlag == %d", 0)
-        let p2 = NSPredicate(format: "active == %d", 1)
-        let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [p1, p2])
+        let predicate = NSPredicate(value: true)
         let sort1 = NSSortDescriptor(key: "QRCode", ascending: true)
         let sort2 = NSSortDescriptor(key: "creationDate", ascending: false)
         let query = CKQuery(recordType: "Location", predicate: predicate)
@@ -130,31 +309,45 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             addOperation(operation: operation)
             return
         }
+        
+        DispatchQueue.main.async {
+            self.activityIndicator.stopAnimating()
+            self.filtersButton.isHidden = false
+        }
+        
     } //end func
     
     
     //to be executed for each fetched record
     func recordFetchedBlock(record: CKRecord) {
         
+        //fetch QRCode
+        let QRCode:String = record["QRCode"]!
+        
+        //if record has the same QRCode as the previous record, skip record
+        if QRCode == self.checkQR { return }
+        
         //run whole thing on main thread to prevent "let artwork" line from producing error
         DispatchQueue.main.async {
             
-            let QRCode = record["QRCode"] as? String
-            let active = record["active"] as? Int64
-            let latitude = record["latitude"] as? String
-            let longitude = record["longitude"] as? String
-            let description = record["locdescription"] as? String
+            let active:Int64 = record["active"]!
+            let latitude:String = record["latitude"]!
+            let longitude:String = record["longitude"]!
+            let description:String = record["locdescription"]!
             
             let dosimeter = record["dosinumber"] as? String
             let cycleDate = record["cycleDate"] as? String
             let collected = record["collectedFlag"] as? Int64
             
-            let fullTitle = "\(QRCode ?? "QR Nil")\n\(dosimeter ?? "Dosi Nil")"
-            let dosiLocations = CLLocationCoordinate2D(latitude: CLLocationDegrees(latitude!)!, longitude: CLLocationDegrees(longitude!)!)
-            let artwork = Artwork(title: fullTitle, locDescription: description!, coordinate: dosiLocations, cycleDate: cycleDate!, active: active!, collected: collected!) //this has a location manager and needs main thread.
-            self.MapView.addAnnotation(artwork)
-
+            let fullTitle = "\(QRCode)\n\(dosimeter ?? "Dosi Nil")"
+            let dosiLocations = CLLocationCoordinate2D(latitude: CLLocationDegrees(latitude)!, longitude: CLLocationDegrees(longitude)!)
+            let artwork = Artwork(title: fullTitle, locDescription: description, active: active, coordinate: dosiLocations, cycleDate: cycleDate, collected: collected) //this has a location manager and needs main thread.
+            if(self.filters[artwork.markerTintColor]!) {
+                self.MapView.addAnnotation(artwork)
+            }
         }
+        
+        self.checkQR = QRCode
     }
 }
 

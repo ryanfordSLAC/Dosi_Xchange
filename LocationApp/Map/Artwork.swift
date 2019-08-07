@@ -23,7 +23,7 @@ class Artwork: NSObject, MKAnnotation {
     let getcycleDate = recordsUpdate()
     
     
-    init(title: String, locDescription: String, coordinate: CLLocationCoordinate2D, cycleDate: String, active: Int64, collected: Int64) {
+    init(title: String, locDescription: String, active: Int64, coordinate: CLLocationCoordinate2D, cycleDate: String?, collected: Int64?) {
         self.title = title
         self.subtitle = locDescription
         self.coordinate = coordinate
@@ -37,32 +37,38 @@ class Artwork: NSObject, MKAnnotation {
     var markerTintColor: UIColor {
         //change to cycledate
         let cycle = getcycleDate.generateCycleDate() //fetch the current cycle
+        let color:UIColor
         
-        switch self.cycleDate { //self.cycleDate is taken from the recordsUpdate class
+        //active location
+        if self.active == 1 {
             
-        case cycle:
-            return .red  //current cycle appears as red "stop"
+            //deployed dosimeter
+            if self.collected == 0 {
+                //current cycle (stop)
+                if self.cycleDate == cycle { color = .red }
+                //any other cycle (exchange)
+                else { color = .green }
+            }
+            //no dosimeter (deploy)
+            else { color = .orange }
+        }
             
-        default:
-            return .green //any other cycle appears as green "go exchange it"
+        //inactive location
+        else {
+            
+            //deployed dosimeter
+            if self.collected == 0 {
+                //current cycle (stop)
+                if self.cycleDate == cycle { color = .purple }
+                //any other cycle (collect)
+                else { color = .blue }
+            }
+            //no dosimeter
+            else { color = .yellow }
+        }
         
-        } //end switch
+        return color
         
     } //end markerTintColor
-    
-//    var imageName: String? { //not needed
-//        if discipline == "Sculpture" { return "Statue" }
-//        return "Flag"
-//    }
-//
-//    //Annotation right callout accessory opens this mapItem in Maps app
-//
-//    func mapItem() -> MKMapItem {
-//        let addressDict = [CNPostalAddressStreetKey: subtitle!]
-//        let placemark = MKPlacemark(coordinate: coordinate, addressDictionary: addressDict)
-//        let mapItem = MKMapItem(placemark: placemark)
-//        mapItem.name = title
-//        return mapItem
-//    }
     
 }

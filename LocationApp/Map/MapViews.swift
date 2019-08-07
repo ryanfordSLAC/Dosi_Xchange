@@ -6,28 +6,30 @@
 //  Copyright © 2019 Ford, Ryan M. All rights reserved.
 //
 
-import Foundation
-import MapKit
-//import Contacts
-
-
-class ArtworkMarkerView: MKMarkerAnnotationView {
-    
-    override var annotation: MKAnnotation? {
-        willSet {
-            guard let artwork = newValue as? Artwork else { return }
-            canShowCallout = true
-            calloutOffset = CGPoint(x: 0, y: 0)
-            markerTintColor = artwork.markerTintColor
-            //displayPriority = .required
- 
-            rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
-            
-        }
-    }
-    
-    
-}
+//import Foundation
+//import MapKit
+////import Contacts
+//
+//
+//class ArtworkMarkerView: MKMarkerAnnotationView {
+//
+//    override var annotation: MKAnnotation? {
+//        willSet {
+//            guard let artwork = newValue as? Artwork else { return }
+//            canShowCallout = true
+//            calloutOffset = CGPoint(x: 0, y: 0)
+//            markerTintColor = artwork.markerTintColor
+//
+//            //uncomment this line to see all pins
+//            displayPriority = .required
+//
+//            rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+//
+//        }
+//    }
+//
+//    
+//}
 
 //class ArtworkView: MKAnnotationView {
 //

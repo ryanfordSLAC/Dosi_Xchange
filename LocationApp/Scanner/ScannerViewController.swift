@@ -607,7 +607,7 @@ extension ScannerViewController {  //alerts
         
     func alert1() {
         
-        let alertPrompt = UIAlertController(title: "Dosimeter Not Found:\n\(variables.dosiNumber ?? "Nil Dosi")", message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(title: "Dosimeter Not Found:\n\(variables.dosiNumber ?? "Nil Dosi")", message: nil, preferredStyle: .alert)
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: handlerCancel)
         
         let deployDosimeter = UIAlertAction(title: "Deploy", style: .default) { (_) in
@@ -616,11 +616,11 @@ extension ScannerViewController {  //alerts
             self.alert4()
         } //end let
         
-        alertPrompt.addAction(deployDosimeter)
-        alertPrompt.addAction(cancel)
+        alert.addAction(deployDosimeter)
+        alert.addAction(cancel)
         
         DispatchQueue.main.async { //UIAlerts need to be shown on the main thread.
-            self.present(alertPrompt, animated: true, completion: nil)
+            self.present(alert, animated: true, completion: nil)
         }
     } //end alert1
     
@@ -629,7 +629,7 @@ extension ScannerViewController {  //alerts
         
         let title = itemRecord != nil ? "Location Found:\n\(variables.QRCode ?? "Nil QRCode")" : "New Location:\n\(variables.QRCode ?? "Nil QRCode")"
         
-        let alertPrompt = UIAlertController(title: title, message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: handlerCancel)
         
         let deployDosimeter = UIAlertAction(title: "Deploy", style: .default) { (_) in
@@ -638,11 +638,11 @@ extension ScannerViewController {  //alerts
             self.alert5()
         } //end let
         
-        alertPrompt.addAction(deployDosimeter)
-        alertPrompt.addAction(cancel)
+        alert.addAction(deployDosimeter)
+        alert.addAction(cancel)
         
         DispatchQueue.main.async { //UIAlerts need to be shown on the main thread.
-            self.present(alertPrompt, animated: true, completion: nil)
+            self.present(alert, animated: true, completion: nil)
         }
     } //end alert2
     
@@ -664,7 +664,7 @@ extension ScannerViewController {  //alerts
     
     func alert3a() {
         
-        let alertPrompt = UIAlertController(title: "Exchange Dosimeter:\n\(variables.dosiNumber ?? "Nil Dosi")\n\nLocation:\n\(variables.QRCode ?? "Nil QRCode")", message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(title: "Exchange Dosimeter:\n\(variables.dosiNumber ?? "Nil Dosi")\n\nLocation:\n\(variables.QRCode ?? "Nil QRCode")", message: nil, preferredStyle: .alert)
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: handlerCancel)
         
         let ExchangeDosimeter = UIAlertAction(title: "Exchange", style: .default) { (_) in
@@ -676,20 +676,20 @@ extension ScannerViewController {  //alerts
             self.alert3a()
         }
         
-        alertPrompt.addAction(mismatch)
-        alertPrompt.view.addSubview(mismatchSwitch())
-        alertPrompt.addAction(ExchangeDosimeter)
-        alertPrompt.addAction(cancel)
+        alert.addAction(mismatch)
+        alert.view.addSubview(mismatchSwitch())
+        alert.addAction(ExchangeDosimeter)
+        alert.addAction(cancel)
         
         DispatchQueue.main.async { //UIAlerts need to be shown on the main thread.
-            self.present(alertPrompt, animated: true, completion: nil)
+            self.present(alert, animated: true, completion: nil)
         }
     } //end alert3a
     
     
     func alert3i() {
         
-        let alertPrompt = UIAlertController(title: "Collect Dosimeter:\n\(variables.dosiNumber ?? "Nil Dosi")\n\nLocation:\n\(variables.QRCode ?? "Nil QRCode")", message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(title: "Collect Dosimeter:\n\(variables.dosiNumber ?? "Nil Dosi")\n\nLocation:\n\(variables.QRCode ?? "Nil QRCode")", message: nil, preferredStyle: .alert)
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: handlerCancel)
         
         let collectDosimeter = UIAlertAction(title: "Collect", style: .default) { (_) in
@@ -701,13 +701,13 @@ extension ScannerViewController {  //alerts
             self.alert3i() //reopen alert
         }
         
-        alertPrompt.addAction(mismatch)
-        alertPrompt.view.addSubview(mismatchSwitch())
-        alertPrompt.addAction(collectDosimeter)
-        alertPrompt.addAction(cancel)
+        alert.addAction(mismatch)
+        alert.view.addSubview(mismatchSwitch())
+        alert.addAction(collectDosimeter)
+        alert.addAction(cancel)
         
         DispatchQueue.main.async { //UIAlerts need to be shown on the main thread.
-            self.present(alertPrompt, animated: true, completion: nil)
+            self.present(alert, animated: true, completion: nil)
         }
         
     } //end alert3i
@@ -866,10 +866,10 @@ extension ScannerViewController {  //alerts
         variables.cycle = cycle
         getCoordinates()
         
-        let alertPrompt = UIAlertController(title: "Deploy Dosimeter:\n\(variables.dosiNumber ?? "Nil Dosi")\n\nLocation:\n\(variables.QRCode ?? "Nil QRCode")", message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(title: "Deploy Dosimeter:\n\(variables.dosiNumber ?? "Nil Dosi")\n\nLocation:\n\(variables.QRCode ?? "Nil QRCode")", message: nil, preferredStyle: .alert)
         
         let saveRecord = UIAlertAction(title: "Save", style: .default) { (_) in
-            var text = alertPrompt.textFields?.first?.text
+            var text = alert.textFields?.first?.text
             text = text?.replacingOccurrences(of: ",", with: "-")
             
             self.recordsupdate.saveRecord(latitude: variables.latitude ?? "Nil Latitude", longitude: variables.longitude ?? "Nil Longitude", dosiNumber: variables.dosiNumber ?? "Nil Dosi", text: text ?? "Nil location", flag: 0, cycle: cycle, QRCode: variables.QRCode ?? "Nil QRCode", mismatch: variables.mismatch ?? 0, moderator: variables.moderator ?? 0, active: 1)
@@ -880,7 +880,7 @@ extension ScannerViewController {  //alerts
         
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: handlerCancel)
         
-        alertPrompt.addTextField { (textfield) in
+        alert.addTextField { (textfield) in
             if variables.dosiLocation != nil {
                 textfield.text = variables.dosiLocation // assign self.description with the textfield information
             }
@@ -889,11 +889,11 @@ extension ScannerViewController {  //alerts
             }
         } // end addTextField
         
-        alertPrompt.addAction(saveRecord)
-        alertPrompt.addAction(cancel)
+        alert.addAction(saveRecord)
+        alert.addAction(cancel)
         
         DispatchQueue.main.async {   //UIAlerts need to be shown on the main thread.
-            self.present(alertPrompt, animated: true, completion: nil)
+            self.present(alert, animated: true, completion: nil)
         }
     }  //end alert8
     
@@ -989,7 +989,7 @@ extension ScannerViewController {  //alerts
     }  //end alert11a
     
     
-    // mismatch switch
+    //mismatch switch
     func mismatchSwitch() -> UISwitch {
         let switchControl = UISwitch(frame: CGRect(x: 200, y: 155, width: 0, height: 0))
         switchControl.tintColor = UIColor.gray

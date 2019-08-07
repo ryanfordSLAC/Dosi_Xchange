@@ -168,15 +168,15 @@
 		8421B0622165BBB80041A53A /* LocationApp */ = {
 			isa = PBXGroup;
 			children = (
+				8487FE2F21A8F9C700CC62E8 /* StartupViewController.swift */,
+				84F9180122211C9B00D25634 /* NearestDosimeters.swift */,
 				845F2E5E221C62E200A48C1A /* Reachability.swift */,
+				8421B0632165BBB80041A53A /* AppDelegate.swift */,
+				8409448821CC539900C4EA28 /* TODO.swift */,
+				8421B0672165BBB80041A53A /* Main.storyboard */,
 				8421B06C2165BBB90041A53A /* LaunchScreen.storyboard */,
 				8421B06F2165BBB90041A53A /* Info.plist */,
 				846D6B4F2170160E008E003D /* LocationApp.entitlements */,
-				8421B0632165BBB80041A53A /* AppDelegate.swift */,
-				8409448821CC539900C4EA28 /* TODO.swift */,
-				8487FE2F21A8F9C700CC62E8 /* StartupViewController.swift */,
-				8421B0672165BBB80041A53A /* Main.storyboard */,
-				5CF01FDD22D92F19004604BC /* ToolsViewController.swift */,
 				8421B06A2165BBB90041A53A /* Assets.xcassets */,
 				84F477942167173A00A63336 /* LocationApp.xcdatamodeld */,
 				8487FE3121A9153100CC62E8 /* DatabaseContents.rtf */,
@@ -246,7 +246,7 @@
 		84673C5521FF864C00680EAB /* Utility View */ = {
 			isa = PBXGroup;
 			children = (
-				84F9180122211C9B00D25634 /* NearestDosimeters.swift */,
+				5CF01FDD22D92F19004604BC /* ToolsViewController.swift */,
 				5C941E5422D93335008C9B3E /* LocationViewController.swift */,
 				5CFF888A22CAA5B700611F60 /* ActiveLocations.swift */,
 				5C7925A022DE9B1900B981B2 /* LocationDetails.swift */,

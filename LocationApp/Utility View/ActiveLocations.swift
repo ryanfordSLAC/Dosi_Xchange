@@ -28,18 +28,18 @@ class ActiveLocations: UIViewController, UITableViewDataSource, UITableViewDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
+        //Do any additional setup after loading the view.
         activesTableView.delegate = self
         activesTableView.dataSource = self
         searchBar.delegate = self
         segment = 0
         
-        // Table View SetUp
+        //Table View SetUp
 
-        // this query will populate the tableView when the view loads.
+        //this query will populate the tableView when the view loads.
         queryDatabase()
         
-        // wait for query to finish
+        //wait for query to finish
         dispatchGroup.notify(queue: .main) {
             self.activesTableView.reloadData()
             //stop activityIndicator
@@ -48,11 +48,11 @@ class ActiveLocations: UIViewController, UITableViewDataSource, UITableViewDeleg
         
         let refreshControl = UIRefreshControl()
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to Refresh Locations")
-        // this query will populate the table when the table is pulled.
+        //this query will populate the table when the table is pulled.
         refreshControl.addTarget(self, action: #selector(queryDatabase), for: .valueChanged)
         self.activesTableView.refreshControl = refreshControl
         
-    } // end viewDidLoad
+    } //end viewDidLoad
     
     
     @IBAction func tableSwitch(_ sender: UISegmentedControl) {
@@ -60,7 +60,7 @@ class ActiveLocations: UIViewController, UITableViewDataSource, UITableViewDeleg
         activesTableView.reloadData()
     }
     
-    // table functions
+    //table functions
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -82,10 +82,10 @@ class ActiveLocations: UIViewController, UITableViewDataSource, UITableViewDeleg
         let QRCode = searching ? searches[segment][indexPath.row].1 : displayInfo[segment][indexPath.row].1
         let locdescription = searching ? searches[segment][indexPath.row].2 : displayInfo[segment][indexPath.row].2
         
-        // format cell title
+        //format cell title
         cell.textLabel?.font = UIFont(name: "Arial", size: 16)
         cell.textLabel?.text = "\(QRCode)"
-        // format cell subtitle
+        //format cell subtitle
         cell.detailTextLabel?.font = UIFont(name: "Arial", size: 12)
         cell.detailTextLabel?.numberOfLines = 0
         cell.detailTextLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
@@ -126,13 +126,13 @@ class ActiveLocations: UIViewController, UITableViewDataSource, UITableViewDeleg
     
 }
 
-// query and helper functions
+//query and helper functions
 extension ActiveLocations {
     
     @objc func queryDatabase() {
         
         dispatchGroup.enter()
-        // reset array
+        //reset array
         displayInfo = [[(CKRecord, String, String)]]()
         displayInfo.append([(CKRecord, String, String)]())
         displayInfo.append([(CKRecord, String, String)]())
@@ -145,20 +145,20 @@ extension ActiveLocations {
         let operation = CKQueryOperation(query: query)
         addOperation(operation: operation)
 
-    } // end function
+    } //end function
     
     
-    // add query operation
+    //add query operation
     func addOperation(operation: CKQueryOperation) {
         operation.resultsLimit = 200 // max 400; 200 to be safe
         operation.recordFetchedBlock = self.recordFetchedBlock // to be executed for each fetched record
         operation.queryCompletionBlock = self.queryCompletionBlock // to be executed after each query (query fetches 200 records at a time)
         
         database.add(operation)
-    } // end func
+    } //end func
     
     
-    // to be executed after each query (query fetches 200 records at a time)
+    //to be executed after each query (query fetches 200 records at a time)
     func queryCompletionBlock(cursor: CKQueryOperation.Cursor?, error: Error?) {
         if let error = error {
             print(error)
@@ -177,29 +177,29 @@ extension ActiveLocations {
             }
         }
         dispatchGroup.leave()
-    } // end func
+    } //end func
     
     
-    // to be executed for each fetched record
+    //to be executed for each fetched record
     func recordFetchedBlock(record: CKRecord) {
         
-        // if record is active ("active" = 1), record is appended to the first array (flag = 0)
-        // else record is appended to the second array (flag = 1)
+        //if record is active ("active" = 1), record is appended to the first array (flag = 0)
+        //else record is appended to the second array (flag = 1)
         let flag = record["active"]! == 1 ? 0 : 1
         
-        // fetch QRCode and locdescription
+        //fetch QRCode and locdescription
         let currentQR:String = record["QRCode"]!
         let currentLoc:String = record["locdescription"]!
         
-        // if QRCode is not the same as previous record
+        //if QRCode is not the same as previous record
         if currentQR != self.checkQR {
-            // append (QRCode, locdescription) tuple displayInfo
+            //append (QRCode, locdescription) tuple displayInfo
             displayInfo[flag].append((record, currentQR, currentLoc))
         }
         
         self.checkQR = currentQR
         
         
-    } // end func
+    } //end func
     
 }

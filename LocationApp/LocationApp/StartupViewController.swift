@@ -17,14 +17,19 @@ class StartupViewController: UIViewController, MFMailComposeViewControllerDelega
     let reachability = Reachability()!
     let location = CLLocationManager()
     let query = Queries()
+    
+    let borderColorUp = UIColor(red: 0.887175, green: 0.887175, blue: 0.887175, alpha: 1).cgColor
+    let borderColorDown = UIColor(red: 0.887175, green: 0.887175, blue: 0.887175, alpha: 0.2).cgColor
 
-    @IBOutlet weak var Tools: UIImageView!
-
-    @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var scanButton: UIButton!
+    @IBOutlet weak var mapButton: UIButton!
+    @IBOutlet weak var nearestDosiButton: UIButton!
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    
+    @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var statusLabel: UILabel!
+    
+    @IBOutlet weak var Tools: UIImageView!
     
     override func viewDidLoad() {
         
@@ -33,6 +38,19 @@ class StartupViewController: UIViewController, MFMailComposeViewControllerDelega
         location.requestAlwaysAuthorization()
         //location.startUpdatingLocation()    
         //end location manager setup
+        
+        //format buttons
+        scanButton.layer.borderWidth = 1.5
+        scanButton.layer.borderColor = borderColorUp
+        scanButton.layer.cornerRadius = 22
+
+        mapButton.layer.borderWidth = 1.5
+        mapButton.layer.borderColor = borderColorUp
+        mapButton.layer.cornerRadius = 22
+
+        nearestDosiButton.layer.borderWidth = 1.5
+        nearestDosiButton.layer.borderColor = borderColorUp
+        nearestDosiButton.layer.cornerRadius = 22
         
         //progress view
         progressView.setProgress(0, animated: true)
@@ -79,6 +97,32 @@ class StartupViewController: UIViewController, MFMailComposeViewControllerDelega
         //end Detect Wifi...
         
     } //end viewDidLoad
+    
+    
+    @IBAction func scanButtonDown(_ sender: Any) {
+        scanButton.layer.borderColor = borderColorDown
+    }
+    
+    @IBAction func scanButtonUp(_ sender: Any) {
+        scanButton.layer.borderColor = borderColorUp
+    }
+    
+    @IBAction func mapButtonDown(_ sender: Any) {
+        mapButton.layer.borderColor = borderColorDown
+    }
+    
+    @IBAction func mapButtonUp(_ sender: Any) {
+        mapButton.layer.borderColor = borderColorUp
+    }
+    
+    @IBAction func nearestButtonDown(_ sender: Any) {
+        nearestDosiButton.layer.borderColor = borderColorDown
+    }
+    
+    @IBAction func nearestButtonUp(_ sender: Any) {
+        nearestDosiButton.layer.borderColor = borderColorUp
+    }
+    
     
     
     @objc func imageTapped() {
