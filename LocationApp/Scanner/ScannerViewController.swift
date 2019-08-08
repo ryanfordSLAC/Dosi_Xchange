@@ -94,10 +94,10 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         }//end else
         
         previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-
-        self.previewLayer.frame.size = self.innerView.frame.size
+        previewLayer.frame.size = innerView.frame.size
         previewLayer.videoGravity = .resizeAspectFill
-        self.innerView.layer.addSublayer(previewLayer)
+        innerView.layer.addSublayer(previewLayer)
+
         captureSession.startRunning()
         
     }//end viewDidLoad()
@@ -501,6 +501,7 @@ extension ScannerViewController {  //queries
                 variables.collected = records[0]["collectedFlag"] as? Int64
                 variables.QRCode = records[0]["QRCode"] as? String
                 variables.dosiLocation = records[0]["locdescription"] as? String
+                variables.cycle = records[0]["cycleDate"] as? String
                 if records[0]["moderator"] != nil { variables.moderator = records[0]["moderator"] as? Int64 }
                 if records[0]["mismatch"] != nil { variables.mismatch = records[0]["mismatch"] as? Int64 }
                 
@@ -653,7 +654,8 @@ extension ScannerViewController {  //alerts
     
     func alert3a() {
         
-        let alert = UIAlertController(title: "Exchange Dosimeter:\n\(variables.dosiNumber ?? "Nil Dosi")\n\nLocation:\n\(variables.QRCode ?? "Nil QRCode")", message: nil, preferredStyle: .alert)
+        let message = "\nCycle Date: \(variables.cycle ?? "Nil Cycle")"
+        let alert = UIAlertController(title: "Exchange Dosimeter:\n\(variables.dosiNumber ?? "Nil Dosi")\n\nLocation:\n\(variables.QRCode ?? "Nil QRCode")", message: message, preferredStyle: .alert)
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: handlerCancel)
         
         let ExchangeDosimeter = UIAlertAction(title: "Exchange", style: .default) { (_) in
@@ -678,7 +680,8 @@ extension ScannerViewController {  //alerts
     
     func alert3i() {
         
-        let alert = UIAlertController(title: "Collect Dosimeter:\n\(variables.dosiNumber ?? "Nil Dosi")\n\nLocation:\n\(variables.QRCode ?? "Nil QRCode")", message: nil, preferredStyle: .alert)
+        let message = "\nCycle Date: \(variables.cycle ?? "Nil Cycle")"
+        let alert = UIAlertController(title: "Collect Dosimeter:\n\(variables.dosiNumber ?? "Nil Dosi")\n\nLocation:\n\(variables.QRCode ?? "Nil QRCode")", message: message, preferredStyle: .alert)
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: handlerCancel)
         
         let collectDosimeter = UIAlertAction(title: "Collect", style: .default) { (_) in
@@ -989,7 +992,7 @@ extension ScannerViewController {  //alerts
     
     //mismatch switch
     func mismatchSwitch() -> UISwitch {
-        let switchControl = UISwitch(frame: CGRect(x: 200, y: 155, width: 0, height: 0))
+        let switchControl = UISwitch(frame: CGRect(x: 200, y: 191, width: 0, height: 0))
         switchControl.tintColor = UIColor.gray
         switchControl.setOn(variables.mismatch == 1, animated: false)
         switchControl.addTarget(self, action: #selector(switchValueDidChange(_:)), for: .valueChanged)

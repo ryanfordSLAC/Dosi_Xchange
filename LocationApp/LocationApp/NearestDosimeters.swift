@@ -26,6 +26,7 @@ class NearestLocations: UIViewController, UITableViewDataSource, UITableViewDele
     var loc:String = ""
     var QRCode:String = ""
     var dosimeter:String = ""
+    var mod:Int = 0
     
     var preSortedRecords = [(Int, String, String, String)]()
     var sortedRecords = [(Int, String, String, String)]()
@@ -200,15 +201,19 @@ extension NearestLocations {
         if record["longitude"] != nil {self.longitude = record["longitude"]!}
         if record["dosinumber"] != nil {self.dosimeter = record["dosinumber"]!}
         if record["locdescription"] != nil {self.loc = record["locdescription"]!}
+        if record["moderator"] != nil {self.mod = record["moderator"]!}
         
         //compute distance between start location and the point
         let rowCoordinates = CLLocation(latitude: Double(self.latitude)!, longitude: Double(self.longitude)!)
         let distanceBetween:CLLocationDistance = self.startLocation.distance(from: rowCoordinates)
         let distanceBetweenFormatted = String(format: "%.0f", distanceBetween)
         self.distance = Int(distanceBetweenFormatted)!
+        
+        let details = "Moderator: \(self.mod == 1 ? "Yes" : "No")\n\(self.loc)"
+        
         //use the getLine function below to create a tuple with multiple types
         //in order to be able to sort by distance as an integer (not a string).
-        let line = self.getLine(distance: self.distance, QRCode: self.QRCode, dosimeter: self.dosimeter, detail: self.loc)
+        let line = self.getLine(distance: self.distance, QRCode: self.QRCode, dosimeter: self.dosimeter, detail: details)
         //build the array
         self.preSortedRecords.append(line)
         
@@ -217,11 +222,6 @@ extension NearestLocations {
     
     //supply a line with the correct data types. Distance must be an integer for correct sorting.
     func getLine(distance: Int, QRCode: String, dosimeter: String, detail: String) -> (distance: Int, QRCode: String, dosimeter: String, detail: String) {
-        
-        let distance = self.distance
-        let QRCode = self.QRCode
-        let dosimeter = self.dosimeter
-        let detail = self.loc
         
         return (distance, QRCode, dosimeter, detail)
     }

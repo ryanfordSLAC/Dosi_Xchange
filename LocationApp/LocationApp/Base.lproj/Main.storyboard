@@ -223,8 +223,8 @@
                                     <segue destination="BYZ-38-t0r" kind="presentation" id="cs9-V2-lMJ"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Updated: 08/07/2019 17:10" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3FX-rC-9sw">
-                                <rect key="frame" x="72.5" y="531" width="175" height="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Updated: 08/08/2019 12:00" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3FX-rC-9sw">
+                                <rect key="frame" x="70.5" y="531" width="179.5" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -518,7 +518,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VH6-7y-IE6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-334" y="811"/>
+            <point key="canvasLocation" x="-335.625" y="810.21126760563379"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="d0B-BI-iTz">
@@ -838,7 +838,7 @@
         <image name="Tools" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ar4-0B-Xd6"/>
+        <segue reference="Szf-7B-3OI"/>
         <segue reference="1iZ-uO-Z3p"/>
         <segue reference="zta-o7-k1W"/>
     </inferredMetricsTieBreakers>
