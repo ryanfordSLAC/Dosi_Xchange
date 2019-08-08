@@ -77,7 +77,7 @@ class LocationDetails: UIViewController {
         attributedStr.append(NSAttributedString(string: lat, attributes: [NSAttributedString.Key.font: font]))
         attributedStr.append(NSAttributedString(string: "\nLongitude: ", attributes: [NSAttributedString.Key.font: fontBold]))
         attributedStr.append(NSAttributedString(string: long, attributes: [NSAttributedString.Key.font: font]))
-        attributedStr.append(NSAttributedString(string: "\n\n\nActive: ", attributes: [NSAttributedString.Key.font: fontBold]))
+        attributedStr.append(NSAttributedString(string: "\n\nActive: ", attributes: [NSAttributedString.Key.font: fontBold]))
         
         // set details text
         fields.attributedText = attributedStr
