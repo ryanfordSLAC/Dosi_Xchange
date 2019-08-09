@@ -849,10 +849,10 @@ extension ScannerViewController {  //alerts
         variables.cycle = cycle
         getCoordinates()
         
-        let alert = UIAlertController(title: "Deploy Dosimeter:\n\(variables.dosiNumber ?? "Nil Dosi")\n\nLocation:\n\(variables.QRCode ?? "Nil QRCode")", message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(title: "Deploy Dosimeter:\n\(variables.dosiNumber ?? "Nil Dosi")", message: "\nLocation: \(variables.QRCode ?? "Nil QRCode")", preferredStyle: .alert)
         
         let moderator = UIAlertAction(title: "Moderator", style: .default) { (_) in
-            self.alert8() //reopen alert
+            self.alert8()
         }
         
         let saveRecord = UIAlertAction(title: "Save", style: .default) { (_) in
@@ -882,6 +882,7 @@ extension ScannerViewController {  //alerts
             }
             textfield.placeholder = "Type or dictate location details" //assign self.description with the textfield information
         } // end addTextField
+        
         alert.addAction(moderator)
         alert.view.addSubview(modSwitch())
         alert.addAction(saveRecord)
@@ -1000,7 +1001,7 @@ extension ScannerViewController {  //alerts
     
     //moderator switch
     func modSwitch() -> UISwitch {
-        let switchControl = UISwitch(frame: CGRect(x: 200, y: 191, width: 0, height: 0))
+        let switchControl = UISwitch(frame: CGRect(x: 200, y: 161, width: 0, height: 0))
         switchControl.tintColor = UIColor.gray
         switchControl.setOn(variables.moderator == 1, animated: false)
         switchControl.addTarget(self, action: #selector(modSwitchValueDidChange(_:)), for: .valueChanged)
