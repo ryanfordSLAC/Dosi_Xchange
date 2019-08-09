@@ -44,15 +44,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         static var moderator:Int64?
 
     } //end struct
-    
-    func run(after seconds: Int, completion: @escaping () -> Void) {
-        let deadline = DispatchTime.now() + .seconds(seconds)
-        DispatchQueue.main.asyncAfter(deadline: deadline) {
-            completion()
-        }//end dispatch queue 123
-        
-        
-    } //end run
+
     
     override func viewDidLoad() {
         
@@ -374,13 +366,11 @@ extension ScannerViewController {
         
         itemRecord!.setValue(collected, forKey: "collectedFlag")
         itemRecord!.setValue(mismatch, forKey: "mismatch")
-            
-        self.run(after: 1) {
-            self.database.save(self.itemRecord!) { (record, error) in
-                guard record != nil else { return }
-            } //end database save
-            //print("RECORD SAVED:\n\(itemRecord!)")
+
+        self.database.save(self.itemRecord!) { (record, error) in
+            guard record != nil else { return }
         }
+        //print("RECORD SAVED:\n\(itemRecord!)")
     } //end collect
     
     

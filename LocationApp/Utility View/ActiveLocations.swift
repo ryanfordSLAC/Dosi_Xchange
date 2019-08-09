@@ -150,9 +150,9 @@ extension ActiveLocations {
     
     //add query operation
     func addOperation(operation: CKQueryOperation) {
-        operation.resultsLimit = 200 // max 400; 200 to be safe
-        operation.recordFetchedBlock = self.recordFetchedBlock // to be executed for each fetched record
-        operation.queryCompletionBlock = self.queryCompletionBlock // to be executed after each query (query fetches 200 records at a time)
+        operation.resultsLimit = 200 //max 400; 200 to be safe
+        operation.recordFetchedBlock = self.recordFetchedBlock //to be executed for each fetched record
+        operation.queryCompletionBlock = self.queryCompletionBlock //to be executed after each query (query fetches 200 records at a time)
         
         database.add(operation)
     } //end func

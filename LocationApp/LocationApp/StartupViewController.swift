@@ -172,19 +172,8 @@ class StartupViewController: UIViewController, MFMailComposeViewControllerDelega
             self.activityIndicator.stopAnimating()
         }
         
-        //run(after: 1) {
-        //    self.activityIndicator.stopAnimating()
-        //    self.activityIndicator.isHidden = true
-        //}
         
     }// end setProgress
-    
-    //delay function.
-    func run(after seconds: Int, completion: @escaping () -> Void) {
-        let deadline = DispatchTime.now() + .seconds(seconds)
-        DispatchQueue.main.asyncAfter(deadline: deadline) {
-            completion()
-        }//end dispatch queue 123
-    } //end run
+
     
 } // end class

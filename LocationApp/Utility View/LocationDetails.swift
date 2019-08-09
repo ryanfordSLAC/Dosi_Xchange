@@ -208,9 +208,6 @@ extension LocationDetails: UITableViewDelegate, UITableViewDataSource {
     func queryLocationTable() {
         dispatchGroup.enter()
         
-        let dateFormatter = DateFormatter()
-        //dateFormatter.dateFormat = "MM/dd/yyyy, hh:mm a"
-        dateFormatter.dateFormat = "MM/dd/yyyy"
         records = [CKRecord]()
         details = [(String, String, String, Int, Int)]()
         
@@ -219,26 +216,48 @@ extension LocationDetails: UITableViewDelegate, UITableViewDataSource {
         let query = CKQuery(recordType: "Location", predicate: predicate)
         query.sortDescriptors = [sort]
         
-        database.perform(query, inZoneWith: nil) { (records, _) in
-            guard let records = records else { return }
-            
-            for record in records {
-                
-                let modDate = "Record Created: \(dateFormatter.string(from: record.creationDate!))"
-                let dosimeter = record["dosinumber"] != "" ? String(describing: record["dosinumber"]!) : "n/a"
-                let wearperiod = record["cycleDate"] != nil ? String(describing: record["cycleDate"]!) : "n/a"
-                let collectedFlag = record["collectedFlag"] != nil ? record["collectedFlag"]! as Int : 2
-                let modFlag = record["moderator"] != nil ? record["moderator"]! as Int : 2
-                
-                self.details.append((modDate, dosimeter, wearperiod, modFlag, collectedFlag))
-                self.records.append(record)
-            }
-            
-        }// end perform query
+        let operation = CKQueryOperation(query: query)
+        operation.resultsLimit = 100 //assume less than 100 records
+        operation.recordFetchedBlock = self.recordFetchedBlock //to be executed for each fetched record
+        operation.queryCompletionBlock = self.queryCompletionBlock //to be executed after each the query
         
-        run(after: 1) {
-            self.dispatchGroup.leave()
+        database.add(operation)
+    } //end func
+    
+    
+    //to be executed after each query (query fetches 200 records at a time)
+    func queryCompletionBlock(cursor: CKQueryOperation.Cursor?, error: Error?) {
+        if let error = error {
+            print(error)
+            return
         }
+        
+        DispatchQueue.main.async {
+            if self.qrTable != nil {
+                self.qrTable.refreshControl?.endRefreshing()
+                self.qrTable.reloadData()
+            }
+        }
+        dispatchGroup.leave()
+    } //end func
+    
+    
+    //to be executed for each fetched record
+    func recordFetchedBlock(record: CKRecord) {
+        
+        let dateFormatter = DateFormatter()
+        //dateFormatter.dateFormat = "MM/dd/yyyy, hh:mm a"
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        
+        let modDate = "Record Created: \(dateFormatter.string(from: record.creationDate!))"
+        let dosimeter = record["dosinumber"] != "" ? String(describing: record["dosinumber"]!) : "n/a"
+        let wearperiod = record["cycleDate"] != nil ? String(describing: record["cycleDate"]!) : "n/a"
+        let collectedFlag = record["collectedFlag"] != nil ? record["collectedFlag"]! as Int : 2
+        let modFlag = record["moderator"] != nil ? record["moderator"]! as Int : 2
+        
+        self.details.append((modDate, dosimeter, wearperiod, modFlag, collectedFlag))
+        self.records.append(record)
+        
     }
     
     
