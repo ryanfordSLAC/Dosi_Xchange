@@ -154,7 +154,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1981.875" y="-44.366197183098592"/>
+            <point key="canvasLocation" x="1871" y="-44"/>
         </scene>
         <!--ToolsAndSettings-->
         <scene sceneID="fAi-sC-UCJ">
@@ -223,8 +223,8 @@
                                     <segue destination="BYZ-38-t0r" kind="presentation" id="cs9-V2-lMJ"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Updated: 08/08/2019 12:00" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3FX-rC-9sw">
-                                <rect key="frame" x="70.5" y="531" width="179.5" height="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Updated: 08/09/2019 14:00" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3FX-rC-9sw">
+                                <rect key="frame" x="70" y="531" width="180" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -334,7 +334,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yx1-HT-DPN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1335" y="-39.08450704225352"/>
+            <point key="canvasLocation" x="-1335" y="-44"/>
         </scene>
         <!--Main Page-->
         <scene sceneID="stZ-GH-cJh">
@@ -518,7 +518,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VH6-7y-IE6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-335.625" y="810.21126760563379"/>
+            <point key="canvasLocation" x="-1335" y="810"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="d0B-BI-iTz">
@@ -584,7 +584,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="odm-nY-Ge6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="786" y="811"/>
+            <point key="canvasLocation" x="-334" y="809"/>
         </scene>
         <!--Active Locations-->
         <scene sceneID="QmB-RM-jEx">
@@ -689,7 +689,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LoN-L4-Hvi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1981.875" y="809.15492957746483"/>
+            <point key="canvasLocation" x="786" y="809"/>
         </scene>
         <!--Location Details-->
         <scene sceneID="ETw-WG-fo4">
@@ -831,15 +831,16 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Hr-zd-Tdt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2867" y="809"/>
+            <point key="canvasLocation" x="1873" y="809"/>
         </scene>
     </scenes>
     <resources>
         <image name="Tools" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="K3I-ac-JBM"/>
         <segue reference="Szf-7B-3OI"/>
         <segue reference="1iZ-uO-Z3p"/>
-        <segue reference="zta-o7-k1W"/>
+        <segue reference="1eV-Ng-UnH"/>
     </inferredMetricsTieBreakers>
 </document>

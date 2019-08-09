@@ -518,10 +518,11 @@ extension ScannerViewController {  //queries
             if records != [] {
                 variables.active = records[0]["active"] as? Int64
                 variables.dosiLocation = records[0]["locdescription"] as? String
-                if records[0]["collectedFlag"] != nil {variables.collected = records[0]["collectedFlag"] as? Int64}
+                if records[0]["collectedFlag"] != nil { variables.collected = records[0]["collectedFlag"] as? Int64 }
                 if records[0]["dosinumber"] != nil { variables.dosiNumber = records[0]["dosinumber"] as? String }
                 if records[0]["moderator"] != nil { variables.moderator = records[0]["moderator"] as? Int64 }
                 if records[0]["mismatch"] != nil { variables.mismatch = records[0]["mismatch"] as? Int64 }
+                if records[0]["cycleDate"] != nil { variables.cycle = records[0]["cycleDate"] as? String }
                 
                 self.itemRecord = records[0]
             }
