@@ -170,10 +170,10 @@
 			children = (
 				8487FE2F21A8F9C700CC62E8 /* StartupViewController.swift */,
 				84F9180122211C9B00D25634 /* NearestDosimeters.swift */,
+				8421B0672165BBB80041A53A /* Main.storyboard */,
 				845F2E5E221C62E200A48C1A /* Reachability.swift */,
 				8421B0632165BBB80041A53A /* AppDelegate.swift */,
 				8409448821CC539900C4EA28 /* TODO.swift */,
-				8421B0672165BBB80041A53A /* Main.storyboard */,
 				8421B06C2165BBB90041A53A /* LaunchScreen.storyboard */,
 				8421B06F2165BBB90041A53A /* Info.plist */,
 				846D6B4F2170160E008E003D /* LocationApp.entitlements */,

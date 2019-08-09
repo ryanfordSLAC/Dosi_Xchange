@@ -851,6 +851,10 @@ extension ScannerViewController {  //alerts
         
         let alert = UIAlertController(title: "Deploy Dosimeter:\n\(variables.dosiNumber ?? "Nil Dosi")\n\nLocation:\n\(variables.QRCode ?? "Nil QRCode")", message: nil, preferredStyle: .alert)
         
+        let moderator = UIAlertAction(title: "Moderator", style: .default) { (_) in
+            self.alert8() //reopen alert
+        }
+        
         let saveRecord = UIAlertAction(title: "Save", style: .default) { (_) in
             var text = alert.textFields?.first?.text
             text = text?.replacingOccurrences(of: ",", with: "-")
@@ -876,11 +880,10 @@ extension ScannerViewController {  //alerts
             if variables.dosiLocation != nil {
                 textfield.text = variables.dosiLocation // assign self.description with the textfield information
             }
-            else {
-                textfield.placeholder = "Type or dictate location details" //assign self.description with the textfield information
-            }
+            textfield.placeholder = "Type or dictate location details" //assign self.description with the textfield information
         } // end addTextField
-        
+        alert.addAction(moderator)
+        alert.view.addSubview(modSwitch())
         alert.addAction(saveRecord)
         alert.addAction(cancel)
         
@@ -986,12 +989,26 @@ extension ScannerViewController {  //alerts
         let switchControl = UISwitch(frame: CGRect(x: 200, y: 191, width: 0, height: 0))
         switchControl.tintColor = UIColor.gray
         switchControl.setOn(variables.mismatch == 1, animated: false)
-        switchControl.addTarget(self, action: #selector(switchValueDidChange(_:)), for: .valueChanged)
+        switchControl.addTarget(self, action: #selector(mismatchSwitchValueDidChange(_:)), for: .valueChanged)
         return switchControl
     }
     
-    @objc func switchValueDidChange(_ sender: UISwitch!) {
+    @objc func mismatchSwitchValueDidChange(_ sender: UISwitch!) {
         variables.mismatch = sender.isOn ? 1 : 0
+    }
+    
+    
+    //moderator switch
+    func modSwitch() -> UISwitch {
+        let switchControl = UISwitch(frame: CGRect(x: 200, y: 191, width: 0, height: 0))
+        switchControl.tintColor = UIColor.gray
+        switchControl.setOn(variables.moderator == 1, animated: false)
+        switchControl.addTarget(self, action: #selector(modSwitchValueDidChange(_:)), for: .valueChanged)
+        return switchControl
+    }
+    
+    @objc func modSwitchValueDidChange(_ sender: UISwitch!) {
+        variables.moderator = sender.isOn ? 1 : 0
     }
     
 }//end extension alerts
