@@ -90,7 +90,7 @@ class Queries {
     // to be executed after each CFYes query (query fetches 200 records at a time)
     func queryCompletionBlockCFYes(cursor: CKQueryOperation.Cursor?, error: Error?) {
         if let error = error {
-            print(error)
+            print(error.localizedDescription)
             return
         }
         if let cursor = cursor {
@@ -108,7 +108,7 @@ class Queries {
     // to be executed after each CFNo query (query fetches 200 records at a time)
     func queryCompletionBlockCFNo(cursor: CKQueryOperation.Cursor?, error: Error?) {
         if let error = error {
-            print(error)
+            print(error.localizedDescription)
             return
         }
         if let cursor = cursor {

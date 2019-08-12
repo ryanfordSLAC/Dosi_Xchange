@@ -73,7 +73,6 @@ class Save {
             database.save(newrecord) { (record, error) in guard record != nil else { return }
      
             } //end database save
-
             
             j += 1
             

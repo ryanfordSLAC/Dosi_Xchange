@@ -168,9 +168,9 @@
 		8421B0622165BBB80041A53A /* LocationApp */ = {
 			isa = PBXGroup;
 			children = (
+				8421B0672165BBB80041A53A /* Main.storyboard */,
 				8487FE2F21A8F9C700CC62E8 /* StartupViewController.swift */,
 				84F9180122211C9B00D25634 /* NearestDosimeters.swift */,
-				8421B0672165BBB80041A53A /* Main.storyboard */,
 				845F2E5E221C62E200A48C1A /* Reachability.swift */,
 				8421B0632165BBB80041A53A /* AppDelegate.swift */,
 				8409448821CC539900C4EA28 /* TODO.swift */,

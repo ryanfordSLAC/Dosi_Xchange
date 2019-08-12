@@ -37,7 +37,7 @@ class LocationDetails: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        //Do any additional setup after loading the view.
         
         showDetails()
         
@@ -46,7 +46,7 @@ class LocationDetails: UIViewController {
         
         queryLocationTable()
         
-        // wait for query to finish
+        //wait for query to finish
         dispatchGroup.notify(queue: .main) {
             self.qrTable.reloadData()
             self.activityIndicator.stopAnimating()
@@ -56,7 +56,7 @@ class LocationDetails: UIViewController {
     
     func showDetails() {
         
-        // get location details from record
+        //get location details from record
         QRCode = record.value(forKey: "QRCode") as! String
         loc = record.value(forKey: "locdescription") as! String
         lat = record.value(forKey: "latitude") as! String
@@ -64,11 +64,11 @@ class LocationDetails: UIViewController {
         mod = record.value(forKey: "moderator") as! Int64 == 1 ? "Yes" : "No"
         active = record.value(forKey: "active") as! Int
         
-        // set QRCode and Location Description text
+        //set QRCode and Location Description text
         QRLabel.text = QRCode
         locDescription.text = loc
         
-        // format details fields
+        //format details fields
         let font = UIFont(name: "ArialMT", size: 16.0)!
         let fontBold = UIFont(name: "Arial-BoldMT", size: 16.0)!
         let attributedStr = NSMutableAttributedString(string: "", attributes: [NSAttributedString.Key.font: font])
@@ -79,10 +79,10 @@ class LocationDetails: UIViewController {
         attributedStr.append(NSAttributedString(string: long, attributes: [NSAttributedString.Key.font: font]))
         attributedStr.append(NSAttributedString(string: "\n\nActive: ", attributes: [NSAttributedString.Key.font: fontBold]))
         
-        // set details text
+        //set details text
         fields.attributedText = attributedStr
         
-        // set active switch
+        //set active switch
         activeSwitch.isOn = active == 1 ? true : false
         
     }
@@ -90,7 +90,7 @@ class LocationDetails: UIViewController {
 }
 
 
-// active switch controls
+//active switch controls
 extension LocationDetails {
     
     @IBAction func activeSwitched(_ sender: Any) {
@@ -108,13 +108,13 @@ extension LocationDetails {
             self.active = activeTemp
             self.saveActiveStatus()
             
-            // wait for records to save
-            self.run(after: 1) {
-                // refresh and show Active Locations TableView
-                let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-                let newViewController = mainStoryboard.instantiateViewController(withIdentifier: "ActiveLocations") as! ActiveLocations
-                self.show(newViewController, sender: self)
-            }
+            //wait for records to save
+            self.dispatchGroup.wait()
+
+            //refresh and show Active Locations TableView
+            let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+            let newViewController = mainStoryboard.instantiateViewController(withIdentifier: "ActiveLocations") as! ActiveLocations
+            self.show(newViewController, sender: self)
         }
         
         let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (_) in
@@ -127,24 +127,43 @@ extension LocationDetails {
         DispatchQueue.main.async { //UIAlerts need to be shown on the main thread.
             self.present(alertPrompt, animated: true, completion: nil)
         }
-    } // end saveActiveAlert
+    } //end saveActiveAlert
     
     func saveActiveStatus() {
         
-        // set active flag for all records in current location
+        dispatchGroup.enter()
+        
+        //set active flag for all records in current location
         for record in records {
             record.setValue(active, forKey: "active")
-            self.database.save(record) { (record, error) in
-                guard record != nil else { return }
+        }
+        
+        let operation = CKModifyRecordsOperation(recordsToSave: records, recordIDsToDelete: nil)
+        
+        operation.perRecordCompletionBlock = { (record, error) in
+            if let error = error {
+                print(error.localizedDescription)
+                return
             }
             //print("RECORD SAVED:\n\(record)")
         }
-    } // end saveActiveStatus
+        
+        operation.modifyRecordsCompletionBlock = { (records, recordIDs, error) in
+            if let error = error {
+                print(error.localizedDescription)
+            }
+            self.dispatchGroup.leave()
+        }
+        
+        database.add(operation)
+        
+        
+    } //end saveActiveStatus
     
 }
 
 
-// table view functions and helpers
+//table view functions and helpers
 extension LocationDetails: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -173,7 +192,7 @@ extension LocationDetails: UITableViewDelegate, UITableViewDataSource {
         
         qrTable.rowHeight = 80
         
-        // fetch record details
+        //fetch record details
         let dosimeter = details[indexPath.section].1
         let cycleDate = details[indexPath.section].2
         let modFlagStr:String
@@ -197,7 +216,7 @@ extension LocationDetails: UITableViewDelegate, UITableViewDataSource {
             collectedFlagStr = "n/a"
         }
         
-        // set cell text
+        //set cell text
         cell.textLabel?.text = "Dosimeter:\nWear Period:\nModerator:\nCollected:"
         cell.detailTextLabel?.text = "\(dosimeter)\n\(cycleDate)\n\(modFlagStr)\n\(collectedFlagStr)"
         
@@ -228,7 +247,7 @@ extension LocationDetails: UITableViewDelegate, UITableViewDataSource {
     //to be executed after each query (query fetches 200 records at a time)
     func queryCompletionBlock(cursor: CKQueryOperation.Cursor?, error: Error?) {
         if let error = error {
-            print(error)
+            print(error.localizedDescription)
             return
         }
         
@@ -260,13 +279,6 @@ extension LocationDetails: UITableViewDelegate, UITableViewDataSource {
         
     }
     
-    
-    func run(after seconds: Int, completion: @escaping () -> Void) {
-        let deadline = DispatchTime.now() + .seconds(seconds)
-        DispatchQueue.main.asyncAfter(deadline: deadline) {
-            completion()
-        }
-    }// end run
     
     @IBAction func dismissDetails(_ sender: Any) {
         

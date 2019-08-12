@@ -82,6 +82,7 @@ class StartupViewController: UIViewController, MFMailComposeViewControllerDelega
             let alert = UIAlertController(title: "WiFi Connection Error", message: "Must be connected to WiFi to identify position and save data to cloud", preferredStyle: .alert)
             let OK = UIAlertAction(title: "OK", style: .default) { (_) in return }
             alert.addAction(OK)
+            
             DispatchQueue.main.async {
                 self.present(alert, animated: true, completion: nil)
             } //async end

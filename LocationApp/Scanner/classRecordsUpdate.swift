@@ -31,7 +31,7 @@ class recordsUpdate: UIViewController {
     }
     
     func saveRecord(latitude:String, longitude:String, dosiNumber:String, text:String, flag:Int64, cycle:String, QRCode:String, mismatch:Int64, moderator:Int64, active:Int64) {
-        
+                
         //save data to database
         let newRecord = CKRecord(recordType: "Location")
         newRecord.setValue(latitude, forKey: "latitude")
@@ -44,9 +44,15 @@ class recordsUpdate: UIViewController {
         newRecord.setValue(moderator, forKey: "moderator")
         newRecord.setValue(active, forKey: "active")
         
-        database.save(newRecord) { (record, error) in
-            guard record != nil else { return }
-        }  //end database save
+        let operation = CKModifyRecordsOperation(recordsToSave: [newRecord], recordIDsToDelete: nil)
+        
+        operation.modifyRecordsCompletionBlock = { (records, recordIDs, error) in
+            if let error = error {
+                print(error.localizedDescription)
+            }
+        }
+        
+        database.add(operation)
         
     }  //end saveRecord
     

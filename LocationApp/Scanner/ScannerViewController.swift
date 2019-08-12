@@ -364,13 +364,22 @@ extension ScannerViewController {
     
     func collect(collected: Int64, mismatch: Int64) {
         
+        self.dispatchGroup.enter()
+        
         itemRecord!.setValue(collected, forKey: "collectedFlag")
         itemRecord!.setValue(mismatch, forKey: "mismatch")
 
-        self.database.save(self.itemRecord!) { (record, error) in
-            guard record != nil else { return }
+        let operation = CKModifyRecordsOperation(recordsToSave: [itemRecord!], recordIDsToDelete: nil)
+        
+        operation.modifyRecordsCompletionBlock = { (records, recordIDs, error) in
+            if let error = error {
+                print(error.localizedDescription)
+            }
+            self.dispatchGroup.leave()
         }
-        //print("RECORD SAVED:\n\(itemRecord!)")
+        
+        database.add(operation)
+        
     } //end collect
     
     

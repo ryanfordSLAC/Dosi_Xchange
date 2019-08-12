@@ -145,9 +145,10 @@ extension ToolsViewController {
         dispatchGroup.enter()
         self.csvText = "LocationID (QRCode),Latitude,Longitude,Description,Moderator (0/1),Active (0/1),Dosimeter,Collected Flag (0/1),Wear Period,Date Deployed,Date Collected,Mismatch (0/1)\n"
         let predicate = NSPredicate(value: true)
-        let sort = NSSortDescriptor(key: "QRCode", ascending: true)
+        let sort1 = NSSortDescriptor(key: "QRCode", ascending: true)
+        let sort2 = NSSortDescriptor(key: "creationDate", ascending: false)
         let query = CKQuery(recordType: "Location", predicate: predicate)
-        query.sortDescriptors = [sort]
+        query.sortDescriptors = [sort1, sort2]
         let operation = CKQueryOperation(query: query)
         addOperation(operation: operation)
         
@@ -166,7 +167,7 @@ extension ToolsViewController {
     // to be executed after each query (query fetches 200 records at a time)
     func queryCompletionBlock(cursor: CKQueryOperation.Cursor?, error: Error?) {
         if let error = error {
-            print(error)
+            print(error.localizedDescription)
             return
         }
         if let cursor = cursor {

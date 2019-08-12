@@ -303,7 +303,7 @@ extension MapViewController {
     //to be executed after each query (query fetches 200 records at a time)
     func queryCompletionBlock(cursor: CKQueryOperation.Cursor?, error: Error?) {
         if let error = error {
-            print(error)
+            print(error.localizedDescription)
             return
         }
         if let cursor = cursor {
