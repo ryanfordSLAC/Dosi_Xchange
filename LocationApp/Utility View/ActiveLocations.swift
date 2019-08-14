@@ -40,10 +40,11 @@ class ActiveLocations: UIViewController, UITableViewDataSource, UITableViewDeleg
         queryDatabase()
         
         //wait for query to finish
-        dispatchGroup.wait()
-        self.activesTableView.reloadData()
-        //stop activityIndicator
-        self.activityIndicator.stopAnimating()
+        dispatchGroup.notify(queue: .main) {
+            self.activesTableView.reloadData()
+            //stop activityIndicator
+            self.activityIndicator.stopAnimating()
+        }
         
         let refreshControl = UIRefreshControl()
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to Refresh Locations")
