@@ -47,10 +47,9 @@ class LocationDetails: UIViewController {
         queryLocationTable()
         
         //wait for query to finish
-        dispatchGroup.notify(queue: .main) {
-            self.qrTable.reloadData()
-            self.activityIndicator.stopAnimating()
-        }
+        dispatchGroup.wait()
+        self.qrTable.reloadData()
+        self.activityIndicator.stopAnimating()
 
     }
     

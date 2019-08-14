@@ -40,40 +40,39 @@ class NearestLocations: UIViewController, UITableViewDataSource, UITableViewDele
         nearestTableView.delegate = self
         nearestTableView.dataSource = self
         
-        // get data
+        //Core Location
+        locationManager.delegate = self
+        locationManager.requestAlwaysAuthorization()
+        locationManager.startUpdatingLocation()
+        startLocation = locationManager.location
+        
+        //get data
         queryAscendLocations()
         
-        // wait for query to finish
-        dispatchGroup.notify(queue: .main) {
-            self.nearestTableView.reloadData()
-        }
+        //wait for query to finish
+        dispatchGroup.wait()
+        self.nearestTableView.reloadData()
 
         let refreshControl = UIRefreshControl()
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to Refresh Locations")
-        // this query will populate the tableView when the table is pulled.
+        //this query will populate the tableView when the table is pulled.
         refreshControl.addTarget(self, action: #selector(queryAscendLocations), for: .valueChanged)
         refreshControl.beginRefreshing()
         self.nearestTableView.refreshControl = refreshControl
-        
-        // Core Location
-        locationManager.delegate = self
-        startLocation = nil
-        locationManager.requestAlwaysAuthorization()
-        locationManager.startUpdatingLocation()
 
-    } // end viewDidLoad
+    } //end viewDidLoad
     
     
-    // location manager stubs
+    //location manager stubs
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        // start location is needed to compute distance
+        //start location is needed to compute distance
         let latestLocation: CLLocation = locations[locations.count - 1]
         
         if startLocation == nil {
             startLocation = latestLocation
         }
         
-    }// end func
+    }//end func
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(Error.self)
@@ -84,9 +83,9 @@ class NearestLocations: UIViewController, UITableViewDataSource, UITableViewDele
         self.dismiss(animated: true, completion: nil)
     }
     
-    // tableView protocol stubs
+    //tableView protocol stubs
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        // "sorted by distance from current location"
+        //"sorted by distance from current location"
         return sections[section]
     }
     
@@ -102,20 +101,20 @@ class NearestLocations: UIViewController, UITableViewDataSource, UITableViewDele
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "PlainCell", for: indexPath)
         
-        // dynamic cell height sizing
+        //dynamic cell height sizing
         nearestTableView.estimatedRowHeight = 90
         nearestTableView.rowHeight = UITableView.automaticDimension
         
-        // wait for query to finish
+        //wait for query to finish
         dispatchGroup.wait()
         
-        // fill the textLabel with the relevant text
+        //fill the textLabel with the relevant text
         let distance = "\(self.sortedRecords[indexPath.row].0)"
         let QRCode =  "\(self.sortedRecords[indexPath.row].1)"
         let dosimeter = "\(self.sortedRecords[indexPath.row].2)"
         let location = "\(self.sortedRecords[indexPath.row].3)"
         
-        // configure the cell
+        //configure the cell
         //cell.textLabel?.font = UIFont(name: "Arial", size: 16)
         cell.textLabel?.numberOfLines = 0
         cell.textLabel?.text = "\(QRCode) (\(distance) meters)"
@@ -157,7 +156,7 @@ extension NearestLocations {
     } //end func
     
     
-    // add operation
+    //add operation
     func addOperation(operation: CKQueryOperation) {
         operation.resultsLimit = 200 // max 400; 200 to be safe
         operation.recordFetchedBlock = self.recordFetchedBlock // to be executed for each fetched record
@@ -167,7 +166,7 @@ extension NearestLocations {
     }
     
     
-    // to be executed after each query (query fetches 200 records at a time)
+    //to be executed after each query (query fetches 200 records at a time)
     func queryCompletionBlock(cursor: CKQueryOperation.Cursor?, error: Error?) {
         if let error = error {
             print(error.localizedDescription)
@@ -181,7 +180,7 @@ extension NearestLocations {
         
         self.sortedRecords = self.preSortedRecords.sorted { $0.0 < $1.0 }
         
-        // refresh table
+        //refresh table
         DispatchQueue.main.async {
             if self.nearestTableView != nil {
                 self.nearestTableView.refreshControl?.endRefreshing()
@@ -193,7 +192,7 @@ extension NearestLocations {
     }
     
     
-    // to be executed for each fetched record
+    //to be executed for each fetched record
     func recordFetchedBlock(record: CKRecord) {
         
         if record["QRCode"] != nil {self.QRCode = record["QRCode"]!}

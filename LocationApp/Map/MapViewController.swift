@@ -36,7 +36,7 @@ class MapViewController: UIViewController {
     
     override func viewDidLoad() {
         
-        self.locationmanager.delegate = self
+        locationmanager.delegate = self
         locationmanager.requestAlwaysAuthorization()
         locationmanager.startUpdatingLocation()
         let latitude = locationmanager.location?.coordinate.latitude
