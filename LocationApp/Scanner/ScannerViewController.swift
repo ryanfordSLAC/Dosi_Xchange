@@ -999,7 +999,7 @@ extension ScannerViewController {  //alerts
         let switchControl = UISwitch(frame: CGRect(x: 200, y: 191, width: 0, height: 0))
         switchControl.tintColor = UIColor.gray
         switchControl.setOn(variables.mismatch == 1, animated: false)
-        switchControl.addTarget(self, action: #selector(mismatchSwitchValueDidChange(_:)), for: .valueChanged)
+        switchControl.addTarget(self, action: #selector(mismatchSwitchValueDidChange), for: .valueChanged)
         return switchControl
     }
     
@@ -1013,7 +1013,7 @@ extension ScannerViewController {  //alerts
         let switchControl = UISwitch(frame: CGRect(x: 200, y: 161, width: 0, height: 0))
         switchControl.tintColor = UIColor.gray
         switchControl.setOn(variables.moderator == 1, animated: false)
-        switchControl.addTarget(self, action: #selector(modSwitchValueDidChange(_:)), for: .valueChanged)
+        switchControl.addTarget(self, action: #selector(modSwitchValueDidChange), for: .valueChanged)
         return switchControl
     }
     

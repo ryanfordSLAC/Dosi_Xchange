@@ -17,9 +17,7 @@ class LocationDetails: UIViewController {
     var loc = ""
     var lat = ""
     var long = ""
-    var mod = ""
     var active = 0
-    var trigger = 0
     
     var records = [CKRecord]()
     var details = [(String, String, String, Int, Int)]()
@@ -32,26 +30,56 @@ class LocationDetails: UIViewController {
     @IBOutlet weak var fields: UILabel!
     @IBOutlet weak var activeSwitch: UISwitch!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    
     @IBOutlet weak var qrTable: UITableView!
     
+    //popup outlets
+    @IBOutlet weak var popupConstraint: NSLayoutConstraint!
+    @IBOutlet weak var backgroundButton: UIButton!
+    @IBOutlet weak var editRecordPopup: UIView!
+    
+    @IBOutlet weak var dateCreated: UILabel!
+    @IBOutlet weak var dateModified: UILabel!
+    
+    @IBOutlet weak var pQRCode: UILabel!
+    @IBOutlet weak var pDescription: UITextField!
+    @IBOutlet weak var pLatitude: UITextField!
+    @IBOutlet weak var pLongitude: UITextField!
+    @IBOutlet weak var pDosimeter: UITextField!
+    @IBOutlet weak var pCycleDate: UITextField!
+    
+    @IBOutlet weak var pModerator: UISwitch!
+    @IBOutlet weak var pCollected: UISwitch!
+    @IBOutlet weak var pMismatch: UISwitch!
+    
+    var popupRecord = CKRecord(recordType: "Location")
+    var moderator = 0
+    var collected = 0
+    var mismatch = 0
+    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         //Do any additional setup after loading the view.
         
-        showDetails()
-        
         qrTable.delegate = self
         qrTable.dataSource = self
         
-        queryLocationTable()
+        showDetails()
         
-        //wait for query to finish
-        dispatchGroup.notify(queue: .main) {
-            self.qrTable.reloadData()
-            self.activityIndicator.stopAnimating()
-        }
-
+        //pre-popup set up
+        backgroundButton.alpha = 0
+        editRecordPopup.layer.cornerRadius = 10
+        popupConstraint.constant = 600
+        pModerator.addTarget(self, action: #selector(moderatorSwitch), for: .valueChanged)
+        pCollected.addTarget(self, action: #selector(collectedSwitch), for: .valueChanged)
+        pMismatch.addTarget(self, action: #selector(mismatchSwitch), for: .valueChanged)
+        
+        pDescription.delegate = self
+        pLatitude.delegate = self
+        pLongitude.delegate = self
+        pDosimeter.delegate = self
+        pCycleDate.delegate = self
+        
     }
     
     func showDetails() {
@@ -61,7 +89,6 @@ class LocationDetails: UIViewController {
         loc = record.value(forKey: "locdescription") as! String
         lat = record.value(forKey: "latitude") as! String
         long = record.value(forKey: "longitude") as! String
-        mod = record.value(forKey: "moderator") as! Int64 == 1 ? "Yes" : "No"
         active = record.value(forKey: "active") as! Int
         
         //set QRCode and Location Description text
@@ -84,6 +111,16 @@ class LocationDetails: UIViewController {
         
         //set active switch
         activeSwitch.isOn = active == 1 ? true : false
+        
+        queryLocationTable()
+        
+        //wait for query to finish
+        dispatchGroup.notify(queue: .main) {
+            if self.qrTable != nil {
+                self.qrTable.refreshControl?.endRefreshing()
+                self.qrTable.reloadData()
+            }
+        }
         
     }
     
@@ -113,8 +150,9 @@ extension LocationDetails {
 
             //refresh and show Active Locations TableView
             let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-            let newViewController = mainStoryboard.instantiateViewController(withIdentifier: "ActiveLocations") as! ActiveLocations
-            self.show(newViewController, sender: self)
+            let vc = mainStoryboard.instantiateViewController(withIdentifier: "ActiveLocations") as! ActiveLocations
+            vc.segment = self.active == 1 ? 0 : 1
+            self.show(vc, sender: self)
         }
         
         let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (_) in
@@ -224,6 +262,19 @@ extension LocationDetails: UITableViewDelegate, UITableViewDataSource {
         
     }
     
+    //popup pop up
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        setPopupDetails(record: records[indexPath.section])
+        self.popupConstraint.constant = 0
+        
+        UIView.animate(withDuration: 0.2, animations: {
+            self.view.layoutIfNeeded()
+            self.backgroundButton.alpha = 0.5
+        })
+    }
+    
+    //query for location records table
     func queryLocationTable() {
         dispatchGroup.enter()
         
@@ -244,7 +295,7 @@ extension LocationDetails: UITableViewDelegate, UITableViewDataSource {
     } //end func
     
     
-    //to be executed after each query (query fetches 200 records at a time)
+    //to be executed after each query (query fetches 100 records)
     func queryCompletionBlock(cursor: CKQueryOperation.Cursor?, error: Error?) {
         if let error = error {
             print(error.localizedDescription)
@@ -266,15 +317,15 @@ extension LocationDetails: UITableViewDelegate, UITableViewDataSource {
         
         let dateFormatter = DateFormatter()
         //dateFormatter.dateFormat = "MM/dd/yyyy, hh:mm a"
-        dateFormatter.dateFormat = "MM/dd/yyyy"
+        dateFormatter.dateFormat = "M/d/yyyy"
         
-        let modDate = "Record Created: \(dateFormatter.string(from: record.creationDate!))"
+        let creationDate = "Record Created: \(dateFormatter.string(from: record.creationDate!))"
         let dosimeter = record["dosinumber"] != "" ? String(describing: record["dosinumber"]!) : "n/a"
         let wearperiod = record["cycleDate"] != nil ? String(describing: record["cycleDate"]!) : "n/a"
         let collectedFlag = record["collectedFlag"] != nil ? record["collectedFlag"]! as Int : 2
         let modFlag = record["moderator"] != nil ? record["moderator"]! as Int : 2
         
-        self.details.append((modDate, dosimeter, wearperiod, modFlag, collectedFlag))
+        self.details.append((creationDate, dosimeter, wearperiod, modFlag, collectedFlag))
         self.records.append(record)
         
     }
@@ -285,4 +336,110 @@ extension LocationDetails: UITableViewDelegate, UITableViewDataSource {
         self.dismiss(animated: true, completion: nil)
     }
     
+}
+
+
+//edit record pop-up controls
+extension LocationDetails: UITextFieldDelegate {
+    
+    
+    @IBAction func popupCancel(_ sender: Any) {
+        
+        popupConstraint.constant = 600
+        
+        UIView.animate(withDuration: 0.2, animations: {
+            self.view.layoutIfNeeded()
+            self.backgroundButton.alpha = 0
+        })
+    }
+    
+    @IBAction func popupSave(_ sender: Any) {
+        
+        savePopupRecord()
+        dispatchGroup.wait()
+        
+        //refresh and show Active Locations TableView
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let vc = mainStoryboard.instantiateViewController(withIdentifier: "ActiveLocations") as! ActiveLocations
+        vc.segment = active == 1 ? 0 : 1
+        self.show(vc, sender: self)
+        
+    }
+    
+    func savePopupRecord() {
+        
+        dispatchGroup.enter()
+        
+        //set new record information
+        popupRecord.setValue(pDescription.text, forKey: "locdescription")
+        popupRecord.setValue(pLatitude.text, forKey: "latitude")
+        popupRecord.setValue(pLongitude.text, forKey: "longitude")
+        popupRecord.setValue(pDosimeter.text, forKey: "dosinumber")
+        popupRecord.setValue(pCycleDate.text, forKey: "cycleDate")
+        popupRecord.setValue(moderator, forKey: "moderator")
+        popupRecord.setValue(collected, forKey: "collectedFlag")
+        popupRecord.setValue(mismatch, forKey: "mismatch")
+        
+        let operation = CKModifyRecordsOperation(recordsToSave: [popupRecord], recordIDsToDelete: nil)
+        
+        operation.modifyRecordsCompletionBlock = { (records, recordIDs, error) in
+            if let error = error {
+                print(error.localizedDescription)
+            }
+            //print("RECORD SAVED:\n\(records![0])")
+            self.dispatchGroup.leave()
+        }
+        
+        database.add(operation)
+        
+        
+    } //end saveActiveStatus
+    
+    func setPopupDetails(record: CKRecord) {
+        
+        popupRecord = record
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "M/d/yyyy, h:mm a"
+        //dateFormatter.dateFormat = "MM/dd/yyyy"
+        
+        let creationDate = dateFormatter.string(from: record.creationDate!)
+        let modifiedDate = dateFormatter.string(from: record.modificationDate!)
+        dateCreated.text = "Date Created: \(creationDate)"
+        dateModified.text = "Date Last Modified: \(modifiedDate)"
+        
+        pQRCode.text = record.value(forKey: "QRCode") as? String
+        pDescription.text = record.value(forKey: "locdescription") as? String
+        pLatitude.text = record.value(forKey: "latitude") as? String
+        pLongitude.text = record.value(forKey: "longitude") as? String
+        
+        pDosimeter.text = record["dosinumber"] != "" ? String(describing: record["dosinumber"]!) : ""
+        pCycleDate.text = record["cycleDate"] != nil ? String(describing: record["cycleDate"]!) : nil
+        
+        moderator = record["moderator"] != nil ? record["moderator"]! as Int : 0
+        collected = record["collectedFlag"] != nil ? record["collectedFlag"]! as Int : 0
+        mismatch = record["mismatch"] != nil ? record["mismatch"]! as Int : 0
+        
+        pModerator.isOn = moderator == 1 ? true : false
+        pCollected.isOn = collected == 1 ? true : false
+        pMismatch.isOn = mismatch == 1 ? true : false
+        
+    }
+    
+    @objc func moderatorSwitch(_ sender: UISwitch!) {
+        moderator = sender.isOn ? 1 : 0
+    }
+    
+    @objc func collectedSwitch(_ sender: UISwitch!) {
+        collected = sender.isOn ? 1 : 0
+    }
+    
+    @objc func mismatchSwitch(_ sender: UISwitch!) {
+        mismatch = sender.isOn ? 1 : 0
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.endEditing(true)
+        return false
+    }
 }

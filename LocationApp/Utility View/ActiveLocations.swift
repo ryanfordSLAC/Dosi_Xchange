@@ -21,6 +21,7 @@ class ActiveLocations: UIViewController, UITableViewDataSource, UITableViewDeleg
     var searches = [[(CKRecord, String, String)]]()
     var searching = false
     
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var activesTableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -32,7 +33,7 @@ class ActiveLocations: UIViewController, UITableViewDataSource, UITableViewDeleg
         activesTableView.delegate = self
         activesTableView.dataSource = self
         searchBar.delegate = self
-        segment = 0
+        segmentedControl.selectedSegmentIndex = segment
         
         //Table View SetUp
 
