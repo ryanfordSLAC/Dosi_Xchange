@@ -345,6 +345,7 @@ extension LocationDetails: UITextFieldDelegate {
     
     @IBAction func popupCancel(_ sender: Any) {
         
+        view.endEditing(true)
         popupConstraint.constant = 600
         
         UIView.animate(withDuration: 0.2, animations: {
@@ -355,6 +356,7 @@ extension LocationDetails: UITextFieldDelegate {
     
     @IBAction func popupSave(_ sender: Any) {
         
+        view.endEditing(true)
         savePopupRecord()
         dispatchGroup.wait()
         

@@ -83,11 +83,14 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
         annotationView?.canShowCallout = true
         annotationView?.markerTintColor = annotation.markerTintColor
         
-        //TODO:
-//        let detailButton = UIButton(type: .detailDisclosure)
-//        let detailsTap = UITapGestureRecognizer(target: self, action: #selector())
-//        detailButton.addGestureRecognizer(detailsTap)
         annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+        
+        let label = UILabel()
+        label.text = annotation.subtitle
+        label.font = UIFont(name: "Arial", size: 12)
+        label.numberOfLines = 0
+        label.lineBreakMode = NSLineBreakMode.byWordWrapping
+        annotationView?.detailCalloutAccessoryView = label
         
         return annotationView
     }
