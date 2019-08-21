@@ -28,8 +28,8 @@ class NearestLocations: UIViewController, UITableViewDataSource, UITableViewDele
     var dosimeter:String = ""
     var mod:Int = 0
     
-    var preSortedRecords = [(Int, String, String, String)]()
-    var sortedRecords = [(Int, String, String, String)]()
+    var preSortedRecords = [(Int, String, String)]()
+    var sortedRecords = [(Int, String, String)]()
     let database = CKContainer.default().publicCloudDatabase
     
     @IBOutlet weak var nearestTableView: UITableView!
@@ -111,18 +111,16 @@ class NearestLocations: UIViewController, UITableViewDataSource, UITableViewDele
         //fill the textLabel with the relevant text
         let distance = "\(self.sortedRecords[indexPath.row].0)"
         let QRCode =  "\(self.sortedRecords[indexPath.row].1)"
-        let dosimeter = "\(self.sortedRecords[indexPath.row].2)"
-        let location = "\(self.sortedRecords[indexPath.row].3)"
+        let details = "\(self.sortedRecords[indexPath.row].2)"
         
         //configure the cell
-        //cell.textLabel?.font = UIFont(name: "Arial", size: 16)
         cell.textLabel?.numberOfLines = 0
         cell.textLabel?.text = "\(QRCode) (\(distance) meters)"
         
         cell.detailTextLabel?.font = UIFont(name: "Arial", size: 15)
         cell.detailTextLabel?.numberOfLines = 0
         cell.detailTextLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
-        cell.detailTextLabel?.text = "\(dosimeter)\n\(location)"
+        cell.detailTextLabel?.text = "\(details)"
         
         return cell
         
@@ -139,16 +137,15 @@ extension NearestLocations {
         dispatchGroup.enter()
         
         //clear out buffer
-        self.preSortedRecords = [(Int, String, String, String)]()
-        self.sortedRecords = [(Int, String, String, String)]()
+        self.preSortedRecords = [(Int, String, String)]()
+        self.sortedRecords = [(Int, String, String)]()
         
         let cycleDate = self.recordsupdate.generateCycleDate()
         let priorCycleDate = self.recordsupdate.generatePriorCycleDate(cycleDate: cycleDate)
         let flag = 0
         let p1 = NSPredicate(format: "collectedFlag == %d", flag)
         let p2 = NSPredicate(format: "cycleDate == %@", priorCycleDate)
-        let p3 = NSPredicate(format: "active == %d", 1)
-        let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [p1, p2, p3])
+        let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [p1, p2])
         let query = CKQuery(recordType: "Location", predicate: predicate)
         let operation = CKQueryOperation(query: query)
         addOperation(operation: operation)
@@ -208,22 +205,14 @@ extension NearestLocations {
         let distanceBetweenFormatted = String(format: "%.0f", distanceBetween)
         self.distance = Int(distanceBetweenFormatted)!
         
-        let details = "Moderator: \(self.mod == 1 ? "Yes" : "No")\n\(self.loc)"
+        let details = "Dosimeter: \(self.dosimeter)\nModerator: \(self.mod == 1 ? "Yes" : "No")\n\(self.loc)"
         
-        //use the getLine function below to create a tuple with multiple types
         //in order to be able to sort by distance as an integer (not a string).
-        let line = self.getLine(distance: self.distance, QRCode: self.QRCode, dosimeter: self.dosimeter, detail: details)
+        //let line = self.getLine(distance: self.distance, QRCode: self.QRCode, dosimeter: self.dosimeter, detail: details)
         //build the array
-        self.preSortedRecords.append(line)
+        self.preSortedRecords.append((distance: self.distance, QRCode: self.QRCode, detail: details))
         
     }
     
-    
-    //supply a line with the correct data types. Distance must be an integer for correct sorting.
-    func getLine(distance: Int, QRCode: String, dosimeter: String, detail: String) -> (distance: Int, QRCode: String, dosimeter: String, detail: String) {
-        
-        return (distance, QRCode, dosimeter, detail)
-    }
-
 } //end extension
 

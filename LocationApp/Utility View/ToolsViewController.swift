@@ -109,7 +109,7 @@ class ToolsViewController: UIViewController, MFMailComposeViewControllerDelegate
         if MFMailComposeViewController.canSendMail() {
             let mail = MFMailComposeViewController()
             mail.mailComposeDelegate = self
-            mail.setToRecipients(["ryanford@slac.stanford.edu", "brogonia@slac.stanford.edu", "hhtran@slac.stanford.edu", "dmurray@slac.stanford.edu", "hbchoi@slac.stanford.edu"])
+            //mail.setToRecipients(["ryanford@slac.stanford.edu"])
             mail.setSubject("Area Dosimeter Data")
             mail.setMessageBody("The dosimeter data is attached to this e-mail.", isHTML: true)
             
