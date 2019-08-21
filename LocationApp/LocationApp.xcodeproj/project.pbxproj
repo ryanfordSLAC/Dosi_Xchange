@@ -30,7 +30,6 @@
 		8487FE3021A8F9C700CC62E8 /* StartupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8487FE2F21A8F9C700CC62E8 /* StartupViewController.swift */; };
 		8487FE3221A9153100CC62E8 /* DatabaseContents.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 8487FE3121A9153100CC62E8 /* DatabaseContents.rtf */; };
 		848FE73D21750F320030AB30 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 848FE73C21750F320030AB30 /* CloudKit.framework */; };
-		84A6671221E7064B00FC1892 /* MapViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A6671121E7064B00FC1892 /* MapViews.swift */; };
 		84A6671421E7162200FC1892 /* Artwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A6671321E7162200FC1892 /* Artwork.swift */; };
 		84AA30E32234DE2700F07697 /* Inlight.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 84AA30E22234DE2700F07697 /* Inlight.jpg */; };
 		84AA30E522356ABF00F07697 /* beep-5.wav in Resources */ = {isa = PBXBuildFile; fileRef = 84AA30E422356ABE00F07697 /* beep-5.wav */; };
@@ -90,7 +89,6 @@
 		8487FE2F21A8F9C700CC62E8 /* StartupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartupViewController.swift; sourceTree = "<group>"; };
 		8487FE3121A9153100CC62E8 /* DatabaseContents.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = DatabaseContents.rtf; sourceTree = "<group>"; };
 		848FE73C21750F320030AB30 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
-		84A6671121E7064B00FC1892 /* MapViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViews.swift; sourceTree = "<group>"; };
 		84A6671321E7162200FC1892 /* Artwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Artwork.swift; sourceTree = "<group>"; };
 		84AA30E22234DE2700F07697 /* Inlight.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Inlight.jpg; sourceTree = "<group>"; };
 		84AA30E422356ABE00F07697 /* beep-5.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "beep-5.wav"; sourceTree = "<group>"; };
@@ -221,7 +219,6 @@
 			children = (
 				846606C221AA5C380049814C /* MapViewController.swift */,
 				84A6671321E7162200FC1892 /* Artwork.swift */,
-				84A6671121E7064B00FC1892 /* MapViews.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -436,7 +433,6 @@
 				8409448921CC539900C4EA28 /* TODO.swift in Sources */,
 				845F2E5F221C62E200A48C1A /* Reachability.swift in Sources */,
 				8421B0642165BBB80041A53A /* AppDelegate.swift in Sources */,
-				84A6671221E7064B00FC1892 /* MapViews.swift in Sources */,
 				5CFF888B22CAA5B700611F60 /* ActiveLocations.swift in Sources */,
 				8409F52422022A3900B78BCC /* Queries.swift in Sources */,
 				5C7925A122DE9B1900B981B2 /* LocationDetails.swift in Sources */,
