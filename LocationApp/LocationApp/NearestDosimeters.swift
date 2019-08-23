@@ -13,7 +13,6 @@ import CoreLocation
 
 class NearestLocations: UIViewController, UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate {
 
-    let sections = ["Sorted by Distance from Current Location"]
     let dispatchGroup = DispatchGroup()
     let recordsupdate = recordsUpdate()
 
@@ -27,11 +26,14 @@ class NearestLocations: UIViewController, UITableViewDataSource, UITableViewDele
     var QRCode:String = ""
     var dosimeter:String = ""
     var mod:Int = 0
+    var segment:Int = 0
     
     var preSortedRecords = [(Int, String, String)]()
     var sortedRecords = [(Int, String, String)]()
+    var abcRecords = [(Int, String, String)]()
     let database = CKContainer.default().publicCloudDatabase
     
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var nearestTableView: UITableView!
 
     override func viewDidLoad() {
@@ -39,6 +41,7 @@ class NearestLocations: UIViewController, UITableViewDataSource, UITableViewDele
         super.viewDidLoad()
         nearestTableView.delegate = self
         nearestTableView.dataSource = self
+        segmentedControl.selectedSegmentIndex = segment
         
         //Core Location
         locationManager.delegate = self
@@ -62,6 +65,11 @@ class NearestLocations: UIViewController, UITableViewDataSource, UITableViewDele
 
     } //end viewDidLoad
     
+    //segment control
+    @IBAction func tableSwitch(_ sender: UISegmentedControl) {
+        segment = sender.selectedSegmentIndex
+        nearestTableView.reloadData()
+    }
     
     //location manager stubs
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -84,11 +92,6 @@ class NearestLocations: UIViewController, UITableViewDataSource, UITableViewDele
     }
     
     //tableView protocol stubs
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        //"sorted by distance from current location"
-        return sections[section]
-    }
-    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -109,18 +112,30 @@ class NearestLocations: UIViewController, UITableViewDataSource, UITableViewDele
         dispatchGroup.wait()
         
         //fill the textLabel with the relevant text
-        let distance = "\(self.sortedRecords[indexPath.row].0)"
-        let QRCode =  "\(self.sortedRecords[indexPath.row].1)"
-        let details = "\(self.sortedRecords[indexPath.row].2)"
+        var distanceText = ""
+        var qrText = ""
+        var detailsText = ""
+        
+        switch segment {
+        case 1:
+            distanceText = "\(self.abcRecords[indexPath.row].0)"
+            qrText =  "\(self.abcRecords[indexPath.row].1)"
+            detailsText = "\(self.abcRecords[indexPath.row].2)"
+        default:
+            distanceText = "\(self.sortedRecords[indexPath.row].0)"
+            qrText =  "\(self.sortedRecords[indexPath.row].1)"
+            detailsText = "\(self.sortedRecords[indexPath.row].2)"
+        }
+
         
         //configure the cell
         cell.textLabel?.numberOfLines = 0
-        cell.textLabel?.text = "\(QRCode) (\(distance) meters)"
+        cell.textLabel?.text = "\(qrText) (\(distanceText) meters)"
         
         cell.detailTextLabel?.font = UIFont(name: "Arial", size: 15)
         cell.detailTextLabel?.numberOfLines = 0
         cell.detailTextLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
-        cell.detailTextLabel?.text = "\(details)"
+        cell.detailTextLabel?.text = "\(detailsText)"
         
         return cell
         
@@ -176,6 +191,7 @@ extension NearestLocations {
         }
         
         self.sortedRecords = self.preSortedRecords.sorted { $0.0 < $1.0 }
+        self.abcRecords = self.preSortedRecords.sorted { $0.1 < $1.1 }
         
         //refresh table
         DispatchQueue.main.async {

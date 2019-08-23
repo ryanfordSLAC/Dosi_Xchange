@@ -106,8 +106,9 @@ class ActiveLocations: UIViewController, UITableViewDataSource, UITableViewDeleg
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
-        let segment0 = displayInfo[0].filter({$0.1.lowercased().prefix(searchText.count) == searchText.lowercased()})
-        let segment1 = displayInfo[1].filter({$0.1.lowercased().prefix(searchText.count) == searchText.lowercased()})
+        let segment0 = displayInfo[0].filter({$0.1.lowercased().contains(searchText.lowercased()) || $0.2.lowercased().contains(searchText.lowercased())})
+        let segment1 = displayInfo[1].filter({$0.1.lowercased().contains(searchText.lowercased()) || $0.2.lowercased().contains(searchText.lowercased())})
+        
         searches = [segment0, segment1]
         
         searching = true

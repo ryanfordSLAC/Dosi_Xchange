@@ -345,7 +345,7 @@ extension MapViewController {
             let collected = record["collectedFlag"] as? Int64
             
             var fullTitle = "\(QRCode)"
-            if collected == 0 {
+            if collected == 0 && dosimeter != "" {
                 fullTitle.append(contentsOf: "\n\(dosimeter ?? "Dosi Nil")")
             }
             

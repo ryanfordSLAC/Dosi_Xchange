@@ -321,7 +321,7 @@ extension LocationDetails: UITableViewDelegate, UITableViewDataSource {
         
         let creationDate = "Record Created: \(dateFormatter.string(from: record.creationDate!))"
         let dosimeter = record["dosinumber"] != "" ? String(describing: record["dosinumber"]!) : "n/a"
-        let wearperiod = record["cycleDate"] != nil ? String(describing: record["cycleDate"]!) : "n/a"
+        let wearperiod = record["cycleDate"] != nil && record["cycleDate"] != "" ? String(describing: record["cycleDate"]!) : "n/a"
         let collectedFlag = record["collectedFlag"] != nil ? record["collectedFlag"]! as Int : 2
         let modFlag = record["moderator"] != nil ? record["moderator"]! as Int : 2
         
@@ -372,15 +372,19 @@ extension LocationDetails: UITextFieldDelegate {
         
         dispatchGroup.enter()
         
+        let text = pDescription.text?.replacingOccurrences(of: ",", with: "-")
+        
         //set new record information
-        popupRecord.setValue(pDescription.text, forKey: "locdescription")
+        popupRecord.setValue(text, forKey: "locdescription")
         popupRecord.setValue(pLatitude.text, forKey: "latitude")
         popupRecord.setValue(pLongitude.text, forKey: "longitude")
         popupRecord.setValue(pDosimeter.text, forKey: "dosinumber")
-        popupRecord.setValue(pCycleDate.text, forKey: "cycleDate")
         popupRecord.setValue(moderator, forKey: "moderator")
-        popupRecord.setValue(collected, forKey: "collectedFlag")
-        popupRecord.setValue(mismatch, forKey: "mismatch")
+        if pDosimeter.text != "" {
+            popupRecord.setValue(pCycleDate.text, forKey: "cycleDate")
+            popupRecord.setValue(collected, forKey: "collectedFlag")
+            popupRecord.setValue(mismatch, forKey: "mismatch")
+        }
         
         let operation = CKModifyRecordsOperation(recordsToSave: [popupRecord], recordIDsToDelete: nil)
         
