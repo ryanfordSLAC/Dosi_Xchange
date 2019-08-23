@@ -8,20 +8,21 @@
 # Dosi_Xchange
 iOS App for Exchanging Area Dosimeters
 
-Created by Ryan Ford
+Created by Ryan Ford (feat. Helen Choi)
 
 This app was created as a major revision (complete rebuild) of the Dosimeter Manager app.  Issues overcome in this version are:
 * Data is now centrally managed in CloudKit
 * Dosimeters can be scanned by either Location Code (QRCode) or Dosimeter Number
-* Dosimeters are mapped out on a Map using MapKit
+* Dosimeters are mapped out in 'Map View' using MapKit
   - Users can navigate to dosimeters and see how many are nearby visually
   - Users can filter pins displayed on the map based on the status of the location
-* Dosimeters are listed by distance from user in 'Nearest Dosimeters'
+* Dosimeters ready to be exchanged/collected are listed in 'List View'
+  - List can be sorted by distance from user location or alphabetically
 * All locations are listed by status (active/inactive) in 'All Locations'
-  - Users can search for a location by QR Code
-  - Users can activate locations and edit dosimeter record
-* User location detail is available in 'Location Details'
-* 'Email Data' allows user to email all data as a .csv file attachment
+  - Users can search for a location by QR Code or location description
+  - Users can activate/deactivate locations and edit dosimeter records
+* User location detail is available in 'Coordinates'
+* 'Email Data' allows user to email complete data set as a .csv file attachment
 
 
 #### Installation
