@@ -8,25 +8,22 @@
 # Dosi_Xchange
 iOS App for Exchanging Area Dosimeters
 
-Created by Ryan Ford
+Created by Ryan Ford (feat. Helen Choi)
 
 This app was created as a major revision (complete rebuild) of the Dosimeter Manager app.  Issues overcome in this version are:
 * Data is now centrally managed in CloudKit
-* Dosimeters are mapped out on a Map using MapKit.  Users can navigate to dosimeters and see how many are nearby visually
-* Dosimeters are listed by distance from user
 * Dosimeters can be scanned by either Location Code (QRCode) or Dosimeter Number
+* Dosimeters are mapped out in 'Map View' using MapKit
+  - Users can navigate to dosimeters and see how many are nearby visually
+  - Users can filter pins displayed on the map based on the status of the location
+* Dosimeters ready to be exchanged/collected are listed in 'List View'
+  - List can be sorted by distance from user location or alphabetically
+* All locations are listed by status (active/inactive) in 'All Locations'
+  - Users can search for a location by QR Code or location description
+  - Users can activate/deactivate locations and edit dosimeter records
+* User location detail is available in 'Coordinates'
+* 'Email Data' allows user to email complete data set as a .csv file attachment
 
-
-### Current Revision Branch:  problemText
-
-Problem Text is an Alert which is called from the Nearest Dosimeters VC by tapping a list item.
-
-The purpose of the alert is to store a problem identified in the field such as missing dosimeter.
-
-- [X] Develop Alert
-- [ ] Create Query to populate any existing problem text to the Text Field in the Alert
-- [ ] Create function to save record
-- [ ] Build and test
 
 #### Installation
 
@@ -35,6 +32,7 @@ Open LocationApp.xcodeproj in Xcode (Note Swift file does not match folder Title
 Attach iPod Touch USB cable to Mac
 Change device to device just attached
 Click Play button, app will load to device
+An Apple iCloud account must be registered on the device to edit and save records
 ```
 #### Connectivity
 
