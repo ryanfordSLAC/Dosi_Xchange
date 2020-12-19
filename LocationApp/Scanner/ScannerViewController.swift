@@ -51,7 +51,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     } //end run
     
     override func viewDidLoad() {
-        
+        //add zoom control here.
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
         captureSession = AVCaptureSession()
